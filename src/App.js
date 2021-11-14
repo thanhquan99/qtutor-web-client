@@ -12,10 +12,8 @@ import AlertTemplate from "react-alert-template-basic";
 import _ from "lodash";
 import { Component } from "react";
 import eventBus from "./common/EventBus";
-import UserContext from "./contexts/UserContext";
 
 class App extends Component {
-  static contextType = UserContext;
   constructor(props) {
     super(props);
     this.logOut = this.logOut.bind(this);
@@ -26,8 +24,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const user = this.context;
-    if (user) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!_.isEmpty(user)) {
       this.setState({
         currentUser: user,
       });
@@ -53,7 +51,7 @@ class App extends Component {
   }
 
   login() {
-    const user = this.context;
+    const user = JSON.parse(localStorage.getItem('user'));
     this.setState({
       currentUser: user,
     });

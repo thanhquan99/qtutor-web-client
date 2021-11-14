@@ -4,7 +4,7 @@ import requestPN from "request-promise-native";
 import ApiService from "./api.service";
 
 class AuthService extends ApiService {
-  async login({payload, alert, userContext}) {
+  async login({payload, alert}) {
     const response = await requestPN
       .post(API_URL + "/auth/login", { form: payload })
       .catch((errResponse) => {
@@ -12,9 +12,8 @@ class AuthService extends ApiService {
       });
 
     if (response) {
-      console.log(userContext);
       const data = JSON.parse(response);
-      userContext.email = data.user.email;
+      localStorage.setItem('user', JSON.stringify(data.user))
       return data;      
     }
     return;

@@ -3,11 +3,9 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import validator from "validator";
 import authService from "../../api-services/auth.service";
 import { withAlert } from "react-alert";
-import UserContext from "../../contexts/UserContext";
 import eventBus from "../../common/EventBus";
 
 class Login extends Component {
-  static contextType = UserContext;
   constructor(props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
@@ -96,7 +94,6 @@ class Login extends Component {
 
   async handleLogin(e) {
     const { alert } = this.props;
-    const userContext = this.context;
     e.preventDefault();
     const { errs } = this.state;
     for (const key in errs) {
@@ -108,7 +105,6 @@ class Login extends Component {
     const data = await authService.login({
       payload: this.state.payload,
       alert,
-      userContext,
     });
     if (data) {
       eventBus.dispatch("login");
