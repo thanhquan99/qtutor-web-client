@@ -93,15 +93,16 @@ class Login extends Component {
   }
 
   async handleLogin(e) {
-    const { alert } = this.props;
     e.preventDefault();
+    const { alert } = this.props;
     const { errs } = this.state;
+
     for (const key in errs) {
       if (!errs[key].isValidated) {
         return;
       }
     }
-    console.log(this.state);
+
     const data = await authService.login({
       payload: this.state.payload,
       alert,
