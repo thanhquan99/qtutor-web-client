@@ -1,4 +1,4 @@
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Login from "./components/auth/login.component";
@@ -12,11 +12,13 @@ import AlertTemplate from "react-alert-template-basic";
 import _ from "lodash";
 import { Component } from "react";
 import eventBus from "./common/EventBus";
+import Register from "./components/auth/register.component";
+import VerifyEmail from "./components/auth/verify-email.component";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.logOut = this.logOut.bind(this);
+    this.logout = this.logout.bind(this);
 
     this.state = {
       currentUser: undefined,
@@ -24,7 +26,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
     if (!_.isEmpty(user)) {
       this.setState({
         currentUser: user,
@@ -32,7 +34,7 @@ class App extends Component {
     }
 
     eventBus.on("logout", () => {
-      this.logOut();
+      this.logout();
     });
     eventBus.on("login", () => {
       this.login();
@@ -44,14 +46,16 @@ class App extends Component {
     eventBus.remove("login");
   }
 
-  logOut() {
+  logout() {
+    console.log("test");
+    localStorage.removeItem("user");
     this.setState({
       currentUser: undefined,
     });
   }
 
   login() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
     this.setState({
       currentUser: user,
     });
@@ -75,9 +79,9 @@ class App extends Component {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="#features">Features</Nav.Link>
-                <Nav.Link href="#pricing">Pricing</Nav.Link>
-                <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+                <Nav.Link href="#features">Tutor</Nav.Link>
+                <Nav.Link href="#pricing">Student</Nav.Link>
+                {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2">
                     Another action
@@ -89,16 +93,26 @@ class App extends Component {
                   <NavDropdown.Item href="#action/3.4">
                     Separated link
                   </NavDropdown.Item>
-                </NavDropdown>
+                </NavDropdown> */}
               </Nav>
               {_.isEmpty(currentUser) ? (
                 <Nav>
                   <Nav.Link href="/login">Login</Nav.Link>
-                  <Nav.Link href="/login">Register</Nav.Link>
+                  <Nav.Link href="/register">Register</Nav.Link>
                 </Nav>
               ) : (
                 <Nav>
-                  <Nav.Link href="#home">{currentUser.email}</Nav.Link>
+                  <NavDropdown
+                    title={currentUser.profile.name}
+                    id="collasible-nav-dropdown"
+                  >
+                    <NavDropdown.Item href="#profile">
+                      Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.logout}>
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
                 </Nav>
               )}
             </Navbar.Collapse>
@@ -106,6 +120,8 @@ class App extends Component {
         </Navbar>
         <Switch>
           <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/verify-email" component={VerifyEmail} />
         </Switch>
       </AlertProvider>
     );
