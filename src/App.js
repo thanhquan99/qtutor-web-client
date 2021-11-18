@@ -1,4 +1,4 @@
-import { Container, Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Login from "./components/auth/login.component";
@@ -14,6 +14,7 @@ import { Component } from "react";
 import eventBus from "./common/EventBus";
 import Register from "./components/auth/register.component";
 import VerifyEmail from "./components/auth/verify-email.component";
+import Profile from "./components/user/profile.component";
 
 class App extends Component {
   constructor(props) {
@@ -47,11 +48,12 @@ class App extends Component {
   }
 
   logout() {
-    console.log("test");
     localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
     this.setState({
       currentUser: undefined,
     });
+    window.location.reload();
   }
 
   login() {
@@ -79,8 +81,8 @@ class App extends Component {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="#features">Tutor</Nav.Link>
-                <Nav.Link href="#pricing">Student</Nav.Link>
+                <Nav.Link href="#tutor">Become a tutor</Nav.Link>
+                <Nav.Link href="#student">Become a student</Nav.Link>
                 {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2">
@@ -106,7 +108,7 @@ class App extends Component {
                     title={currentUser.profile.name}
                     id="collasible-nav-dropdown"
                   >
-                    <NavDropdown.Item href="#profile">
+                    <NavDropdown.Item href="/users/profile">
                       Profile
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.logout}>
@@ -122,6 +124,7 @@ class App extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/verify-email" component={VerifyEmail} />
+          <Route exact path="/users/profile" component={Profile} />
         </Switch>
       </AlertProvider>
     );
