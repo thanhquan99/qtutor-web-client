@@ -83,6 +83,7 @@ class App extends Component {
               <Nav className="me-auto">
                 <Nav.Link href="#tutor">Become a tutor</Nav.Link>
                 <Nav.Link href="#student">Become a student</Nav.Link>
+                <Nav.Link href="#tutor">Schedule</Nav.Link>
                 {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2">

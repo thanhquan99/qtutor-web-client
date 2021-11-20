@@ -5,6 +5,7 @@ import validator from "validator";
 import authService from "../../api-services/auth.service";
 import userService from "../../api-services/user.service";
 import eventBus from "../../common/EventBus";
+import ProfileCard from "../reuse/profile/profile-card.component";
 
 class Profile extends Component {
   constructor(props) {
@@ -39,7 +40,6 @@ class Profile extends Component {
       ...curState,
       currentUser: data,
     }));
-    console.log(this.state);
   }
 
   onChangeEmail(e) {
@@ -232,75 +232,7 @@ class Profile extends Component {
             </div>
 
             <div className="col-md-8">
-              <div className="card mb-3">
-                <div className="card-body">
-                  <div className="row">
-                    <div className="col-sm-3">
-                      <h6 className="mb-0">Full Name</h6>
-                    </div>
-                    <div className="col-sm-9 text-secondary">
-                      {this.state.currentUser?.profile?.name}
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row">
-                    <div className="col-sm-3">
-                      <h6 className="mb-0">Email</h6>
-                    </div>
-                    <div className="col-sm-9 text-secondary">
-                      {this.state.currentUser?.email}
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row">
-                    <div className="col-sm-3">
-                      <h6 className="mb-0">Phone</h6>
-                    </div>
-                    <div className="col-sm-9 text-secondary">
-                      {this.state.currentUser?.profile?.phone}
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row">
-                    <div className="col-sm-3">
-                      <h6 className="mb-0">BirthDay</h6>
-                    </div>
-                    <div className="col-sm-9 text-secondary">
-                      {new Date(
-                        this.state.currentUser?.profile?.dateOfBirth
-                      ).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "2-digit",
-                        day: "2-digit",
-                      })}
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row">
-                    <div className="col-sm-3">
-                      <h6 className="mb-0">Address</h6>
-                    </div>
-                    <div className="col-sm-9 text-secondary">
-                      Hai Chau, Da Nang city
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row">
-                    <div className="col-sm-3">
-                      <h6 className="mb-0">Additional Information</h6>
-                    </div>
-                    <div className="col-sm-9 text-secondary">
-                      {this.state.currentUser?.profile?.additionalInformation}
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row">
-                    <div className="col-sm-12">
-                      <button className="btn btn-info">Edit</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ProfileCard />
 
               <div className="row gutters-sm">
                 <div className="col-sm-6 mb-3">
@@ -326,7 +258,9 @@ class Profile extends Component {
                       </h6>
                       <ListGroup variant="flush">
                         <ListGroup.Item>TOEIC beginner</ListGroup.Item>
-                        <ListGroup.Item>English communication beginner</ListGroup.Item>
+                        <ListGroup.Item>
+                          English communication beginner
+                        </ListGroup.Item>
                       </ListGroup>
                     </div>
                   </div>

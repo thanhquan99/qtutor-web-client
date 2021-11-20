@@ -4,6 +4,7 @@ import validator from "validator";
 import authService from "../../api-services/auth.service";
 import { withAlert } from "react-alert";
 import eventBus from "../../common/EventBus";
+import { invalidSetState, validSetState } from "../utils";
 
 class Login extends Component {
   constructor(props) {
@@ -33,63 +34,31 @@ class Login extends Component {
   onChangeEmail(e) {
     const email = e.target.value;
     if (!validator.isEmail(email)) {
-      this.setState((curState) => ({
-        ...curState,
-        errs: {
-          ...curState.errs,
-          email: {
-            isValidated: false,
-            message: "Invalid email",
-          },
-        },
-      }));
+      this.setState((curState) => {
+        return invalidSetState({ curState, fieldName: "email" });
+      });
       return;
     }
-    this.setState((curState) => ({
-      ...curState,
-      payload: {
-        ...curState.payload,
-        email,
-      },
-      errs: {
-        ...curState.errs,
-        email: {
-          isValidated: true,
-          message: undefined,
-        },
-      },
-    }));
+    this.setState((curState) => {
+      return validSetState({ curState, fieldName: "email", value: email });
+    });
   }
 
   onChangePassword(e) {
     const password = e.target.value;
     if (!validator.isLength(password, { min: 8 })) {
-      this.setState((curState) => ({
-        ...curState,
-        errs: {
-          ...curState.errs,
-          password: {
-            isValidated: false,
-            message: "Password must be grate than 8",
-          },
-        },
-      }));
+      this.setState((curState) => {
+        return invalidSetState({ curState, fieldName: "password" });
+      });
       return;
     }
-    this.setState((curState) => ({
-      ...curState,
-      payload: {
-        ...curState.payload,
-        password,
-      },
-      errs: {
-        ...curState.errs,
-        password: {
-          isValidated: true,
-          message: undefined,
-        },
-      },
-    }));
+    this.setState((curState) => {
+      return validSetState({
+        curState,
+        fieldName: "password",
+        value: password,
+      });
+    });
   }
 
   async handleLogin(e) {

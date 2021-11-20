@@ -11,7 +11,7 @@ export default class ApiService {
   handleErrorApiWithAuth({ errorResponse, alert, component }) {
     const err = JSON.parse(errorResponse.error);
     if (err.statusCode === 401) {
-      component.props.history.push("/login");
+      component.props?.history?.push("/login");
       const token = JSON.parse(localStorage.getItem("accessToken"));
       if (token) {
         alert.show("Token expired");
