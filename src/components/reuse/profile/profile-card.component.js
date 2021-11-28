@@ -10,7 +10,6 @@ import { invalidSetState, validSetState } from "../../utils";
 class ProfileCard extends Component {
   constructor(props) {
     super(props);
-    // this.handleLogin = this.handleLogin.bind(this);
     this.closePopup = this.closePopup.bind(this);
     this.openPopup = this.openPopup.bind(this);
 

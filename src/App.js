@@ -15,6 +15,7 @@ import eventBus from "./common/EventBus";
 import Register from "./components/auth/register.component";
 import VerifyEmail from "./components/auth/verify-email.component";
 import Profile from "./components/user/profile.component";
+import MyTutorTabs from "./components/tutor/my-tutor-tabs.component";
 
 class App extends Component {
   constructor(props) {
@@ -77,26 +78,17 @@ class App extends Component {
       <AlertProvider template={AlertTemplate} {...alertOptions}>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand href="#home">QTutor</Navbar.Brand>
+            <Navbar.Brand href="/home">QTutor</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="#tutor">Become a tutor</Nav.Link>
-                <Nav.Link href="#student">Become a student</Nav.Link>
-                <Nav.Link href="#tutor">Schedule</Nav.Link>
-                {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">
-                    Something
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">
-                    Separated link
-                  </NavDropdown.Item>
-                </NavDropdown> */}
+                <Nav.Link href="/tutors/me">Tutor</Nav.Link>
+                <Nav.Link href="/students/me">Student</Nav.Link>
+                <Nav.Link href="/schedule/me">Schedule</Nav.Link>
+                <NavDropdown title="Find" id="collasible-nav-dropdown">
+                  <NavDropdown.Item href="/tutors">Tutor</NavDropdown.Item>
+                  <NavDropdown.Item href="/students">Student</NavDropdown.Item>
+                </NavDropdown>
               </Nav>
               {_.isEmpty(currentUser) ? (
                 <Nav>
@@ -122,10 +114,11 @@ class App extends Component {
           </Container>
         </Navbar>
         <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/verify-email" component={VerifyEmail} />
-          <Route exact path="/users/profile" component={Profile} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/verify-email" component={VerifyEmail} />
+          <Route path="/users/profile" component={Profile} />
+          <Route path="/tutors/me" component={MyTutorTabs} />
         </Switch>
       </AlertProvider>
     );

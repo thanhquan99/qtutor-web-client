@@ -1,132 +1,30 @@
+import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
-import validator from "validator";
-import authService from "../../api-services/auth.service";
-import userService from "../../api-services/user.service";
-import eventBus from "../../common/EventBus";
-import ProfileCard from "../reuse/profile/profile-card.component";
+import { ListGroup } from "react-bootstrap";
+import tutorService from "../../api-services/tutor.service";
 
-class Profile extends Component {
+class MyTutorProfile extends Component {
   constructor(props) {
     super(props);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
 
     this.state = {
-      currentUser: {},
-      payload: {
-        email: undefined,
-        password: undefined,
-      },
-      errs: {
-        email: {
-          isValidated: false,
-          message: undefined,
-        },
-        password: {
-          isValidated: false,
-          message: undefined,
-        },
-      },
+      currentTutor: {},
     };
   }
 
   async componentDidMount() {
     const { alert } = this.props;
-    const data = await userService.getMe({ component: this, alert });
-    this.setState((curState) => ({
-      ...curState,
-      currentUser: data,
-    }));
-  }
-
-  onChangeEmail(e) {
-    const email = e.target.value;
-    if (!validator.isEmail(email)) {
-      this.setState((curState) => ({
-        ...curState,
-        errs: {
-          ...curState.errs,
-          email: {
-            isValidated: false,
-            message: "Invalid email",
-          },
-        },
-      }));
-      return;
-    }
-    this.setState((curState) => ({
-      ...curState,
-      payload: {
-        ...curState.payload,
-        email,
-      },
-      errs: {
-        ...curState.errs,
-        email: {
-          isValidated: true,
-          message: undefined,
-        },
-      },
-    }));
-  }
-
-  onChangePassword(e) {
-    const password = e.target.value;
-    if (!validator.isLength(password, { min: 8 })) {
-      this.setState((curState) => ({
-        ...curState,
-        errs: {
-          ...curState.errs,
-          password: {
-            isValidated: false,
-            message: "Password must be grate than 8",
-          },
-        },
-      }));
-      return;
-    }
-    this.setState((curState) => ({
-      ...curState,
-      payload: {
-        ...curState.payload,
-        password,
-      },
-      errs: {
-        ...curState.errs,
-        password: {
-          isValidated: true,
-          message: undefined,
-        },
-      },
-    }));
-  }
-
-  async handleLogin(e) {
-    e.preventDefault();
-    const { alert } = this.props;
-    const { errs } = this.state;
-
-    for (const key in errs) {
-      if (!errs[key].isValidated) {
-        return;
-      }
-    }
-
-    const data = await authService.login({
-      payload: this.state.payload,
-      alert,
-    });
-    if (data) {
-      eventBus.dispatch("login");
-      this.props.history.push("/home");
+    const data = await tutorService.getMe({ alert, component: this });
+    console.log(data);
+    if (!_.isEmpty(data)) {
+      this.setState((curState) => ({ ...curState, currentTutor: data }));
     }
   }
 
   render() {
     return (
-      <div className="container mt-5">
+      <div className="container">
         <div className="main-body">
           <div className="row gutters-sm">
             <div className="col-md-4 mb-3">
@@ -140,7 +38,7 @@ class Profile extends Component {
                       width="150"
                     />
                     <div className="mt-3">
-                      <h4>{this.state.currentUser?.profile?.name}</h4>
+                      <h4>{this.state.currentTutor?.profile?.name}</h4>
                       <p className="text-secondary mb-1">
                         Studying at Da Nang University
                       </p>
@@ -231,7 +129,50 @@ class Profile extends Component {
             </div>
 
             <div className="col-md-8">
-              <ProfileCard />
+              <div className="row gutters-sm">
+                <div className="col-sm-6 mb-3">
+                  <div className="card h-100">
+                    <div className="card-body">
+                      <h6 className="d-flex align-items-center mb-3 text-info">
+                        Teach Ability
+                      </h6>
+                      <ListGroup variant="flush">
+                        {this.state.currentTutor?.subjects?.map((subject) => (
+                          <ListGroup.Item key={subject.id}>
+                            {subject.name}
+                          </ListGroup.Item>
+                        ))}
+                      </ListGroup>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-sm-6 mb-3">
+                  <div className="card h-100">
+                    <div className="card-body">
+                      <h6 className="d-flex align-items-center mb-3 text-danger">
+                        Teaching
+                      </h6>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item>Coming soon</ListGroup.Item>
+                      </ListGroup>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-sm-6 mb-3">
+                  <div className="card h-100">
+                    <div className="card-body">
+                      <h6 className="d-flex align-items-center mb-3 text-success">
+                        Your Teaching History
+                      </h6>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item>Coming soon</ListGroup.Item>
+                      </ListGroup>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -240,4 +181,4 @@ class Profile extends Component {
   }
 }
 
-export default withAlert()(Profile);
+export default withAlert()(MyTutorProfile);
