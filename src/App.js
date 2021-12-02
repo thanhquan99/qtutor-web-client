@@ -17,6 +17,10 @@ import VerifyEmail from "./components/auth/verify-email.component";
 import Profile from "./components/user/profile.component";
 import MyTutorTabs from "./components/tutor/my-tutor-tabs.component";
 import MyStudentTabs from "./components/student/my-student-tabs.component";
+import { DEFAULT_FILTER } from "./constant";
+import { TutorAPIProvider } from "./contexts/tutor-api.context";
+import ListTutors from "./components/tutor/list-tutors.component";
+import Tutor from "./components/tutor/tutor.component";
 
 class App extends Component {
   constructor(props) {
@@ -115,12 +119,16 @@ class App extends Component {
           </Container>
         </Navbar>
         <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/verify-email" component={VerifyEmail} />
-          <Route path="/users/profile" component={Profile} />
-          <Route path="/tutors/me" component={MyTutorTabs} />
-          <Route path="/students/me" component={MyStudentTabs} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/verify-email" component={VerifyEmail} />
+          <Route exact path="/users/profile" component={Profile} />
+          <Route exact path="/tutors/me" component={MyTutorTabs} />
+          <Route exact path="/students/me" component={MyStudentTabs} />
+          <Route exact path="/tutors/:id" component={Tutor} />
+          <TutorAPIProvider value={DEFAULT_FILTER}>
+            <Route exact path="/tutors" component={ListTutors} />
+          </TutorAPIProvider>
         </Switch>
       </AlertProvider>
     );

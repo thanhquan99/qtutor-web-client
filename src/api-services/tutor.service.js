@@ -19,16 +19,40 @@ class TutorService extends ApiService {
 
   async createTutor({ component, alert, payload }) {
     const response = await requestPN
-      .post(API_URL + "/tutors", { ...this.getAuth(), form: payload })
+      .post(API_URL + "/tutors", { ...this.getAuth(), json: payload })
       .catch((errorResponse) => {
         this.handleErrorApiWithAuth({ errorResponse, alert, component });
+      });
+    if (response) {
+      const data = JSON.parse(response);
+      return data;
+    }
+  }
+
+  async getMany({ alert, qs }) {
+    const response = await requestPN
+      .get(API_URL + "/tutors", { qs })
+      .catch((errorResponse) => {
+        this.handleErrorApi({ errorResponse, alert });
       });
 
     if (response) {
       const data = JSON.parse(response);
       return data;
     }
-    return;
+  }
+
+  async getOne({ alert, id }) {
+    const response = await requestPN
+      .get(API_URL + "/tutors/" + id)
+      .catch((errorResponse) => {
+        this.handleErrorApi({ errorResponse, alert });
+      });
+
+    if (response) {
+      const data = JSON.parse(response);
+      return data;
+    }
   }
 }
 
