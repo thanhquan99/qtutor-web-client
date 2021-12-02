@@ -3,9 +3,9 @@ import requestPN from "request-promise-native";
 import ApiService from "./api.service";
 
 class SubjectService extends ApiService {
-  async getMany({ alert }) {
+  async getMany({ alert, qs }) {
     const response = await requestPN
-      .get(API_URL + "/subjects", { qs: { perPage: 100 } })
+      .get(API_URL + "/subjects", { qs })
       .catch((errorResponse) => {
         this.handleErrorApi({ errorResponse, alert });
       });

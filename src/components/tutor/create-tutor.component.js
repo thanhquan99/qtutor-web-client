@@ -5,6 +5,7 @@ import subjectService from "../../api-services/subject.service";
 import { invalidSetState, validSetState } from "../utils";
 import _ from "lodash";
 import tutorService from "../../api-services/tutor.service";
+import { Select } from "antd";
 
 class CreateTutor extends Component {
   constructor(props) {
@@ -12,6 +13,8 @@ class CreateTutor extends Component {
 
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeSubject = this.onChangeSubject.bind(this);
+    this.onSearchSubject = this.onSearchSubject.bind(this);
+
     this.handleCreateTutor = this.handleCreateTutor.bind(this);
 
     this.state = {
@@ -36,7 +39,10 @@ class CreateTutor extends Component {
 
   async componentDidMount() {
     const { alert } = this.props;
-    const { results: subjects } = await subjectService.getMany({ alert });
+    const { results: subjects } = await subjectService.getMany({
+      alert,
+      qs: { perPage: 5 },
+    });
     this.setState((curState) => ({ ...curState, subjects }));
   }
 
@@ -60,35 +66,75 @@ class CreateTutor extends Component {
     });
   }
 
-  onChangeSubject(e) {
-    const { value, checked } = e.target;
-    let tutorSubjects = this.state.payload.tutorSubjects || [];
+  // onChangeSubject(e) {
+  //   const { value, checked } = e.target;
+  //   let tutorSubjects = this.state.payload.tutorSubjects || [];
 
-    if (checked) {
-      tutorSubjects.push({ subjectId: value });
-    } else {
-      tutorSubjects = tutorSubjects.filter(
-        (tutorSubject) => tutorSubject.subjectId !== value
-      );
-    }
+  //   if (checked) {
+  //     tutorSubjects.push({ subjectId: value });
+  //   } else {
+  //     tutorSubjects = tutorSubjects.filter(
+  //       (tutorSubject) => tutorSubject.subjectId !== value
+  //     );
+  //   }
 
-    if (_.isEmpty(tutorSubjects)) {
+  //   if (_.isEmpty(tutorSubjects)) {
+  //     this.setState((curState) => {
+  //       return invalidSetState({
+  //         curState,
+  //         fieldName: "tutorSubjects",
+  //         message: "At least 1 subject",
+  //       });
+  //     });
+  //     return;
+  //   }
+  //   this.setState((curState) => {
+  //     return validSetState({
+  //       curState,
+  //       fieldName: "tutorSubjects",
+  //       value: tutorSubjects,
+  //     });
+  //   });
+  // }
+
+  onChangeSubject(values, elements) {
+    if (_.isEmpty(values)) {
       this.setState((curState) => {
         return invalidSetState({
           curState,
           fieldName: "tutorSubjects",
-          message: "At least 1 subject",
+          message: "Select at least 1 subject",
         });
       });
+      this.setState((curState) => ({
+        ...curState,
+        payload: { ...curState.payload, tutorSubjects: [] },
+      }));
       return;
     }
     this.setState((curState) => {
       return validSetState({
         curState,
         fieldName: "tutorSubjects",
-        value: tutorSubjects,
+        value: elements.map((e) => ({ subjectId: e.key })),
       });
     });
+  }
+
+  async onSearchSubject(value) {
+    const { alert } = this.props;
+    if (_.isEmpty(value)) {
+      return;
+    }
+    const filter = { name: { $ilike: value } };
+    const { results: subjects } = await subjectService.getMany({
+      alert,
+      qs: { perPage: 5, filter: JSON.stringify(filter) },
+    });
+    this.setState((curState) => ({
+      ...curState,
+      subjects,
+    }));
   }
 
   async handleCreateTutor(e) {
@@ -137,20 +183,23 @@ class CreateTutor extends Component {
                   </Form.Text>
                 )}
               </Form.Group>
-              
+
               <Form.Label>Teach Ability</Form.Label>
               <br />
-              {this.state.subjects.map((subject) => (
-                <Form.Check
-                  inline
-                  label={subject.name}
-                  type="checkbox"
-                  key={subject.id}
-                  value={subject.id}
-                  className="col-3"
-                  onClick={this.onChangeSubject}
-                />
-              ))}
+              <Select
+                mode="multiple"
+                style={{ width: "100%" }}
+                placeholder="Select one subject"
+                onChange={this.onChangeSubject}
+                onSearch={this.onSearchSubject}
+                optionLabelProp="label"
+              >
+                {this.state.subjects?.map((subject) => (
+                  <Select.Option key={subject.id} value={subject.name}>
+                    {subject.name}
+                  </Select.Option>
+                ))}
+              </Select>
               <br />
               {this.state.errs.tutorSubjects?.message && (
                 <Form.Text className="text-danger ">
@@ -158,6 +207,7 @@ class CreateTutor extends Component {
                 </Form.Text>
               )}
               <br />
+
               <Button variant="primary" type="submit">
                 Submit
               </Button>
