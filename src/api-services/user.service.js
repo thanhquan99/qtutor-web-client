@@ -19,14 +19,12 @@ class UserService extends ApiService {
 
   async updateMe({ component, alert, payload }) {
     const response = await requestPN
-      .patch(API_URL + "/users/me", { ...this.getAuth(), form: payload })
+      .patch(API_URL + "/users/me", { ...this.getAuth(), json: payload })
       .catch((errorResponse) => {
         this.handleErrorApiWithAuth({ errorResponse, alert, component });
       });
-
     if (response) {
-      const data = JSON.parse(response);
-      return data;
+      return response;
     }
     return;
   }

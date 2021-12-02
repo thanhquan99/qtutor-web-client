@@ -16,7 +16,6 @@ class MyTutorProfile extends Component {
   async componentDidMount() {
     const { alert } = this.props;
     const data = await tutorService.getMe({ alert, component: this });
-    console.log(data);
     if (!_.isEmpty(data)) {
       this.setState((curState) => ({ ...curState, currentTutor: data }));
     }

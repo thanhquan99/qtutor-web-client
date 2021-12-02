@@ -1,11 +1,15 @@
 import { Component } from "react";
 import { withAlert } from "react-alert";
 import userService from "../../../api-services/user.service";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import DatePicker from "react-date-picker";
 import { withRouter } from "react-router-dom";
 import _ from "lodash";
 import { invalidSetState, validSetState } from "../../utils";
+import { Select } from "antd";
+import { Modal, Button } from "antd";
+import cityService from "../../../api-services/city.service";
+import { FaMars, FaVenus } from "react-icons/fa";
 
 class ProfileCard extends Component {
   constructor(props) {
@@ -19,6 +23,9 @@ class ProfileCard extends Component {
     this.onChangeAddress = this.onChangeAddress.bind(this);
     this.onChangeAdditionalInformation =
       this.onChangeAdditionalInformation.bind(this);
+    this.onChangeCity = this.onChangeCity.bind(this);
+    this.onSearchCity = this.onSearchCity.bind(this);
+    this.onChangeGender = this.onChangeGender.bind(this);
 
     this.handleUpdateProfile = this.handleUpdateProfile.bind(this);
 
@@ -47,17 +54,31 @@ class ProfileCard extends Component {
           isValidated: true,
           message: undefined,
         },
+        cityId: {
+          isValidated: true,
+          message: undefined,
+        },
+        isMale: {
+          isValidated: true,
+          message: undefined,
+        },
       },
+      cities: [],
     };
   }
 
   async componentDidMount() {
     const { alert } = this.props;
     const data = await userService.getMe({ component: this, alert });
+    const { results: cities } = await cityService.getMany({
+      alert,
+      qs: { perPage: 5 },
+    });
     this.setState((curState) => ({
       ...curState,
       payload: { dateOfBirth: data?.profile?.dateOfBirth },
       currentUser: data,
+      cities,
     }));
   }
 
@@ -137,6 +158,54 @@ class ProfileCard extends Component {
     });
   }
 
+  onChangeCity(value) {
+    this.setState((curState) => {
+      return validSetState({
+        curState,
+        fieldName: "cityId",
+        value,
+      });
+    });
+  }
+  async onSearchCity(value) {
+    const { alert } = this.props;
+    if (_.isEmpty(value)) {
+      return;
+    }
+    const filter = { name: { $ilike: value } };
+    const { results: cities } = await cityService.getMany({
+      alert,
+      qs: { perPage: 5, filter: JSON.stringify(filter) },
+    });
+    this.setState((curState) => ({
+      ...curState,
+      cities,
+    }));
+  }
+
+  onChangeGender(value) {
+    this.setState((curState) => {
+      return validSetState({
+        curState,
+        fieldName: "isMale",
+        value,
+      });
+    });
+  }
+
+  openPopup() {
+    this.setState((curState) => ({
+      ...curState,
+      isPopupOpen: true,
+    }));
+  }
+  closePopup() {
+    this.setState((curState) => ({
+      ...curState,
+      isPopupOpen: false,
+    }));
+  }
+
   async handleUpdateProfile(e) {
     e.preventDefault();
     const { alert } = this.props;
@@ -160,20 +229,6 @@ class ProfileCard extends Component {
     }));
   }
 
-  openPopup() {
-    this.setState((curState) => ({
-      ...curState,
-      isPopupOpen: true,
-    }));
-  }
-
-  closePopup() {
-    this.setState((curState) => ({
-      ...curState,
-      isPopupOpen: false,
-    }));
-  }
-
   render() {
     return (
       <div className="card mb-3">
@@ -183,7 +238,12 @@ class ProfileCard extends Component {
               <h6 className="mb-0">Full Name</h6>
             </div>
             <div className="col-sm-9 text-secondary">
-              {this.state.currentUser?.profile?.name}
+              {this.state.currentUser?.profile?.name + "  "}
+              {this.state.currentUser?.profile?.isMale ? (
+                <FaMars style={{ color: "#419fcf" }} />
+              ) : (
+                <FaVenus style={{ color: "#f378ac" }} />
+              )}
             </div>
           </div>
           <hr />
@@ -222,10 +282,10 @@ class ProfileCard extends Component {
           <hr />
           <div className="row">
             <div className="col-sm-3">
-              <h6 className="mb-0">Address</h6>
+              <h6 className="mb-0">City</h6>
             </div>
             <div className="col-sm-9 text-secondary">
-              Hai Chau, Da Nang city
+              {this.state.currentUser?.profile?.city?.name}
             </div>
           </div>
           <hr />
@@ -238,44 +298,55 @@ class ProfileCard extends Component {
             </div>
           </div>
           <hr />
+
           <div className="row">
             <div className="col-sm-12">
-              <Button variant="primary" onClick={this.openPopup}>
+              <Button type="primary" onClick={this.openPopup}>
                 Edit
               </Button>
 
-              <Modal show={this.state.isPopupOpen} onHide={this.closePopup}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Profile</Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body>
-                  <Form noValidate>
-                    <Form.Group className="mb-3">
-                      <Form.Label>Full Name</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Full Name"
-                        onChange={this.onChangeName}
-                        defaultValue={this.state.currentUser?.profile?.name}
-                      />
-                      {this.state.errs.name.message && (
-                        <Form.Text className="text-danger ">
-                          {this.state.errs.name.message}
-                        </Form.Text>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label>Email address</Form.Label>
-                      <Form.Control
-                        type="text"
-                        readOnly
-                        defaultValue={this.state.currentUser?.email}
-                      />
-                    </Form.Group>
-
-                    {/* <Form.Group className="mb-3">
+              <Modal
+                title="Profile"
+                visible={this.state.isPopupOpen}
+                onOk={this.closePopup}
+                onCancel={this.closePopup}
+                footer={[
+                  <Button key="back" onClick={this.closePopup}>
+                    Cancel
+                  </Button>,
+                  <Button
+                    key="submit"
+                    type="primary"
+                    onClick={this.handleUpdateProfile}
+                  >
+                    Save
+                  </Button>,
+                ]}
+              >
+                <Form noValidate>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Full Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Full Name"
+                      onChange={this.onChangeName}
+                      defaultValue={this.state.currentUser?.profile?.name}
+                    />
+                    {this.state.errs.name.message && (
+                      <Form.Text className="text-danger ">
+                        {this.state.errs.name.message}
+                      </Form.Text>
+                    )}
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      type="text"
+                      readOnly
+                      defaultValue={this.state.currentUser?.email}
+                    />
+                  </Form.Group>
+                  {/* <Form.Group className="mb-3">
                       <Form.Label>Phone</Form.Label>
                       <Form.Control
                         type="text"
@@ -289,54 +360,76 @@ class ProfileCard extends Component {
                         </Form.Text>
                       )}
                     </Form.Group> */}
+                  <Form.Group className="mb-3">
+                    <Form.Label>Birth Day</Form.Label>
+                    <DatePicker
+                      onChange={this.onChangeDateOfBirth}
+                      value={
+                        this.state.payload?.dateOfBirth
+                          ? new Date(this.state.payload?.dateOfBirth)
+                          : null
+                      }
+                      locale="vi-VI"
+                      clearIcon={null}
+                    />
+                    {this.state.errs.dateOfBirth.message && (
+                      <Form.Text className="text-danger ">
+                        {this.state.errs.dateOfBirth.message}
+                      </Form.Text>
+                    )}
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Additional Information</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      placeholder="Additional Information"
+                      onChange={this.onChangeAdditionalInformation}
+                      defaultValue={
+                        this.state.currentUser?.profile?.additionalInformation
+                      }
+                    />
+                    {this.state.errs.additionalInformation.message && (
+                      <Form.Text className="text-danger ">
+                        {this.state.errs.additionalInformation.message}
+                      </Form.Text>
+                    )}
+                  </Form.Group>
 
-                    <Form.Group className="mb-3">
-                      <Form.Label>Birth Day</Form.Label>
-                      <DatePicker
-                        onChange={this.onChangeDateOfBirth}
-                        value={
-                          this.state.payload?.dateOfBirth
-                            ? new Date(this.state.payload?.dateOfBirth)
-                            : null
-                        }
-                        locale="vi-VI"
-                        clearIcon={null}
-                      />
-                      {this.state.errs.dateOfBirth.message && (
-                        <Form.Text className="text-danger ">
-                          {this.state.errs.dateOfBirth.message}
-                        </Form.Text>
-                      )}
-                    </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label>City</Form.Label>
+                    <Select
+                      showSearch
+                      style={{ width: 200 }}
+                      placeholder="Select a city"
+                      optionFilterProp="children"
+                      onChange={this.onChangeCity}
+                      onSearch={this.onSearchCity}
+                      defaultValue={this.state.currentUser?.profile?.city?.id}
+                    >
+                      {this.state.cities?.map((city) => (
+                        <Select.Option key={city.id} value={city.id}>
+                          {city.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Group>
 
-                    <Form.Group className="mb-3">
-                      <Form.Label>Additional Information</Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        rows={3}
-                        placeholder="Additional Information"
-                        onChange={this.onChangeAdditionalInformation}
-                        defaultValue={
-                          this.state.currentUser?.profile?.additionalInformation
-                        }
-                      />
-                      {this.state.errs.additionalInformation.message && (
-                        <Form.Text className="text-danger ">
-                          {this.state.errs.additionalInformation.message}
-                        </Form.Text>
-                      )}
-                    </Form.Group>
-                  </Form>
-                </Modal.Body>
-
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={this.closePopup}>
-                    Close
-                  </Button>
-                  <Button variant="primary" onClick={this.handleUpdateProfile}>
-                    Save Changes
-                  </Button>
-                </Modal.Footer>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Gender</Form.Label>
+                    <Select
+                      showSearch
+                      style={{ width: 200 }}
+                      placeholder="Select a city"
+                      optionFilterProp="children"
+                      onChange={this.onChangeGender}
+                      defaultValue={this.state.currentUser?.profile?.isMale}
+                    >
+                      <Select.Option value={true}>Boy</Select.Option>
+                      <Select.Option value={false}>Girl</Select.Option>
+                    </Select>
+                  </Form.Group>
+                </Form>
               </Modal>
             </div>
           </div>

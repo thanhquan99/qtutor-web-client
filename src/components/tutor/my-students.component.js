@@ -12,7 +12,6 @@ class MyStudents extends Component {
   }
 
   async componentDidMount() {
-    console.log("hello");
   }
 
   render() {
