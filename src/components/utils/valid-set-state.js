@@ -1,4 +1,4 @@
-exports.validSetState = ({ curState, fieldName, value }) => {
+const validSetState = ({ curState, fieldName, value }) => {
   const { errs, payload } = JSON.parse(JSON.stringify(curState));
   payload[fieldName] = value;
   errs[fieldName] = { isValidated: true, message: undefined };
@@ -9,3 +9,5 @@ exports.validSetState = ({ curState, fieldName, value }) => {
     errs,
   };
 };
+
+export {validSetState};

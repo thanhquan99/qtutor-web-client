@@ -1,7 +1,2 @@
-const { invalidSetState } = require("./invalid-set-state");
-const { validSetState } = require("./valid-set-state");
-
-module.exports = {
-  invalidSetState,
-  validSetState,
-};
+export * from "./invalid-set-state";
+export * from "./valid-set-state";

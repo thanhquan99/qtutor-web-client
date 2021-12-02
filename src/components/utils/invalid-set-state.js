@@ -1,4 +1,4 @@
-exports.invalidSetState = ({ curState, fieldName, message }) => {
+const invalidSetState = ({ curState, fieldName, message }) => {
   const { errs } = JSON.parse(JSON.stringify(curState));
   errs[fieldName] = {
     isValidated: false,
@@ -10,3 +10,5 @@ exports.invalidSetState = ({ curState, fieldName, message }) => {
     errs,
   };
 };
+
+export { invalidSetState };
