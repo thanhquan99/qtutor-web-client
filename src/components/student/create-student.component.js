@@ -1,13 +1,13 @@
+import { Select } from "antd";
+import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import studentService from "../../api-services/student.service";
 import subjectService from "../../api-services/subject.service";
 import { invalidSetState, validSetState } from "../utils";
-import _ from "lodash";
-import tutorService from "../../api-services/tutor.service";
-import { Select } from "antd";
 
-class CreateTutor extends Component {
+class CreateStudent extends Component {
   constructor(props) {
     super(props);
 
@@ -15,21 +15,21 @@ class CreateTutor extends Component {
     this.onChangeSubject = this.onChangeSubject.bind(this);
     this.onSearchSubject = this.onSearchSubject.bind(this);
 
-    this.handleCreateTutor = this.handleCreateTutor.bind(this);
+    this.handleCreateStudent = this.handleCreateStudent.bind(this);
 
     this.state = {
       currentTutor: {},
       subjects: [],
       payload: {
         description: undefined,
-        tutorSubjects: undefined,
+        studentSubjects: undefined,
       },
       errs: {
         description: {
           isValidated: false,
           message: undefined,
         },
-        tutorSubjects: {
+        studentSubjects: {
           isValidated: false,
           message: undefined,
         },
@@ -71,20 +71,20 @@ class CreateTutor extends Component {
       this.setState((curState) => {
         return invalidSetState({
           curState,
-          fieldName: "tutorSubjects",
+          fieldName: "studentSubjects",
           message: "Select at least 1 subject",
         });
       });
       this.setState((curState) => ({
         ...curState,
-        payload: { ...curState.payload, tutorSubjects: [] },
+        payload: { ...curState.payload, studentSubjects: [] },
       }));
       return;
     }
     this.setState((curState) => {
       return validSetState({
         curState,
-        fieldName: "tutorSubjects",
+        fieldName: "studentSubjects",
         value: elements.map((e) => ({ subjectId: e.key })),
       });
     });
@@ -106,7 +106,7 @@ class CreateTutor extends Component {
     }));
   }
 
-  async handleCreateTutor(e) {
+  async handleCreateStudent(e) {
     e.preventDefault();
     const { alert } = this.props;
     const { errs } = this.state;
@@ -117,7 +117,7 @@ class CreateTutor extends Component {
       }
     }
 
-    const data = await tutorService.createTutor({
+    const data = await studentService.createStudent({
       payload: this.state.payload,
       alert,
       component: this,
@@ -135,15 +135,15 @@ class CreateTutor extends Component {
             xs={5}
             className="justify-content-md-center border border-light bg-light"
           >
-            <Form noValidate onSubmit={this.handleCreateTutor}>
-              <h2 className="text-primary text-center">Become a Tutor</h2>
+            <Form noValidate onSubmit={this.handleCreateStudent}>
+              <h2 className="text-primary text-center">Become a Student</h2>
 
               <Form.Group className="mb-3">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}
-                  placeholder="Description"
+                  placeholder="Something about your wishes"
                   onChange={this.onChangeDescription}
                 />
                 {this.state.errs.description?.message && (
@@ -153,7 +153,7 @@ class CreateTutor extends Component {
                 )}
               </Form.Group>
 
-              <Form.Label>Teach Ability</Form.Label>
+              <Form.Label>Want to Learn</Form.Label>
               <br />
               <Select
                 mode="multiple"
@@ -170,9 +170,9 @@ class CreateTutor extends Component {
                 ))}
               </Select>
               <br />
-              {this.state.errs.tutorSubjects?.message && (
+              {this.state.errs.studentSubjects?.message && (
                 <Form.Text className="text-danger ">
-                  {this.state.errs.tutorSubjects?.message}
+                  {this.state.errs.studentSubjects?.message}
                 </Form.Text>
               )}
               <br />
@@ -188,4 +188,4 @@ class CreateTutor extends Component {
   }
 }
 
-export default withAlert()(CreateTutor);
+export default withAlert()(CreateStudent);

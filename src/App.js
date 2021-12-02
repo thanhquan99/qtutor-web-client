@@ -16,6 +16,7 @@ import Register from "./components/auth/register.component";
 import VerifyEmail from "./components/auth/verify-email.component";
 import Profile from "./components/user/profile.component";
 import MyTutorTabs from "./components/tutor/my-tutor-tabs.component";
+import MyStudentTabs from "./components/student/my-student-tabs.component";
 
 class App extends Component {
   constructor(props) {
@@ -119,6 +120,7 @@ class App extends Component {
           <Route path="/verify-email" component={VerifyEmail} />
           <Route path="/users/profile" component={Profile} />
           <Route path="/tutors/me" component={MyTutorTabs} />
+          <Route path="/students/me" component={MyStudentTabs} />
         </Switch>
       </AlertProvider>
     );
