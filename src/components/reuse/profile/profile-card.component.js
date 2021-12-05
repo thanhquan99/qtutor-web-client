@@ -420,7 +420,7 @@ class ProfileCard extends Component {
                     <Select
                       showSearch
                       style={{ width: 200 }}
-                      placeholder="Select a city"
+                      placeholder="Select gender"
                       optionFilterProp="children"
                       onChange={this.onChangeGender}
                       defaultValue={this.state.currentUser?.profile?.isMale}
