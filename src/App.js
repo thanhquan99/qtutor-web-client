@@ -81,7 +81,11 @@ class App extends Component {
 
     return (
       <AlertProvider template={AlertTemplate} {...alertOptions}>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar
+          collapseOnSelect
+          expand="lg"
+          style={{ backgroundColor: "#EEE9E9" }}
+        >
           <Container>
             <Navbar.Brand href="/home">QTutor</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
