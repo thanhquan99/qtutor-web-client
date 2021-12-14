@@ -31,7 +31,7 @@ class TutorService extends ApiService {
 
   async getMany({ alert, qs }) {
     const response = await requestPN
-      .get(API_URL + "/tutors", { qs })
+      .get(API_URL + "/tutors", { qs, ...this.getAuth() })
       .catch((errorResponse) => {
         this.handleErrorApi({ errorResponse, alert });
       });

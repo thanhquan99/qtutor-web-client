@@ -23,6 +23,10 @@ export default class ApiService {
 
   getAuth() {
     const token = JSON.parse(localStorage.getItem("accessToken"));
-    return { auth: { bearer: token } };
+    if (token) {
+      return { auth: { bearer: token } };
+    }
+
+    return {};
   }
 }

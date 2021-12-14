@@ -10,6 +10,7 @@ import { Select } from "antd";
 import { Modal, Button } from "antd";
 import cityService from "../../../api-services/city.service";
 import { FaMars, FaVenus } from "react-icons/fa";
+import { ACADEMIC_LEVEL } from "../../../constant";
 
 class ProfileCard extends Component {
   constructor(props) {
@@ -26,6 +27,8 @@ class ProfileCard extends Component {
     this.onChangeCity = this.onChangeCity.bind(this);
     this.onSearchCity = this.onSearchCity.bind(this);
     this.onChangeGender = this.onChangeGender.bind(this);
+    this.onChangeAcademicLevel = this.onChangeAcademicLevel.bind(this);
+    this.onChangeWorkLocation = this.onChangeWorkLocation.bind(this);
 
     this.handleUpdateProfile = this.handleUpdateProfile.bind(this);
 
@@ -59,6 +62,14 @@ class ProfileCard extends Component {
           message: undefined,
         },
         isMale: {
+          isValidated: true,
+          message: undefined,
+        },
+        academicLevel: {
+          isValidated: true,
+          message: undefined,
+        },
+        workLocation: {
           isValidated: true,
           message: undefined,
         },
@@ -193,6 +204,33 @@ class ProfileCard extends Component {
     });
   }
 
+  onChangeAcademicLevel(value) {
+    this.setState((curState) => {
+      return validSetState({
+        curState,
+        fieldName: "academicLevel",
+        value,
+      });
+    });
+  }
+
+  onChangeWorkLocation(e) {
+    const workLocation = e.target.value;
+    if (_.isEmpty(workLocation)) {
+      this.setState((curState) => {
+        return invalidSetState({ curState, fieldName: "workLocation" });
+      });
+      return;
+    }
+    this.setState((curState) => {
+      return validSetState({
+        curState,
+        fieldName: "workLocation",
+        value: workLocation,
+      });
+    });
+  }
+
   openPopup() {
     this.setState((curState) => ({
       ...curState,
@@ -286,6 +324,24 @@ class ProfileCard extends Component {
             </div>
             <div className="col-sm-9 text-secondary">
               {this.state.currentUser?.profile?.city?.name}
+            </div>
+          </div>
+          <hr />
+          <div className="row">
+            <div className="col-sm-3">
+              <h6 className="mb-0">Academic Level</h6>
+            </div>
+            <div className="col-sm-9 text-secondary">
+              {this.state.currentUser?.profile?.academicLevel}
+            </div>
+          </div>
+          <hr />
+          <div className="row">
+            <div className="col-sm-3">
+              <h6 className="mb-0">Work Location</h6>
+            </div>
+            <div className="col-sm-9 text-secondary">
+              {this.state.currentUser?.profile?.workLocation}
             </div>
           </div>
           <hr />
@@ -413,6 +469,41 @@ class ProfileCard extends Component {
                         </Select.Option>
                       ))}
                     </Select>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label>Academic Level</Form.Label>
+                    <Select
+                      showSearch
+                      style={{ width: 200 }}
+                      placeholder="Select your academic Level"
+                      optionFilterProp="children"
+                      onChange={this.onChangeAcademicLevel}
+                      defaultValue={
+                        this.state.currentUser?.profile?.academicLevel
+                      }
+                    >
+                      {Object.values(ACADEMIC_LEVEL).map((e) => (
+                        <Select.Option value={e}>{e}</Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label>Work Location</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Work location"
+                      onChange={this.onChangeWorkLocation}
+                      defaultValue={
+                        this.state.currentUser?.profile?.workLocation
+                      }
+                    />
+                    {this.state.errs.name.message && (
+                      <Form.Text className="text-danger ">
+                        {this.state.errs.name.message}
+                      </Form.Text>
+                    )}
                   </Form.Group>
 
                   <Form.Group className="mb-3">

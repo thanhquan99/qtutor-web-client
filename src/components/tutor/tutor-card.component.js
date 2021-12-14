@@ -1,8 +1,8 @@
 import { Component } from "react";
 import { withAlert } from "react-alert";
-import { DEFAULT_AVATAR } from "../../constant";
+import { ACADEMIC_ACTION, DEFAULT_AVATAR } from "../../constant";
 import { withRouter } from "react-router-dom";
-import { Row, Col, Space } from "antd";
+import { Row, Space } from "antd";
 import { FaStar, FaComment } from "react-icons/fa";
 import GenderComponent from "../reuse/profile/gender.component";
 
@@ -43,10 +43,33 @@ class TutorCard extends Component {
             </Space>
           </Row>
           <Row>
-            <span>Live at {tutor?.profile?.city?.name}</span>
+            <span>
+              {tutor?.profile?.city?.name ? (
+                `Live at ${tutor?.profile?.city?.name}`
+              ) : (
+                <br />
+              )}
+            </span>
           </Row>
           <Row>
-            <span>Study at {tutor?.profile?.workAddress}</span>
+            <span>
+              {tutor?.profile?.academicLevel ? (
+                tutor?.profile?.academicLevel
+              ) : (
+                <br />
+              )}
+            </span>
+          </Row>
+          <Row>
+            <span>
+              {tutor?.profile?.workLocation ? (
+                `${ACADEMIC_ACTION[tutor?.profile?.academicLevel]} at ${
+                  tutor?.profile?.workLocation
+                }`
+              ) : (
+                <br />
+              )}
+            </span>
           </Row>
           <Row>
             <Space>
@@ -60,10 +83,14 @@ class TutorCard extends Component {
           </Row>
           <Row>
             <span style={{ color: "#8B8B83" }}>
-              {(1500000).toLocaleString("en-US", {
-                style: "currency",
-                currency: "VND",
-              })}
+              {tutor?.minimumSalary ? (
+                parseInt(tutor?.minimumSalary).toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "VND",
+                })
+              ) : (
+                <br />
+              )}
             </span>
           </Row>
         </div>

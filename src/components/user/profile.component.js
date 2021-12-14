@@ -4,6 +4,7 @@ import validator from "validator";
 import authService from "../../api-services/auth.service";
 import userService from "../../api-services/user.service";
 import eventBus from "../../common/EventBus";
+import { ACADEMIC_ACTION } from "../../constant";
 import ProfileCard from "../reuse/profile/profile-card.component";
 
 class Profile extends Component {
@@ -125,6 +126,7 @@ class Profile extends Component {
   }
 
   render() {
+    const { profile } = this.state.currentUser;
     return (
       <div className="container mt-5">
         <div className="main-body">
@@ -142,10 +144,17 @@ class Profile extends Component {
                     <div className="mt-3">
                       <h4>{this.state.currentUser?.profile?.name}</h4>
                       <p className="text-secondary mb-1">
-                        Studying at Da Nang University
+                        {profile?.academicLevel}
+                      </p>
+                      <p className="text-secondary mb-1">
+                        {profile?.workLocation
+                          ? `${ACADEMIC_ACTION[profile?.academicLevel]} at ${
+                              profile?.workLocation
+                            }`
+                          : ""}
                       </p>
                       <p className="text-muted font-size-sm">
-                        Hai Chau, Da Nang city
+                        {profile?.city ? `Live at ${profile?.city?.name}` : ""}
                       </p>
                       {/* <button className="btn btn-primary">Follow</button>
                       <button className="btn btn-outline-primary">
