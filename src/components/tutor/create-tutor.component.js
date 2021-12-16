@@ -1,11 +1,11 @@
+import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import subjectService from "../../api-services/subject.service";
-import { invalidSetState, validSetState } from "../utils";
-import _ from "lodash";
 import tutorService from "../../api-services/tutor.service";
-import { Select } from "antd";
+import { invalidSetState, validSetState } from "../utils";
+import CreateTutorStepOne from "./create-tutor-multi-step/step-one.component";
+import CreateTutorStepTwo from "./create-tutor-multi-step/step-two.component";
 
 class CreateTutor extends Component {
   constructor(props) {
@@ -14,12 +14,15 @@ class CreateTutor extends Component {
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeSubject = this.onChangeSubject.bind(this);
     this.onSearchSubject = this.onSearchSubject.bind(this);
+    this.handleNextStep = this.handleNextStep.bind(this);
+    this.handlePreviousStep = this.handlePreviousStep.bind(this);
 
     this.handleCreateTutor = this.handleCreateTutor.bind(this);
 
     this.state = {
       currentTutor: {},
       subjects: [],
+      step: 1,
       payload: {
         description: undefined,
         tutorSubjects: undefined,
@@ -106,6 +109,20 @@ class CreateTutor extends Component {
     }));
   }
 
+  handleNextStep() {
+    this.setState((curState) => ({
+      ...curState,
+      step: curState.step + 1,
+    }));
+  }
+
+  handlePreviousStep() {
+    this.setState((curState) => ({
+      ...curState,
+      step: curState.step - 1,
+    }));
+  }
+
   async handleCreateTutor(e) {
     e.preventDefault();
     const { alert } = this.props;
@@ -128,63 +145,14 @@ class CreateTutor extends Component {
   }
 
   render() {
-    return (
-      <Container className="mt-md-5">
-        <Row className="justify-content-md-center">
-          <Col
-            xs={5}
-            className="justify-content-md-center border border-light bg-light"
-          >
-            <Form noValidate onSubmit={this.handleCreateTutor}>
-              <h2 className="text-primary text-center">Become a Tutor</h2>
-
-              <Form.Group className="mb-3">
-                <Form.Label>Description</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  placeholder="Description"
-                  onChange={this.onChangeDescription}
-                />
-                {this.state.errs.description?.message && (
-                  <Form.Text className="text-danger ">
-                    {this.state.errs.description?.message}
-                  </Form.Text>
-                )}
-              </Form.Group>
-
-              <Form.Label>Teach Ability</Form.Label>
-              <br />
-              <Select
-                mode="multiple"
-                style={{ width: "100%" }}
-                placeholder="Select one subject"
-                onChange={this.onChangeSubject}
-                onSearch={this.onSearchSubject}
-                optionLabelProp="label"
-              >
-                {this.state.subjects?.map((subject) => (
-                  <Select.Option key={subject.id} value={subject.name}>
-                    {subject.name}
-                  </Select.Option>
-                ))}
-              </Select>
-              <br />
-              {this.state.errs.tutorSubjects?.message && (
-                <Form.Text className="text-danger ">
-                  {this.state.errs.tutorSubjects?.message}
-                </Form.Text>
-              )}
-              <br />
-
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Form>
-          </Col>
-        </Row>
-      </Container>
-    );
+    switch (this.state.step) {
+      case 1:
+        return <CreateTutorStepOne handleNextStep={this.handleNextStep} />;
+      case 2:
+        return <CreateTutorStepTwo handlePreviousStep={this.handlePreviousStep} />;
+      default:
+        break;
+    }
   }
 }
 

@@ -24,8 +24,7 @@ class TutorService extends ApiService {
         this.handleErrorApiWithAuth({ errorResponse, alert, component });
       });
     if (response) {
-      const data = JSON.parse(response);
-      return data;
+      return response;
     }
   }
 

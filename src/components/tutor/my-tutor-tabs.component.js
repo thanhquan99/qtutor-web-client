@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import tutorService from "../../api-services/tutor.service";
+import { CreateTutorProvider } from "../../contexts/create-tutor.context";
 import CreateTutor from "./create-tutor.component";
 import MyStudents from "./my-students.component";
 import MyTutorProfile from "./my-tutor-profile.component";
@@ -28,7 +29,11 @@ class MyTutorTabs extends Component {
   render() {
     return (
       <Container>
-        {_.isEmpty(this.state.currentTutor) && <CreateTutor />}
+        {_.isEmpty(this.state.currentTutor) && (
+          <CreateTutorProvider value={{}}>
+            <CreateTutor />
+          </CreateTutorProvider>
+        )}
         {!_.isEmpty(this.state.currentTutor) && (
           <Tabs
             defaultActiveKey="profile"
