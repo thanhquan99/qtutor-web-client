@@ -5,7 +5,6 @@ import tutorService from "../../api-services/tutor.service";
 import TutorAPIContext from "../../contexts/tutor-api.context";
 import TutorCard from "./tutor-card.component";
 import TutorsFilter from "./tutors-filter.component";
-
 class ListTutors extends Component {
   static contextType = TutorAPIContext;
   constructor(props) {
