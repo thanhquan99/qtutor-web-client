@@ -1,10 +1,21 @@
-import { Avatar, Col, Comment, Divider, Rate, Row, Space, List } from "antd";
+import {
+  Avatar,
+  Col,
+  Comment,
+  Divider,
+  Rate,
+  Row,
+  Space,
+  List,
+  Button,
+} from "antd";
 import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { FaComment, FaStar } from "react-icons/fa";
 import tutorService from "../../api-services/tutor.service";
 import { DEFAULT_AVATAR } from "../../constant";
+import RegisterACourse from "./register-tutor-student.component";
 import TutorPriceTable from "./tutor-price-table.component";
 
 class Tutor extends Component {
@@ -72,11 +83,17 @@ class Tutor extends Component {
                   </Row>
                   <Row>
                     <span style={{ color: "#8B8B83" }}>
-                      {(1500000).toLocaleString("en-US", {
+                      {parseInt(currentTutor?.minimumSalary).toLocaleString("en-US", {
                         style: "currency",
                         currency: "VND",
                       })}
                     </span>
+                  </Row>
+                  <Row>
+                    <Space>
+                      <RegisterACourse tutor={this.state.currentTutor} />
+                      <Button>More Info</Button>
+                    </Space>
                   </Row>
                 </Col>
               </Row>
