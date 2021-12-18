@@ -1,7 +1,7 @@
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
-import "./App.css";
-import Login from "./components/auth/login.component";
+import './app.css'
+import './grid.css'
+import Login from "./views/auth/login.component";
 import {
   transitions,
   positions,
@@ -12,16 +12,17 @@ import AlertTemplate from "react-alert-template-basic";
 import _ from "lodash";
 import { Component } from "react";
 import eventBus from "./common/EventBus";
-import Register from "./components/auth/register.component";
-import VerifyEmail from "./components/auth/verify-email.component";
-import Profile from "./components/user/profile.component";
-import MyTutorTabs from "./components/tutor/my-tutor-tabs.component";
-import MyStudentTabs from "./components/student/my-student-tabs.component";
+import Register from "./views/auth/register.component";
+import VerifyEmail from "./views/auth/verify-email.component";
+import Profile from "./views/user/profile.component";
+import MyTutorTabs from "./views/tutor/my-tutor-tabs.component";
+import MyStudentTabs from "./views/student/my-student-tabs.component";
 import { DEFAULT_FILTER } from "./constant";
 import { TutorAPIProvider } from "./contexts/tutor-api.context";
-import ListTutors from "./components/tutor/list-tutors.component";
-import Tutor from "./components/tutor/tutor.component";
-
+import ListTutors from "./views/tutor/list-tutors.component";
+import Tutor from "./views/tutor/tutor.component";
+import Header from "./components/header";
+import Footer from "./components/footer";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -81,47 +82,7 @@ class App extends Component {
 
     return (
       <AlertProvider template={AlertTemplate} {...alertOptions}>
-        <Navbar
-          collapseOnSelect
-          expand="lg"
-          style={{ backgroundColor: "#EEE9E9" }}
-        >
-          <Container>
-            <Navbar.Brand href="/home">QTutor</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="me-auto">
-                <Nav.Link href="/tutors/me">Tutor</Nav.Link>
-                <Nav.Link href="/students/me">Student</Nav.Link>
-                <Nav.Link href="/schedule/me">Schedule</Nav.Link>
-                <NavDropdown title="Find" id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="/tutors">Tutor</NavDropdown.Item>
-                  <NavDropdown.Item href="/students">Student</NavDropdown.Item>
-                </NavDropdown>
-              </Nav>
-              {_.isEmpty(currentUser) ? (
-                <Nav>
-                  <Nav.Link href="/login">Login</Nav.Link>
-                  <Nav.Link href="/register">Register</Nav.Link>
-                </Nav>
-              ) : (
-                <Nav>
-                  <NavDropdown
-                    title={currentUser.profile.name}
-                    id="collasible-nav-dropdown"
-                  >
-                    <NavDropdown.Item href="/users/profile">
-                      Profile
-                    </NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.logout}>
-                      Logout
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                </Nav>
-              )}
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
+        <Header/>
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
@@ -134,6 +95,7 @@ class App extends Component {
             <Route exact path="/tutors" component={ListTutors} />
           </TutorAPIProvider>
         </Switch>
+      <Footer/>
       </AlertProvider>
     );
   }
