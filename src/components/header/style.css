@@ -1,0 +1,50 @@
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.header .logo{
+    font-size: 25px;
+    font-weight: 800;
+    color: black;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: black;
+    font-size: 18px;
+    align-items: center !important;
+    transition: .3s;
+}
+.navbar-light .navbar-nav .nav-link:hover{
+    color: #ffd803;
+}
+.navbar-nav{
+    align-items: center;
+}
+.dropdown-item{
+font-size: 18px;
+}
+.header .grop-number{
+    position: relative;
+}
+.far{
+    font-size: 23px;
+    cursor: pointer;
+    transition: .3s;
+}
+.far:hover{
+    color: #ffd803;
+
+}
+.header .chil{
+    position: absolute;
+    top: -7px;
+    right: -14px;
+    padding: 0 9px;
+    border-radius: 17px;
+    font-size: 15px;
+    background-color: red;
+    color: aliceblue;
+   
+}
+
