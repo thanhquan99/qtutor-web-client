@@ -29,6 +29,12 @@ font-size: 18px;
 }
 .far{
     font-size: 23px;
+    cursor: pointer;
+    transition: .3s;
+}
+.far:hover{
+    color: #ffd803;
+
 }
 .header .chil{
     position: absolute;
@@ -39,4 +45,6 @@ font-size: 18px;
     font-size: 15px;
     background-color: red;
     color: aliceblue;
+   
 }
+
