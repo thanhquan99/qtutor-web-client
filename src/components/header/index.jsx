@@ -1,5 +1,5 @@
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-// import "./App.css";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import "./style.css";
 import {
   transitions,
   positions,
@@ -8,8 +8,12 @@ import {
 } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import _ from "lodash";
+import { BellOutlined } from '@ant-design/icons';
 import { Component } from "react";
 import eventBus from "../../common/EventBus";
+import { Popover } from 'antd';
+import Notificaticon from "../notification"
+import { getNotifiNumber } from "../../api/notification";
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -17,10 +21,21 @@ class Header extends Component {
 
     this.state = {
       currentUser: undefined,
+      numberNotificationUnRead : 0
     };
   }
-
   componentDidMount() {
+    getNotifiNumber()
+      .then((response) => {
+        this.setState({
+          numberNotificationUnRead: response.totalUnread,
+        });
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          console.log("lllll")
+        }
+      })
     const user = JSON.parse(localStorage.getItem("user"));
     if (!_.isEmpty(user)) {
       this.setState({
@@ -58,7 +73,7 @@ class Header extends Component {
   }
 
   render() {
-    const { currentUser } = this.state;
+    const { currentUser,numberNotificationUnRead } = this.state;
     const alertOptions = {
       position: positions.TOP_RIGHT,
       timeout: 5000,
@@ -69,45 +84,50 @@ class Header extends Component {
 
     return (
       <AlertProvider template={AlertTemplate} {...alertOptions}>
-        <Navbar
-          collapseOnSelect
-          expand="lg"
-        >
-          <Container>
-            <Navbar.Brand href="/home">QTutor</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="me-auto">
-                <Nav.Link href="/tutors/me">Tutor</Nav.Link>
-                <Nav.Link href="/students/me">Student</Nav.Link>
-                <Nav.Link href="/schedule/me">Schedule</Nav.Link>
-                <NavDropdown title="Find" id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="/tutors">Tutor</NavDropdown.Item>
-                  <NavDropdown.Item href="/students">Student</NavDropdown.Item>
-                </NavDropdown>
+        <Navbar collapseOnSelect expand="lg">
+          {" "}
+          <div className="header mx-5">
+            <Nav.Link href="/home"> <span className="logo">QTutor</span> </Nav.Link>
+            <Nav className="me-auto">
+              <Nav.Link href="/tutors/me">Tutor</Nav.Link>
+              <Nav.Link href="/students/me">Student</Nav.Link>
+              <Nav.Link href="/schedule/me">Schedule</Nav.Link>
+              <NavDropdown title="Find" id="collasible-nav-dropdown">
+                <NavDropdown.Item href="/tutors">Tutor</NavDropdown.Item>
+                <NavDropdown.Item href="/students">Student</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+            {_.isEmpty(currentUser) ? (
+              <Nav>
+                <Nav.Link href="/login">Login</Nav.Link>
+                <Nav.Link href="/register">Register</Nav.Link>
               </Nav>
-              {_.isEmpty(currentUser) ? (
-                <Nav>
-                  <Nav.Link href="/login">Login</Nav.Link>
-                  <Nav.Link href="/register">Register</Nav.Link>
-                </Nav>
-              ) : (
-                <Nav>
-                  <NavDropdown
-                    title={currentUser.profile.name}
-                    id="collasible-nav-dropdown"
-                  >
-                    <NavDropdown.Item href="/users/profile">
-                      Profile
-                    </NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.logout}>
-                      Logout
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                </Nav>
-              )}
-            </Navbar.Collapse>
-          </Container>
+            ) : (
+              <Nav>
+                <NavDropdown
+                  title={currentUser.profile.name}
+                  id="collasible-nav-dropdown"
+                >
+                  <NavDropdown.Item href="/users/profile">
+                    Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={this.logout}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+                <Popover placement="bottomRight" content={<Notificaticon/>} trigger="click">
+                <div className="grop-number">
+                <BellOutlined className="far"/> 
+                {
+                  numberNotificationUnRead ?  <div className="chil"> <span>{numberNotificationUnRead}</span> </div>: null
+                }
+               
+                </div>
+               </Popover>
+               
+              </Nav>
+            )}
+          </div>
         </Navbar>
       </AlertProvider>
     );
