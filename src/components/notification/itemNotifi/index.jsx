@@ -10,7 +10,7 @@ const Item = ({ data }) => {
         </div>
         <div className="text">
           <div
-            style={{ color: "#888", marginTop: "3px" }}
+            style={{ marginTop: "3px" }}
             className="messenger"
           >
             <p
