@@ -32,9 +32,7 @@ class Header extends Component {
         });
       })
       .catch((error) => {
-        if (error.response.status === 404) {
-          console.log("lllll")
-        }
+        console.log("error")
       })
     const user = JSON.parse(localStorage.getItem("user"));
     if (!_.isEmpty(user)) {
