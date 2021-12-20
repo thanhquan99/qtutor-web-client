@@ -1,0 +1,27 @@
+.login h2{
+font-size: 37px;
+margin-bottom: 1rem;
+}
+.login{
+    height: 40vh;
+}
+.login button {
+    background-color: #ffd803 !important;
+    color: black;
+    border: none;
+    padding: 10px 70px;
+    border-radius: 5px;
+}
+.login button:hover{
+    color: black;
+    border: none;
+    background-color: #ffd803;
+    opacity: .7;
+}
+.loginButton{
+    text-align: center;
+    margin-top: 40px;
+}
+.form-control:focus{
+    box-shadow: 0 0 0 2px rgb(13 110 253 / 25%);
+}

@@ -5,7 +5,7 @@ import authService from "../../api-services/auth.service";
 import { withAlert } from "react-alert";
 import eventBus from "../../common/EventBus";
 import { invalidSetState, validSetState } from "../utils";
-
+import "./login.css"
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -84,14 +84,14 @@ class Login extends Component {
 
   render() {
     return (
-      <Container className="mt-md-5">
+      <Container className="mt-md-5 login">
         <Row className="justify-content-md-center">
           <Col
             xs={5}
-            className="justify-content-md-center border border-light bg-light"
+            className="justify-content-md-center border border-light"
           >
             <Form noValidate onSubmit={this.handleLogin}>
-              <h2 className="text-primary text-center">Login</h2>
+              <h2 className="">Login</h2>
 
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
@@ -120,10 +120,12 @@ class Login extends Component {
                   </Form.Text>
                 )}
               </Form.Group>
-
-              <Button variant="primary" type="submit">
+                  <div className="loginButton">
+                  <button type="submit">
                 Login
-              </Button>
+              </button>
+                  </div>
+              
             </Form>
           </Col>
         </Row>
