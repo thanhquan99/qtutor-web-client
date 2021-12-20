@@ -1,13 +1,18 @@
+.wrap{
+    padding: 10px;
+}
 .item-notifi{
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
-    padding: 10px;
+   
     transition: .3s;
     justify-content: space-between;
 }
-.item-notifi:hover{
-background-color: antiquewhite;}
+.group__button{
+text-align: center;
+}
+
 .group__left{
     display: flex;
     align-items: center;

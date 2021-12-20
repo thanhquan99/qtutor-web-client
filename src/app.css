@@ -16,3 +16,18 @@ body {
   a{
     text-decoration: none;
   }
+  .ant-btn-primary{
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    background: #ffd803 !important;
+    border-color: #ffd803 !important;
+    color: black !important;
+  }
+  .ant-btn-primary:hover{
+    opacity: .7;
+  }
+  .cancel{
+    background: #E4E6EB !important;
+    border-color: #E4E6EB !important;
+    color: black !important;
+  }
