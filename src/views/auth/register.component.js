@@ -3,8 +3,8 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import validator from "validator";
 import authService from "../../api-services/auth.service";
 import { withAlert } from "react-alert";
-import _ from 'lodash';
-
+import _ from "lodash";
+import "./login.css";
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -151,14 +151,14 @@ class Register extends Component {
 
   render() {
     return (
-      <Container className="mt-md-5">
+      <Container className="login mt-md-5">
         <Row className="justify-content-md-center">
           <Col
             xs={5}
-            className="justify-content-md-center border border-light bg-light"
+            className="justify-content-md-center border border-light"
           >
             <Form noValidate onSubmit={this.handleRegister}>
-              <h2 className="text-primary text-center">Register</h2>
+              <h2 className="">Register</h2>
 
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
@@ -201,10 +201,9 @@ class Register extends Component {
                   </Form.Text>
                 )}
               </Form.Group>
-
-              <Button variant="primary" type="submit">
-                Register
-              </Button>
+              <div className="loginButton">
+                <button type="submit">Register</button>
+              </div>
             </Form>
           </Col>
         </Row>
