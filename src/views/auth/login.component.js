@@ -84,11 +84,17 @@ class Login extends Component {
 
   render() {
     return (
-      <Container className="mt-md-5 login">
-        <Row className="justify-content-md-center">
+      <div className="login">
+        <Row  className="justify-content-md-center">
           <Col
             xs={5}
             className="justify-content-md-center border border-light"
+            style={{
+              boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' ,
+              padding: "50px 60px",
+              background: "white",
+              margin: "40px 0"
+            }}
           >
             <Form noValidate onSubmit={this.handleLogin}>
               <h2 className="">Login</h2>
@@ -129,7 +135,7 @@ class Login extends Component {
             </Form>
           </Col>
         </Row>
-      </Container>
+      </div>
     );
   }
 }

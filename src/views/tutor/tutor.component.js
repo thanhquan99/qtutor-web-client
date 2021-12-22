@@ -17,7 +17,7 @@ import tutorService from "../../api-services/tutor.service";
 import { DEFAULT_AVATAR } from "../../constant";
 import RegisterACourse from "./register-a-course.component";
 import TutorPriceTable from "./tutor-price-table.component";
-
+import "./tutor.css";
 class Tutor extends Component {
   constructor(props) {
     super(props);
@@ -42,26 +42,41 @@ class Tutor extends Component {
   render() {
     const { currentTutor } = this.state;
     return (
-      <div className="container mt-3">
+      <div className="wrappers mt-3 view-tutor">
+        <div className="centers">
         <Row>
-          <h3 style={{ fontFamily: "cursive" }}>Tutor View</h3>
+          <h3>Tutor View</h3>
         </Row>
-        <Row>
-          <Col span={16}>
-            <div className="container" style={{ backgroundColor: "#FFFFFF" }}>
+        <Row >
+          <Col
+            style={{
+              boxShadow: "rgba(100, 100, 111, 0.15) 0px 5px 10px 0px",
+              padding: "50px 60px",
+              background: "white",
+              marginRight:'25px'
+            }}
+            span={14}
+          >
+            <div className="" style={{ backgroundColor: "#FFFFFF" }}>
               <br />
               <Row>
-                <Col span={4}>
-                  <div className="d-flex flex-column align-items-center text-center">
+                <Col span={10}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    className=""
+                  >
                     <img
                       src="https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg"
                       alt="Admin"
                       className="rounded-circle"
-                      width="100"
                     />
                   </div>
                 </Col>
-                <Col span={20}>
+                <Col  span={12}>
                   <Row>
                     <b>{currentTutor?.profile?.name}</b>
                   </Row>
@@ -83,10 +98,13 @@ class Tutor extends Component {
                   </Row>
                   <Row>
                     <span style={{ color: "#8B8B83" }}>
-                      {parseInt(currentTutor?.minimumSalary).toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "VND",
-                      })}
+                      {parseInt(currentTutor?.minimumSalary).toLocaleString(
+                        "en-US",
+                        {
+                          style: "currency",
+                          currency: "VND",
+                        }
+                      )}
                     </span>
                   </Row>
                   <Row>
@@ -199,9 +217,15 @@ class Tutor extends Component {
             </div>
           </Col>
 
-          <Col offset={1}>
-            <div className="container" style={{ backgroundColor: "#FFFFFF" }}>
-              <Row>
+          <Col span ={9}>
+            <div className="container"
+            style={{
+              boxShadow: 'rgba(100, 100, 111, 0.15) 0px 5px 10px 0px' ,
+              // padding: "50px 60px",
+              background: "white",
+            }}
+           >
+              <Row > 
                 <Divider orientation="left">Teach Ability</Divider>
                 <List
                   size="small"
@@ -220,6 +244,7 @@ class Tutor extends Component {
             </div>
           </Col>
         </Row>
+        </div>
       </div>
     );
   }

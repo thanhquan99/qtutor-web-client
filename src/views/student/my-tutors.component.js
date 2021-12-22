@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { Container } from "react-bootstrap";
-
+import "./style.css"
 class MyTutors extends Component {
   constructor(props) {
     super(props);

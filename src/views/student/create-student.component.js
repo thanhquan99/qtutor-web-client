@@ -6,6 +6,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import studentService from "../../api-services/student.service";
 import subjectService from "../../api-services/subject.service";
 import { invalidSetState, validSetState } from "../utils";
+import "./style.css"
 
 class CreateStudent extends Component {
   constructor(props) {

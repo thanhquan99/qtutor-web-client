@@ -5,13 +5,13 @@
     width: 100%;
 }
 .header .logo{
-    font-size: 25px;
+    font-size: 36px;
     font-weight: 800;
     color: black;
 }
 .navbar-light .navbar-nav .nav-link {
     color: black;
-    font-size: 18px;
+    font-size: 24px;
     align-items: center !important;
     transition: .3s;
 }
@@ -47,4 +47,6 @@ font-size: 18px;
     color: aliceblue;
    
 }
-
+.header .ant-popover-placement-bottom, .ant-popover-placement-bottomLeft, .ant-popover-placement-bottomRight {
+    left: 1390px !important;
+}

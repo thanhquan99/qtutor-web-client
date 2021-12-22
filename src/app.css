@@ -5,16 +5,39 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', sans-serif;
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px !important;
+    font-family: 'Padauk', sans-serif;
+    font-size: 22px !important;
     max-width: 100%;
+    overflow-x: hidden;
+    background-color: #f9f4ef !important;
+  }
+  b{
+    font-family: 'Padauk', sans-serif !important;
+    font-size: 22px !important;
+  }
+  th{
+    font-family: 'Padauk', sans-serif !important;
+    font-size: 22px !important;
+  }
+  p{
+    font-family: 'Padauk', sans-serif !important;
+    font-size: 22px !important;
   }
   ul,li{
     list-style: none;
+    font-family: 'Padauk', sans-serif;
+    font-size: 22px !important;
+
+
+    
+  }
+  .navbar-light .navbar-nav .nav-link {
+   font-size: 22px;   
   }
   a{
     text-decoration: none;
+    font-family: 'Padauk', sans-serif;
+
   }
   .ant-btn-primary{
     padding-left: 25px !important;
@@ -30,4 +53,8 @@ body {
     background: #E4E6EB !important;
     border-color: #E4E6EB !important;
     color: black !important;
+  }
+  label{
+    font-size: 24px !important;
+    font-family: 'Padauk', sans-serif !important;
   }

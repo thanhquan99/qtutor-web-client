@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { ListGroup } from "react-bootstrap";
 import studentService from "../../api-services/student.service";
+import "./style.css"
 
 class MyStudentProfile extends Component {
   constructor(props) {
