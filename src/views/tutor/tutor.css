@@ -1,0 +1,32 @@
+.view-tutor .rounded-circle {
+  width: 75%;
+}
+.view-tutor .ant-row {
+  margin-bottom: 5px;
+}
+.wrappers {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.wrappers .centers{
+    width: 80%;
+}
+.wrappers .ant-divider-horizontal.ant-divider-with-text{
+    font-size: 24px !important;
+}
+.wrappers .ant-table-wrapper{
+    width: 100%;
+}
+.wrappers .ant-list-items{
+        padding: 8 36px !important;
+}
+.wrappers .ant-divider-inner-text{
+    font-weight: 600;
+}
+.wrappers b{
+  font-size: 30px !important;
+}
+.wrappers .ant-spin-container{
+  margin-left: 24px;
+}

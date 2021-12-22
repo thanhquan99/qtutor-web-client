@@ -151,11 +151,17 @@ class Register extends Component {
 
   render() {
     return (
-      <Container className="login mt-md-5">
+      <div className="login">
         <Row className="justify-content-md-center">
           <Col
             xs={5}
             className="justify-content-md-center border border-light"
+            style={{
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+              padding: "50px 60px",
+              background: "white",
+              margin: "40px 0"
+            }}
           >
             <Form noValidate onSubmit={this.handleRegister}>
               <h2 className="">Register</h2>
@@ -207,7 +213,7 @@ class Register extends Component {
             </Form>
           </Col>
         </Row>
-      </Container>
+      </div>
     );
   }
 }

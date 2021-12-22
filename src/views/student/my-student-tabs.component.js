@@ -6,6 +6,8 @@ import studentService from "../../api-services/student.service";
 import CreateStudent from "./create-student.component";
 import MyStudentProfile from "./my-student-profile.component";
 import MyTutors from "./my-tutors.component";
+import "./style.css"
+import { Spin } from "antd";
 
 class MyStudentTabs extends Component {
   constructor(props) {
@@ -13,22 +15,36 @@ class MyStudentTabs extends Component {
 
     this.state = {
       currentStudent: {},
+      loadding: true,
     };
   }
 
   async componentDidMount() {
+    this.setState((curState) => ({ ...curState, loadding: true }));
     const { alert } = this.props;
     const data = await studentService.getMe({ component: this, alert });
     this.setState((curState) => ({
       ...curState,
       currentStudent: data,
+      loadding: false
     }));
   }
 
   render() {
-    return (
-      <Container>
-        {_.isEmpty(this.state.currentStudent) && <CreateStudent />}
+    return this.state.loadding ? (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "80vh",
+        }}
+        className="spin"
+      >
+        <Spin />
+      </div>
+    ) : (
+      <Container className="student">
         {!_.isEmpty(this.state.currentStudent) && (
           <Tabs
             defaultActiveKey="profile"
