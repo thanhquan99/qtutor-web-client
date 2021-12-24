@@ -1,11 +1,15 @@
-.wrap{
+.wrap-notifi{
     padding: 10px;
+    transition: .3s;
+}
+.wrap-notifi:hover{
+    background-color: #8bd3dd;
 }
 .item-notifi{
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
-   
+   cursor: pointer;
     transition: .3s;
     justify-content: space-between;
 }
@@ -15,7 +19,6 @@ text-align: center;
 
 .group__left{
     display: flex;
-    align-items: center;
     width: 75%;
 }
 .item-notifi img{

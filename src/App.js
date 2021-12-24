@@ -23,6 +23,9 @@ import ListTutors from "./views/tutor/list-tutors.component";
 import Tutor from "./views/tutor/tutor.component";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -82,6 +85,17 @@ class App extends Component {
 
     return (
       <AlertProvider template={AlertTemplate} {...alertOptions}>
+        <ToastContainer
+position="top-right"
+autoClose={1500}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
         <Header/>
         <Switch>
           <Route exact path="/login" component={Login} />

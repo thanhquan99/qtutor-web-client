@@ -45,6 +45,11 @@ class MyTutorTabs extends Component {
       </div>
     ) : (
       <Container>
+         {_.isEmpty(this.state.currentTutor) && (
+          <CreateTutorProvider value={{}}>
+            <CreateTutor />
+          </CreateTutorProvider>
+        )}
         {!_.isEmpty(this.state.currentTutor) && (
           <Tabs
             defaultActiveKey="profile"

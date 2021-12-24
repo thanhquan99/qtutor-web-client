@@ -1,15 +1,15 @@
 import { Button, Form, InputNumber, Modal, Select, Space } from "antd";
 import { Component } from "react";
 import { withAlert } from "react-alert";
+import {registerTutor} from "../../api/notification"
+import { toast } from 'react-toastify';
 
 class RegisterACourse extends Component {
   constructor(props) {
     super(props);
-
     this.showModal = this.showModal.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.onFinish = this.onFinish.bind(this);
-
     this.state = {
       visible: false,
     };
@@ -27,7 +27,35 @@ class RegisterACourse extends Component {
   }
 
   onFinish(values) {
-    console.log(values);
+    this.setState({ visible: false });
+    const data ={
+      salary: values.salary,
+      tutorId: this.props.tutor.id,
+      subjectId: values.subjectName
+    }
+    registerTutor(data)
+      .then((response) => {
+        toast.success('success!', {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
+      })
+      .catch((response) => {
+        toast.error('mon nay da dang ky', {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
+      })
   }
 
   render() {
@@ -46,8 +74,8 @@ class RegisterACourse extends Component {
         >
           <Form
             name="basic"
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
+            labelCol={{ span: 10 }}
+            wrapperCol={{ span: 10 }}
             onFinish={this.onFinish}
           >
             <Form.Item
@@ -56,7 +84,7 @@ class RegisterACourse extends Component {
               rules={[{ required: true, message: "Money Offered is required" }]}
             >
               <InputNumber
-                style={{ width: 300 }}
+                style={{ width: '250px' }}
                 placeholder="VND/month"
                 formatter={(value) =>
                   `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -71,13 +99,14 @@ class RegisterACourse extends Component {
               rules={[{ required: true, message: "Select a subject" }]}
             >
               <Select
+               style={{ width: '250px' }}
                 showSearch
                 placeholder="Select a subject"
                 optionFilterProp="children"
                 // onChange={onChange}
               >
                 {tutor?.subjects?.map((e, index) => (
-                  <Select.Option key={index} value={e.name}>
+                  <Select.Option key={index} value={e.id}>
                     {e.name}
                   </Select.Option>
                 ))}

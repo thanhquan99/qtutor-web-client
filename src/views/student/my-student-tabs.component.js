@@ -45,6 +45,7 @@ class MyStudentTabs extends Component {
       </div>
     ) : (
       <Container className="student">
+      {_.isEmpty(this.state.currentStudent) && <CreateStudent />}
         {!_.isEmpty(this.state.currentStudent) && (
           <Tabs
             defaultActiveKey="profile"
