@@ -1,15 +1,74 @@
 import React from "react";
 import "./style.css";
 import TimeAgo from "react-timeago";
+import { useHistory } from "react-router-dom";
+import { readNotifi } from "../../../api/notification";
 import { Button } from "antd";
+import { toast } from 'react-toastify';
+
 const Item = ({ data }) => {
+  const history = useHistory();
+  const handleNotiItem = async()=>{
+    await readNotifi(data.id,{isRead: true})
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+       console.log("loi")
+      });
+    history.push({ pathname: `/tutors/${data.userId}` });
+  }
+  const handleAccept =async()=>{
+    await readNotifi(data.id,{status:"Accepted"})
+    .then((response) => {
+      toast.success('success!', {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });   
+       })
+    .catch((error) => {
+      toast.error('loi', {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });    });
+    history.push({ pathname: `/tutors/${data.userId}` });
+  }
+  const handleCancel =async()=>{
+    await readNotifi(data.id,{status:"Cancel"})
+    .then((response) => {
+      toast.success('success!', {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });  
+          })
+    .catch((error) => {
+     console.log("loi")
+    });
+    history.push({ pathname: `/tutors/${data.userId}` });
+
+  }
   return (
-    <div className="wrap">
-      <div className="item-notifi">
+    <div className="wrap-notifi">
+      <div onClick={handleNotiItem} className="item-notifi">
         <div className="group__left">
           <div className="avt">
             <img
-              src="https://scontent.fhan5-8.fna.fbcdn.net/v/t45.1600-4/cp0/q90/spS444/c99.0.540.540a/p180x540/252463690_23849233481550346_1186527049495825623_n.png.jpg?_nc_cat=107&ccb=1-5&_nc_sid=86c3dc&efg=eyJxZV9ncm91cHMiOlsibm9fc2FmZV9pbWFnZV9mb3JfYWRzX2ltYWdlIl19&_nc_ohc=ScOlAxTNMyUAX9oKLLA&_nc_ht=scontent.fhan5-8.fna&oh=00_AT-MX_p6QpDbM7wUx3rbD4o2f3lHpR9KD7LsLnD36L1LCA&oe=61C338B2"
+              src="https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg"
               alt=""
             />
           </div>
@@ -26,8 +85,8 @@ const Item = ({ data }) => {
       </div>
       {data.type === "Edit" &&
        <div className="group__button">
-       <Button style={{marginRight:'5px'}} type="primary">Accept</Button>
-       <Button className="cancel" type="primary">Cancel</Button>
+       <Button onClick={handleAccept} style={{marginRight:'5px'}} type="primary">Accept</Button>
+       <Button onClick ={handleCancel} className="cancel" type="primary">Cancel</Button>
      </div>
       }
      
