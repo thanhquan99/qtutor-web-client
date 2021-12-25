@@ -44,7 +44,7 @@ class MyTutorTabs extends Component {
         <Spin />
       </div>
     ) : (
-      <Container>
+      <div className="main-tutor">
          {_.isEmpty(this.state.currentTutor) && (
           <CreateTutorProvider value={{}}>
             <CreateTutor />
@@ -64,7 +64,7 @@ class MyTutorTabs extends Component {
             </Tab>
           </Tabs>
         )}
-      </Container>
+      </div>
     );
   }
 }
