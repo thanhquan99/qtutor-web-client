@@ -29,7 +29,8 @@ const Item = ({ data }) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        });   
+        });  
+        history.push({ pathname: `/tutors/${data.userId}` }); 
        })
     .catch((error) => {
       toast.error('loi', {
@@ -57,7 +58,15 @@ const Item = ({ data }) => {
         });  
           })
     .catch((error) => {
-     console.log("loi")
+      toast.error('loi', {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });  
     });
     history.push({ pathname: `/tutors/${data.userId}` });
 
