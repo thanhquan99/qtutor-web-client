@@ -16,6 +16,18 @@ class StudentService extends ApiService {
     }
     return;
   }
+  async getMany({ alert, qs }) {
+    const response = await requestPN
+      .get(API_URL + "/students", { qs, ...this.getAuth() })
+      .catch((errorResponse) => {
+        this.handleErrorApi({ errorResponse, alert });
+      });
+
+    if (response) {
+      const data = JSON.parse(response);
+      return data;
+    }
+  }
 
   async createStudent({ component, alert, payload }) {
     const response = await requestPN

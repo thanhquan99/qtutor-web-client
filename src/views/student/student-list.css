@@ -1,0 +1,18 @@
+.group-filter{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.nameAndGender{
+    display: flex;
+    margin-bottom: 3px;
+    font-size: 17px;
+    font-family: 'Padauk', sans-serif;
+}
+.hover-card{
+    transition: .3s;
+    cursor: pointer;
+}
+.hover-card:hover{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}

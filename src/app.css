@@ -58,3 +58,5 @@ body {
     font-size: 24px !important;
     font-family: 'Padauk', sans-serif !important;
   }
+  .ant-pagination-item a {
+  }

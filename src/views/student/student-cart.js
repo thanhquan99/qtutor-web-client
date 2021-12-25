@@ -6,22 +6,22 @@ import { Row, Space,Col } from "antd";
 import { FaStar, FaComment } from "react-icons/fa";
 import GenderComponent from "../reuse/profile/gender.component";
 
-class TutorCard extends Component {
+class StudentCard extends Component {
   constructor(props) {
     super(props);
     this.onClickCard = this.onClickCard.bind(this);
     this.state = {
-      tutors: [],
+        student: [],
     };
   }
 
   onClickCard() {
-    const { tutor } = this.props;
-    this.props.history.push("/tutors/" + tutor.id);
+    const { student } = this.props;
+    this.props.history.push("/student/" + student.id);
   }
 
   render() {
-    const { tutor } = this.props;
+    const { student } = this.props;
     return (
       <div style={{border:'none'}} className="card hover-card">
         <div className="card-body" onClick={this.onClickCard}>
@@ -36,29 +36,29 @@ class TutorCard extends Component {
             </Col>
             <Col style={{paddingLeft:'10px'}} span={14}>
             <div className="nameAndGender">
-              <b style={{marginRight:'5px'}}>{tutor?.profile?.name}</b>
+              <b style={{marginRight:'5px'}}>{student?.profile?.name}</b>
               <GenderComponent
-                isMale={tutor?.profile?.isMale}
+                isMale={student?.profile?.isMale}
               ></GenderComponent>
             </div>
             <div className="nameAndGender">
-              {tutor?.profile?.city?.name ? (
-                `Live at ${tutor?.profile?.city?.name}`
+              {student?.profile?.city?.name ? (
+                `Live at ${student?.profile?.city?.name}`
               ) : (
                 <br />
               )}
             </div>
             <div className="nameAndGender">
-              {tutor?.profile?.academicLevel ? (
-                tutor?.profile?.academicLevel
+              {student?.profile?.academicLevel ? (
+                student?.profile?.academicLevel
               ) : (
                 <br />
               )}
             </div>
             <div className="nameAndGender">
-              {tutor?.profile?.workLocation ? (
-                `${ACADEMIC_ACTION[tutor?.profile?.academicLevel]} at ${
-                  tutor?.profile?.workLocation
+              {student?.profile?.workLocation ? (
+                `${ACADEMIC_ACTION[student?.profile?.academicLevel]} at ${
+                    student?.profile?.workLocation
                 }`
               ) : (
                 <br />
@@ -73,8 +73,8 @@ class TutorCard extends Component {
               </span>
             </div>
             <div className="nameAndGender" style={{ color: "#8B8B83" }}>
-              {tutor?.minimumSalary ? (
-                parseInt(tutor?.minimumSalary).toLocaleString("en-US", {
+              {student?.minimumSalary ? (
+                parseInt(student?.minimumSalary).toLocaleString("en-US", {
                   style: "currency",
                   currency: "VND",
                 })
@@ -90,4 +90,4 @@ class TutorCard extends Component {
   }
 }
 
-export default withAlert()(withRouter(TutorCard));
+export default withAlert()(withRouter(StudentCard));
