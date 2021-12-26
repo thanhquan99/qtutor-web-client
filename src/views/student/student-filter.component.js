@@ -3,10 +3,10 @@ import _ from "lodash";
 import React, { Component } from "react";
 import cityService from "../../api-services/city.service";
 import subjectService from "../../api-services/subject.service";
-import StudentAPIContext from "../../contexts/student-api-context";
+import TutorAPIContext from "../../contexts/tutor-api.context";
 
 class UserFilter extends Component {
-  static contextType = StudentAPIContext;
+  static contextType = TutorAPIContext;
   constructor(props) {
     super(props);
     this.onEnterName = this.onEnterName.bind(this);

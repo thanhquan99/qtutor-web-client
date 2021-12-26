@@ -43,6 +43,7 @@ class ListStudents extends Component {
       alert,
       qs: this.context,
     });
+    console.log(data,"data")
     this.setState((curState) => ({
       ...curState,
       students: data.results,
