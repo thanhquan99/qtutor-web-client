@@ -3,10 +3,10 @@ import _ from "lodash";
 import React, { Component } from "react";
 import cityService from "../../api-services/city.service";
 import subjectService from "../../api-services/subject.service";
-import TutorAPIContext from "../../contexts/tutor-api.context";
+import StudentAPIContext from "../../contexts/student-api-context";
 
 class UserFilter extends Component {
-  static contextType = TutorAPIContext;
+  static contextType = StudentAPIContext;
   constructor(props) {
     super(props);
     this.onEnterName = this.onEnterName.bind(this);
@@ -122,7 +122,7 @@ class UserFilter extends Component {
     return (
       <div className="group-filter">
         <Input
-          style={{ width: 280 }}
+          style={{ width: 290 }}
           size="large"
           placeholder="Name"
           onKeyDown={this.onEnterName}
@@ -132,7 +132,7 @@ class UserFilter extends Component {
           size="large"
 
           showSearch
-          style={{ width: 280 }}
+          style={{ width: 290 }}
           placeholder="Select gender"
           optionFilterProp="children"
           onChange={this.onChangeGender}
@@ -146,7 +146,7 @@ class UserFilter extends Component {
           showSearch
           size="large"
 
-          style={{ width: 280 }}
+          style={{ width: 290 }}
           placeholder="Select a city"
           optionFilterProp="children"
           onChange={this.onChangeCity}
@@ -163,7 +163,7 @@ class UserFilter extends Component {
           size="large"
 
           showSearch
-          style={{ width: 280 }}
+          style={{ width: 290 }}
           placeholder="Select a subject"
           optionFilterProp="children"
           onChange={this.onChangeSubject}
