@@ -1,6 +1,6 @@
 import { Route, Switch } from "react-router-dom";
-import './app.css'
-import './grid.css'
+import "./app.css";
+import "./grid.css";
 import Login from "./views/auth/login.component";
 import {
   transitions,
@@ -19,12 +19,15 @@ import MyTutorTabs from "./views/tutor/my-tutor-tabs.component";
 import MyStudentTabs from "./views/student/my-student-tabs.component";
 import { DEFAULT_FILTER } from "./constant";
 import { TutorAPIProvider } from "./contexts/tutor-api.context";
+import { StudentAPIProvider } from "./contexts/student-api-context";
 import ListTutors from "./views/tutor/list-tutors.component";
+import ListStudents from "./views/student/list-student";
 import Tutor from "./views/tutor/tutor.component";
 import Header from "./components/header";
 import Footer from "./components/footer";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Schedule from "./views/schedule"
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
   constructor(props) {
@@ -86,30 +89,33 @@ class App extends Component {
     return (
       <AlertProvider template={AlertTemplate} {...alertOptions}>
         <ToastContainer
-position="top-right"
-autoClose={1500}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-/>
-        <Header/>
+          position="top-right"
+          autoClose={1500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <Header />
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/schedule/me" component={Schedule} />
           <Route exact path="/verify-email" component={VerifyEmail} />
           <Route exact path="/users/profile" component={Profile} />
           <Route exact path="/tutors/me" component={MyTutorTabs} />
           <Route exact path="/students/me" component={MyStudentTabs} />
           <Route exact path="/tutors/:id" component={Tutor} />
+          <Route exact path="/students" component={ListStudents} />
           <TutorAPIProvider value={DEFAULT_FILTER}>
             <Route exact path="/tutors" component={ListTutors} />
+            <Route exact path="/students" component={ListStudents} />
           </TutorAPIProvider>
         </Switch>
-      <Footer/>
+        <Footer />
       </AlertProvider>
     );
   }

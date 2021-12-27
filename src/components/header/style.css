@@ -47,6 +47,4 @@ font-size: 18px;
     color: aliceblue;
    
 }
-.header .ant-popover-placement-bottom, .ant-popover-placement-bottomLeft, .ant-popover-placement-bottomRight {
-    left: 1390px !important;
-}
+
