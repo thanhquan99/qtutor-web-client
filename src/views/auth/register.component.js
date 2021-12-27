@@ -1,9 +1,9 @@
+import _ from "lodash";
 import React, { Component } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { withAlert } from "react-alert";
+import { Col, Form, Row } from "react-bootstrap";
 import validator from "validator";
 import authService from "../../api-services/auth.service";
-import { withAlert } from "react-alert";
-import _ from "lodash";
 import "./login.css";
 class Register extends Component {
   constructor(props) {

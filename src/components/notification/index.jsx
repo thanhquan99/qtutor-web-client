@@ -1,12 +1,9 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useEffect } from "react";
-import "./style.css";
-import ItemNotification from "./itemNotifi";
-import { useState } from "react";
+import { Button, Empty, Spin } from "antd";
+import React, { useEffect, useState } from "react";
 import { getlistNotifi } from "../../api/notification";
-import { Button } from "antd";
-import { Spin } from "antd";
-import { Empty } from "antd";
+import ItemNotification from "./itemNotifi";
+import "./style.css";
 const Notificaticon = () => {
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
