@@ -17,6 +17,7 @@ class TutorCard extends Component {
 
   onClickCard() {
     const { tutor } = this.props;
+    console.log(tutor,"turot")
     this.props.history.push("/tutors/" + tutor.id);
   }
 

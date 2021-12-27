@@ -25,6 +25,7 @@ import ListStudents from "./views/student/list-student";
 import Tutor from "./views/tutor/tutor.component";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import Schedule from "./views/schedule"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -102,17 +103,16 @@ class App extends Component {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/schedule/me" component={Schedule} />
           <Route exact path="/verify-email" component={VerifyEmail} />
           <Route exact path="/users/profile" component={Profile} />
           <Route exact path="/tutors/me" component={MyTutorTabs} />
           <Route exact path="/students/me" component={MyStudentTabs} />
           <Route exact path="/tutors/:id" component={Tutor} />
+          <Route exact path="/students" component={ListStudents} />
           <TutorAPIProvider value={DEFAULT_FILTER}>
             <Route exact path="/tutors" component={ListTutors} />
           </TutorAPIProvider>
-          <StudentAPIProvider value={DEFAULT_FILTER}>
-            <Route exact path="/students" component={ListStudents} />
-          </StudentAPIProvider>
         </Switch>
         <Footer />
       </AlertProvider>

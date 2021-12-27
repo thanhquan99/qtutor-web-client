@@ -22,6 +22,7 @@ class StudentCard extends Component {
 
   render() {
     const { student } = this.props;
+    console.log(student,"student")
     return (
       <div style={{border:'none'}} className="card hover-card">
         <div className="card-body" onClick={this.onClickCard}>
