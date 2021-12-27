@@ -122,7 +122,7 @@ class UserFilter extends Component {
     return (
       <div className="group-filter">
         <Input
-          style={{ width: 280 }}
+          style={{ width: 290 }}
           size="large"
           placeholder="Name"
           onKeyDown={this.onEnterName}
@@ -132,7 +132,7 @@ class UserFilter extends Component {
           size="large"
 
           showSearch
-          style={{ width: 280 }}
+          style={{ width: 290 }}
           placeholder="Select gender"
           optionFilterProp="children"
           onChange={this.onChangeGender}
@@ -146,7 +146,7 @@ class UserFilter extends Component {
           showSearch
           size="large"
 
-          style={{ width: 280 }}
+          style={{ width: 290 }}
           placeholder="Select a city"
           optionFilterProp="children"
           onChange={this.onChangeCity}
@@ -163,7 +163,7 @@ class UserFilter extends Component {
           size="large"
 
           showSearch
-          style={{ width: 280 }}
+          style={{ width: 290 }}
           placeholder="Select a subject"
           optionFilterProp="children"
           onChange={this.onChangeSubject}

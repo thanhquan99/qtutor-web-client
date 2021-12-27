@@ -54,18 +54,18 @@ class ListTutors extends Component {
     return (
       <div className="mt-3">
         <Row>
-          <Col span={3}></Col>
-          <Col span={18}>
+          <Col span={1}></Col>
+          <Col span={22}>
             <TutorsFilter handleFilter={this.handleFilter} />
           </Col>
-          <Col span={3}></Col>
+          <Col span={1}></Col>
         </Row>
         <Row>
-          <Col span={3}></Col>
-          <Col span={18}>
+          <Col span={1}></Col>
+          <Col span={22}>
             <div className="mt-3 align-items-center text-center">
               <List
-                grid={{ gutter: 12, column: 2 }}
+                grid={{ gutter: 12, column: 3 }}
                 dataSource={this.state.tutors || []}
                 renderItem={(tutor) => (
                   <List.Item>
@@ -80,7 +80,7 @@ class ListTutors extends Component {
               />
             </div>
           </Col>
-          <Col span={3}></Col>
+          <Col span={1}></Col>
         </Row>
       </div>
     );

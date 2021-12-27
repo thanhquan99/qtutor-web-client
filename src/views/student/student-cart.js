@@ -2,7 +2,6 @@ import { Component } from "react";
 import { withAlert } from "react-alert";
 import { ACADEMIC_ACTION, DEFAULT_AVATAR } from "../../constant";
 import { withRouter } from "react-router-dom";
-import { Row, Space,Col } from "antd";
 import { FaStar, FaComment } from "react-icons/fa";
 import GenderComponent from "../reuse/profile/gender.component";
 
@@ -11,60 +10,67 @@ class StudentCard extends Component {
     super(props);
     this.onClickCard = this.onClickCard.bind(this);
     this.state = {
-        student: [],
+      students: [],
     };
   }
 
   onClickCard() {
-    const { student } = this.props;
-    this.props.history.push("/student/" + student.id);
+    const { students } = this.props;
+    this.props.history.push("/students/" + students.id);
   }
 
   render() {
-    const { student } = this.props;
-    console.log(student,"student")
+    const { students } = this.props;
     return (
       <div style={{border:'none'}} className="card hover-card">
         <div className="card-body" onClick={this.onClickCard}>
-          <Row>
-            <Col span={10} >
             <img
-              src={DEFAULT_AVATAR}
+              src="https://cdn.mytutor.co.uk/images/tutor-profiles/135969.180_1-1_8.jpg?v=0"
               alt="Admin"
               className="rounded-circle"
               width="180px"
             />
-            </Col>
-            <Col style={{paddingLeft:'10px'}} span={14}>
-            <div className="nameAndGender">
-              <b style={{marginRight:'5px'}}>{student?.profile?.name}</b>
+            <div className="item-card">
+              <b style={{marginRight:'5px'}}>{students?.profile?.name}</b>
               <GenderComponent
-                isMale={student?.profile?.isMale}
+                isMale={students?.profile?.isMale}
               ></GenderComponent>
             </div>
-            <div className="nameAndGender">
-              {student?.profile?.city?.name ? (
-                `Live at ${student?.profile?.city?.name}`
+            <div className="item-card" style={{ color: "#8B8B83" }}>
+              {students?.minimumSalary ? (
+                parseInt(students?.minimumSalary).toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "VND",
+                })
               ) : (
                 <br />
               )}
             </div>
-            <div className="nameAndGender">
-              {student?.profile?.academicLevel ? (
-                student?.profile?.academicLevel
+            <div className="item-card">
+              {students?.profile?.city?.name ? (
+                `Live at ${students?.profile?.city?.name}`
               ) : (
                 <br />
               )}
             </div>
-            <div className="nameAndGender">
-              {student?.profile?.workLocation ? (
-                `${ACADEMIC_ACTION[student?.profile?.academicLevel]} at ${
-                    student?.profile?.workLocation
+            <div className="">
+              {students?.profile?.academicLevel ? (
+                students?.profile?.academicLevel
+              ) : (
+                <br />
+              )}
+            </div>
+            <div className="">
+              {students?.profile?.workLocation ? (
+                `${ACADEMIC_ACTION[students?.profile?.academicLevel]} at ${
+                  students?.profile?.workLocation
                 }`
               ) : (
                 <br />
               )}
             </div>
+            
+          
             <div className="nameAndGender">
               <span>
                 <FaStar style={{ color: "#66CDAA" }}></FaStar> 4.3
@@ -73,18 +79,6 @@ class StudentCard extends Component {
                 <FaComment style={{ color: "#FFCC99" }}></FaComment> 29
               </span>
             </div>
-            <div className="nameAndGender" style={{ color: "#8B8B83" }}>
-              {student?.minimumSalary ? (
-                parseInt(student?.minimumSalary).toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "VND",
-                })
-              ) : (
-                <br />
-              )}
-            </div>
-            </Col>
-          </Row>
         </div>
       </div>
     );

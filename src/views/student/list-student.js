@@ -1,7 +1,7 @@
 import { Col, List, Pagination, Row } from "antd";
 import { Component } from "react";
 import { withAlert } from "react-alert";
-import studentService from "../../api-services/student.service";
+import StudentService from "../../api-services/student.service";
 import StudentAPIContext from "../../contexts/student-api-context";
 import StudentCard from "./student-cart";
 import StudentsFilter from "./student-filter.component";
@@ -12,6 +12,7 @@ class ListStudents extends Component {
     super(props);
     this.onChangePage = this.onChangePage.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
+
     this.state = {
       students: [],
       total: 1,
@@ -20,7 +21,7 @@ class ListStudents extends Component {
 
   async componentDidMount() {
     const { alert } = this.props;
-    const { results: students, total } = await studentService.getMany({
+    const { results: students, total } = await StudentService.getMany({
       alert,
       qs: { perPage: 12 },
     });
@@ -30,7 +31,7 @@ class ListStudents extends Component {
 
   async onChangePage(page) {
     const { alert } = this.props;
-    const { results: students, total } = await studentService.getMany({
+    const { results: students, total } = await StudentService.getMany({
       alert,
       qs: { perPage: 12, page },
     });
@@ -38,10 +39,11 @@ class ListStudents extends Component {
   }
 
   async handleFilter() {
-    const data = await studentService.getMany({
+    const data = await StudentService.getMany({
       alert,
       qs: this.context,
     });
+    console.log(data,"data")
     this.setState((curState) => ({
       ...curState,
       students: data.results,
@@ -53,22 +55,22 @@ class ListStudents extends Component {
     return (
       <div className="mt-3">
         <Row>
-          <Col span={3}></Col>
-          <Col span={18}>
+          <Col span={1}></Col>
+          <Col span={22}>
             <StudentsFilter handleFilter={this.handleFilter} />
           </Col>
-          <Col span={3}></Col>
+          <Col span={1}></Col>
         </Row>
         <Row>
-          <Col span={3}></Col>
-          <Col span={18}>
+          <Col span={1}></Col>
+          <Col span={22}>
             <div className="mt-3 align-items-center text-center">
               <List
-                grid={{ gutter: 12, column: 2 }}
+                grid={{ gutter: 12, column: 3 }}
                 dataSource={this.state.students || []}
-                renderItem={(student) => (
+                renderItem={(students) => (
                   <List.Item>
-                    <StudentCard student={student} />
+                    <StudentCard students={students} />
                   </List.Item>
                 )}
               />
@@ -79,7 +81,7 @@ class ListStudents extends Component {
               />
             </div>
           </Col>
-          <Col span={3}></Col>
+          <Col span={1}></Col>
         </Row>
       </div>
     );

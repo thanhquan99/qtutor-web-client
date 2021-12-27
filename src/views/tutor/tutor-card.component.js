@@ -26,54 +26,19 @@ class TutorCard extends Component {
     return (
       <div style={{border:'none'}} className="card hover-card">
         <div className="card-body" onClick={this.onClickCard}>
-          <Row>
-            <Col span={10} >
             <img
-              src={DEFAULT_AVATAR}
+              src="https://cdn.mytutor.co.uk/images/tutor-profiles/135969.180_1-1_8.jpg?v=0"
               alt="Admin"
               className="rounded-circle"
               width="180px"
             />
-            </Col>
-            <Col style={{paddingLeft:'10px'}} span={14}>
-            <div className="nameAndGender">
+            <div className="item-card">
               <b style={{marginRight:'5px'}}>{tutor?.profile?.name}</b>
               <GenderComponent
                 isMale={tutor?.profile?.isMale}
               ></GenderComponent>
             </div>
-            <div className="nameAndGender">
-              {tutor?.profile?.city?.name ? (
-                `Live at ${tutor?.profile?.city?.name}`
-              ) : (
-                <br />
-              )}
-            </div>
-            <div className="nameAndGender">
-              {tutor?.profile?.academicLevel ? (
-                tutor?.profile?.academicLevel
-              ) : (
-                <br />
-              )}
-            </div>
-            <div className="nameAndGender">
-              {tutor?.profile?.workLocation ? (
-                `${ACADEMIC_ACTION[tutor?.profile?.academicLevel]} at ${
-                  tutor?.profile?.workLocation
-                }`
-              ) : (
-                <br />
-              )}
-            </div>
-            <div className="nameAndGender">
-              <span>
-                <FaStar style={{ color: "#66CDAA" }}></FaStar> 4.3
-              </span>
-              <span>
-                <FaComment style={{ color: "#FFCC99" }}></FaComment> 29
-              </span>
-            </div>
-            <div className="nameAndGender" style={{ color: "#8B8B83" }}>
+            <div className="item-card" style={{ color: "#8B8B83" }}>
               {tutor?.minimumSalary ? (
                 parseInt(tutor?.minimumSalary).toLocaleString("en-US", {
                   style: "currency",
@@ -83,8 +48,39 @@ class TutorCard extends Component {
                 <br />
               )}
             </div>
-            </Col>
-          </Row>
+            <div className="item-card">
+              {tutor?.profile?.city?.name ? (
+                `Live at ${tutor?.profile?.city?.name}`
+              ) : (
+                <br />
+              )}
+            </div>
+            <div className="">
+              {tutor?.profile?.academicLevel ? (
+                tutor?.profile?.academicLevel
+              ) : (
+                <br />
+              )}
+            </div>
+            <div className="">
+              {tutor?.profile?.workLocation ? (
+                `${ACADEMIC_ACTION[tutor?.profile?.academicLevel]} at ${
+                  tutor?.profile?.workLocation
+                }`
+              ) : (
+                <br />
+              )}
+            </div>
+            
+          
+            <div className="nameAndGender">
+              <span>
+                <FaStar style={{ color: "#66CDAA" }}></FaStar> 4.3
+              </span>
+              <span>
+                <FaComment style={{ color: "#FFCC99" }}></FaComment> 29
+              </span>
+            </div>
         </div>
       </div>
     );

@@ -19,7 +19,7 @@ import MyTutorTabs from "./views/tutor/my-tutor-tabs.component";
 import MyStudentTabs from "./views/student/my-student-tabs.component";
 import { DEFAULT_FILTER } from "./constant";
 import { TutorAPIProvider } from "./contexts/tutor-api.context";
-import {StudentAPIProvider} from "./contexts/student-api-context";
+import { StudentAPIProvider } from "./contexts/student-api-context";
 import ListTutors from "./views/tutor/list-tutors.component";
 import ListStudents from "./views/student/list-student";
 import Tutor from "./views/tutor/tutor.component";
@@ -112,6 +112,7 @@ class App extends Component {
           <Route exact path="/students" component={ListStudents} />
           <TutorAPIProvider value={DEFAULT_FILTER}>
             <Route exact path="/tutors" component={ListTutors} />
+            <Route exact path="/students" component={ListStudents} />
           </TutorAPIProvider>
         </Switch>
         <Footer />
