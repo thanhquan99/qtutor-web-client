@@ -54,7 +54,10 @@ const Notificaticon = () => {
       {data.length>0 ? (
         data.map((item) => (
           <div>
-            <ItemNotification data={item} />
+            <ItemNotification 
+            data={item} 
+            setData={setData}
+            />
           </div>
         ))
       ) : (
