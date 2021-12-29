@@ -1,9 +1,8 @@
 import { Component } from "react";
 import { withAlert } from "react-alert";
-import { ACADEMIC_ACTION, DEFAULT_AVATAR } from "../../constant";
+import { FaComment, FaStar } from "react-icons/fa";
 import { withRouter } from "react-router-dom";
-import { Row, Space,Col } from "antd";
-import { FaStar, FaComment } from "react-icons/fa";
+import { ACADEMIC_ACTION } from "../../constant";
 import GenderComponent from "../reuse/profile/gender.component";
 
 class TutorCard extends Component {

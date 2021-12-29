@@ -1,33 +1,30 @@
-import { Route, Switch } from "react-router-dom";
-import "./app.css";
-import "./grid.css";
-import Login from "./views/auth/login.component";
-import {
-  transitions,
-  positions,
-  Provider as AlertProvider,
-  types,
-} from "react-alert";
-import AlertTemplate from "react-alert-template-basic";
 import _ from "lodash";
 import { Component } from "react";
-import eventBus from "./common/EventBus";
-import Register from "./views/auth/register.component";
-import VerifyEmail from "./views/auth/verify-email.component";
-import Profile from "./views/user/profile.component";
-import MyTutorTabs from "./views/tutor/my-tutor-tabs.component";
-import MyStudentTabs from "./views/student/my-student-tabs.component";
-import { DEFAULT_FILTER } from "./constant";
-import { TutorAPIProvider } from "./contexts/tutor-api.context";
-import { StudentAPIProvider } from "./contexts/student-api-context";
-import ListTutors from "./views/tutor/list-tutors.component";
-import ListStudents from "./views/student/list-student";
-import Tutor from "./views/tutor/tutor.component";
-import Header from "./components/header";
-import Footer from "./components/footer";
-import Schedule from "./views/schedule"
+import {
+  positions,
+  Provider as AlertProvider, transitions, types
+} from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+import { Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./app.css";
+import eventBus from "./common/EventBus";
+import Footer from "./components/footer";
+import Header from "./components/header";
+import { DEFAULT_FILTER } from "./constant";
+import { TutorAPIProvider } from "./contexts/tutor-api.context";
+import "./grid.css";
+import Login from "./views/auth/login.component";
+import Register from "./views/auth/register.component";
+import VerifyEmail from "./views/auth/verify-email.component";
+import Schedule from "./views/schedule";
+import ListStudents from "./views/student/list-student";
+import MyStudentTabs from "./views/student/my-student-tabs.component";
+import ListTutors from "./views/tutor/list-tutors.component";
+import MyTutorTabs from "./views/tutor/my-tutor-tabs.component";
+import Tutor from "./views/tutor/tutor.component";
+import Profile from "./views/user/profile.component";
 
 class App extends Component {
   constructor(props) {
@@ -77,7 +74,6 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser } = this.state;
     const alertOptions = {
       position: positions.TOP_RIGHT,
       timeout: 5000,

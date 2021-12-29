@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { withAlert } from "react-alert";
+import { Col, Form, Row } from "react-bootstrap";
 import validator from "validator";
 import authService from "../../api-services/auth.service";
-import { withAlert } from "react-alert";
 import eventBus from "../../common/EventBus";
 import { invalidSetState, validSetState } from "../utils";
-import "./login.css"
+import "./login.css";
 class Login extends Component {
   constructor(props) {
     super(props);
