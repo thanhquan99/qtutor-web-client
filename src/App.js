@@ -109,7 +109,6 @@ class App extends Component {
           <Route exact path="/tutors/me" component={MyTutorTabs} />
           <Route exact path="/students/me" component={MyStudentTabs} />
           <Route exact path="/tutors/:id" component={Tutor} />
-          <Route exact path="/students" component={ListStudents} />
           <TutorAPIProvider value={DEFAULT_FILTER}>
             <Route exact path="/tutors" component={ListTutors} />
             <Route exact path="/students" component={ListStudents} />
