@@ -1,79 +1,91 @@
 import React from "react";
 import "./style.css";
 import TimeAgo from "react-timeago";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { readNotifi } from "../../../api/notification";
 import { Button } from "antd";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
-const Item = ({ data }) => {
+const Item = ({ data, setData }) => {
   const history = useHistory();
-  const handleNotiItem = async()=>{
-    await readNotifi(data.id,{isRead: true})
+  const handleNotiItem = async () => {
+    await readNotifi(data.id, { isRead: true });
+  };
+  const handleAccept = async () => {
+    await readNotifi(data.id, { status: "Accepted" })
       .then((response) => {
-        console.log(response)
+        toast.success("success!", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        const newList = [...data];
+        const newNoti = [];
+        newList.forEach((element) => {
+          if (element.id === data.id) {
+            newNoti.push(response);
+          } else {
+            newNoti.push(element);
+          }
+        });
+        setData(newNoti)
+        history.push({ pathname: data.url });
       })
       .catch((error) => {
-       console.log("loi")
+        toast.error("error!", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
-    history.push({ pathname: `/tutors/${data.userId}` });
-  }
-  const handleAccept =async()=>{
-    await readNotifi(data.id,{status:"Accepted"})
-    .then((response) => {
-      toast.success('success!', {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        });  
-        history.push({ pathname: `/tutors/${data.userId}` }); 
-       })
-    .catch((error) => {
-      toast.error('loi', {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        });    });
-    history.push({ pathname: `/tutors/${data.userId}` });
-  }
-  const handleCancel =async()=>{
-    await readNotifi(data.id,{status:"Cancel"})
-    .then((response) => {
-      toast.success('success!', {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        });  
-          })
-    .catch((error) => {
-      toast.error('loi', {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        });  
-    });
-    history.push({ pathname: `/tutors/${data.userId}` });
-
-  }
+    history.push({ pathname: data.url });
+  };
+  const handleCancel = async () => {
+    await readNotifi(data.id, { status: "Cancel" })
+      .then((response) => {
+        toast.success("success!", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        const newList = [...data];
+        const newNoti = [];
+        newList.forEach((element) => {
+          if (element.id === data.id) {
+            newNoti.push(response);
+          } else {
+            newNoti.push(element);
+          }
+        });
+        setData(newNoti)      })
+      .catch((error) => {
+        toast.error("error!", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+    history.push({ pathname: data.url });
+  };
   return (
     <div className="wrap-notifi">
-      <div onClick={handleNotiItem} className="item-notifi">
+      <Link to={data.url} onClick={handleNotiItem} className="item-notifi">
         <div className="group__left">
           <div className="avt">
             <img
@@ -91,14 +103,21 @@ const Item = ({ data }) => {
         <div style={{ color: "#888" }} className="time">
           <TimeAgo date={data.createdAt} />
         </div>
-      </div>
-      {data.type === "Edit" &&
-       <div className="group__button">
-       <Button onClick={handleAccept} style={{marginRight:'5px'}} type="primary">Accept</Button>
-       <Button onClick ={handleCancel} className="cancel" type="primary">Cancel</Button>
-     </div>
-      }
-     
+      </Link>
+      {data.type === "Edit" && (
+        <div className="group__button">
+          <Button
+            onClick={handleAccept}
+            style={{ marginRight: "5px" }}
+            type="primary"
+          >
+            Accept
+          </Button>
+          <Button onClick={handleCancel} className="cancel" type="primary">
+            Cancel
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
