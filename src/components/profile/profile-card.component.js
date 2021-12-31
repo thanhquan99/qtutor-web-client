@@ -1,16 +1,16 @@
 import { Component } from "react";
 import { withAlert } from "react-alert";
-import userService from "../../../api-services/user.service";
+import userService from "../../api-services/user.service";
 import { Form } from "react-bootstrap";
 import DatePicker from "react-date-picker";
 import { withRouter } from "react-router-dom";
 import _ from "lodash";
-import { invalidSetState, validSetState } from "../../utils";
+import { invalidSetState, validSetState } from "../../views/utils";
 import { Select } from "antd";
 import { Modal, Button } from "antd";
-import cityService from "../../../api-services/city.service";
+import cityService from "../../api-services/city.service";
 import { FaMars, FaVenus } from "react-icons/fa";
-import { ACADEMIC_LEVEL } from "../../../constant";
+import { ACADEMIC_LEVEL } from "../../constant";
 
 class ProfileCard extends Component {
   constructor(props) {

@@ -1,12 +1,12 @@
 import { Col, List, Pagination, Row } from "antd";
 import { Component } from "react";
 import { withAlert } from "react-alert";
-import StudentService from "../../api-services/student.service";
-import TutorAPIContext from "../../contexts/tutor-api.context";
-import StudentCard from "./student-cart";
-import StudentsFilter from "./student-filter.component";
-import "./student-list.css"
-class ListStudents extends Component {
+import tutorService from "../../../api-services/tutor.service";
+import TutorAPIContext from "../../../contexts/tutor-api.context";
+import TutorCard from "../../../components/tutor-card/tutor-card.component";
+import TutorsFilter from "../../../components/tutor-filter/tutors-filter.component";
+import "./tutor-list.css"
+class ListTutors extends Component {
   static contextType = TutorAPIContext;
   constructor(props) {
     super(props);
@@ -21,7 +21,7 @@ class ListStudents extends Component {
 
   async componentDidMount() {
     const { alert } = this.props;
-    const { results: tutors, total } = await StudentService.getMany({
+    const { results: tutors, total } = await tutorService.getMany({
       alert,
       qs: { perPage: 12 },
     });
@@ -31,7 +31,7 @@ class ListStudents extends Component {
 
   async onChangePage(page) {
     const { alert } = this.props;
-    const { results: tutors, total } = await StudentService.getMany({
+    const { results: tutors, total } = await tutorService.getMany({
       alert,
       qs: { perPage: 12, page },
     });
@@ -39,7 +39,7 @@ class ListStudents extends Component {
   }
 
   async handleFilter() {
-    const data = await StudentService.getMany({
+    const data = await tutorService.getMany({
       alert,
       qs: this.context,
     });
@@ -56,7 +56,7 @@ class ListStudents extends Component {
         <Row>
           <Col span={1}></Col>
           <Col span={22}>
-            <StudentsFilter handleFilter={this.handleFilter} />
+            <TutorsFilter handleFilter={this.handleFilter} />
           </Col>
           <Col span={1}></Col>
         </Row>
@@ -69,7 +69,7 @@ class ListStudents extends Component {
                 dataSource={this.state.tutors || []}
                 renderItem={(tutor) => (
                   <List.Item>
-                    <StudentCard tutor={tutor} />
+                    <TutorCard tutor={tutor} />
                   </List.Item>
                 )}
               />
@@ -87,4 +87,4 @@ class ListStudents extends Component {
   }
 }
 
-export default withAlert()(ListStudents);
+export default withAlert()(ListTutors);

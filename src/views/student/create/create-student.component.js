@@ -3,11 +3,11 @@ import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import studentService from "../../api-services/student.service";
-import subjectService from "../../api-services/subject.service";
-import { invalidSetState, validSetState } from "../utils";
-import "./style.css"
-
+import studentService from "../../../api-services/student.service";
+import subjectService from "../../../api-services/subject.service";
+import { invalidSetState, validSetState } from "../../utils";
+import "../style.css"
+import "./create-student-component.css"
 class CreateStudent extends Component {
   constructor(props) {
     super(props);
@@ -130,14 +130,20 @@ class CreateStudent extends Component {
 
   render() {
     return (
-      <Container className="mt-md-5">
+      <div className="create-student">
         <Row className="justify-content-md-center">
           <Col
             xs={5}
-            className="justify-content-md-center border border-light bg-light"
+            className="justify-content-md-center border border-light"
+            style={{
+              boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' ,
+              padding: "50px 60px",
+              background: "white",
+              margin: "40px 0"
+            }}
           >
             <Form noValidate onSubmit={this.handleCreateStudent}>
-              <h2 className="text-primary text-center">Become a Student</h2>
+              <h2 className="">Become a Student</h2>
 
               <Form.Group className="mb-3">
                 <Form.Label>Description</Form.Label>
@@ -178,13 +184,15 @@ class CreateStudent extends Component {
               )}
               <br />
 
-              <Button variant="primary" type="submit">
+              <div className="loginButton">
+                  <button type="submit">
                 Submit
-              </Button>
+              </button>
+                  </div>
             </Form>
           </Col>
         </Row>
-      </Container>
+      </div>
     );
   }
 }

@@ -5,9 +5,9 @@ import { withAlert } from "react-alert";
 import { Tab, Tabs } from "react-bootstrap";
 import tutorService from "../../api-services/tutor.service";
 import { CreateTutorProvider } from "../../contexts/create-tutor.context";
-import CreateTutor from "./create-tutor.component";
-import MyStudents from "./my-students.component";
-import MyTutorProfile from "./my-tutor-profile.component";
+import CreateTutor from "../../views/tutor/create-tutor/create-tutor.component";
+import MyStudents from "../../views/tutor/my-students/my-students.component";
+import MyTutorProfile from "../../views/tutor/my-tutor-profile/my-tutor-profile.component";
 
 class MyTutorTabs extends Component {
   constructor(props) {
