@@ -1,9 +1,10 @@
+
 import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { ListGroup } from "react-bootstrap";
-import studentService from "../../api-services/student.service";
-import "./style.css"
+import studentService from "../../../api-services/student.service";
+import "./my-student-profile.component.css"
 
 class MyStudentProfile extends Component {
   constructor(props) {
@@ -21,17 +22,21 @@ class MyStudentProfile extends Component {
       this.setState((curState) => ({ ...curState, currentStudent: data }));
     }
   }
-
   render() {
     return (
-      <div className="container">
-        <div className="main-body">
-          <div className="row gutters-sm">
-            <div className="col-md-4 mb-3">
-              <div className="card">
-                <div className="card-body">
-                  <div className="d-flex flex-column align-items-center text-center">
-                    <img
+      <div className="tutor-profile">
+        <div className="row">
+          <div className="col-md-3">
+            <div
+              style={{
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                marginRight: "30px",
+              }}
+              className="card"
+            >
+              <div className="card-body">
+                <div className="d-flex flex-column align-items-center text-center">
+                <img
                       src="https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg"
                       alt="Admin"
                       className="rounded-circle"
@@ -49,15 +54,12 @@ class MyStudentProfile extends Component {
                       <button className="btn btn-outline-primary">
                         Message
                       </button> */}
-                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="card mt-3">
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 className="mb-0">
-                      <svg
+                  <h6 className="mb-0">
+                    <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
                         height="24"
@@ -76,8 +78,8 @@ class MyStudentProfile extends Component {
                     <span className="text-secondary">Twitter</span>
                   </li>
                   <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 className="mb-0">
-                      <svg
+                  <h6 className="mb-0">
+                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
                         height="24"
@@ -105,8 +107,8 @@ class MyStudentProfile extends Component {
                     <span className="text-secondary">Instagram</span>
                   </li>
                   <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 className="mb-0">
-                      <svg
+                  <h6 className="mb-0">
+                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
                         height="24"
@@ -127,51 +129,60 @@ class MyStudentProfile extends Component {
                 </ul>
               </div>
             </div>
-
-            <div className="col-md-8">
-              <div className="row gutters-sm">
-                <div className="col-sm-6 mb-3">
-                  <div className="card h-100">
-                    <div className="card-body">
-                      <h6 className="d-flex align-items-center mb-3 text-info">
+          </div>
+          <div className="col-md-3">
+            <div
+              style={{
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+              }}
+              className="card h-100"
+            >
+              <div className="card-body">
+               
+                <h6 className="d-flex align-items-center mb-3 text-info">
                         Want to Learn
                       </h6>
-                      <ListGroup variant="flush">
-                        {this.state.currentStudent?.subjects?.map((subject) => (
+                       <ListGroup variant="flush">
+                         {this.state.currentStudent?.subjects?.map((subject) => (
                           <ListGroup.Item key={subject.id}>
                             {subject.name}
                           </ListGroup.Item>
                         ))}
                       </ListGroup>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-6 mb-3">
-                  <div className="card h-100">
-                    <div className="card-body">
-                      <h6 className="d-flex align-items-center mb-3 text-danger">
+              </div>
+            </div>
+          </div>
+          <div className="col-md-3">
+            <div
+              style={{
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+              }}
+              className="card h-100"
+            >
+              <div className="card-body">
+              <h6 className="d-flex align-items-center mb-3 text-danger">
                         Studying
-                      </h6>
-                      <ListGroup variant="flush">
+                       </h6>
+                       <ListGroup variant="flush">
                         <ListGroup.Item>Coming soon</ListGroup.Item>
                       </ListGroup>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-6 mb-3">
-                  <div className="card h-100">
-                    <div className="card-body">
-                      <h6 className="d-flex align-items-center mb-3 text-success">
-                        Your Studying History
-                      </h6>
-                      <ListGroup variant="flush">
-                        <ListGroup.Item>Coming soon</ListGroup.Item>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-3">
+            <div
+              style={{
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+              }}
+              className="card h-100"
+            >
+              <div className="card-body">
+              <h6 className="d-flex align-items-center mb-3 text-success">
+                         Your Studying History
+                       </h6>
+                       <ListGroup variant="flush">
+                       <ListGroup.Item>Coming soon</ListGroup.Item>
                       </ListGroup>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

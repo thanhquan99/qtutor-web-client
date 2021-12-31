@@ -1,11 +1,11 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
-import subjectService from "../../api-services/subject.service";
-import tutorService from "../../api-services/tutor.service";
-import { invalidSetState, validSetState } from "../utils";
-import CreateTutorStepOne from "./create-tutor-multi-step/step-one.component";
-import CreateTutorStepTwo from "./create-tutor-multi-step/step-two.component";
+import subjectService from "../../../api-services/subject.service";
+import tutorService from "../../../api-services/tutor.service";
+import { invalidSetState, validSetState } from "../../utils";
+import CreateTutorStepOne from "../../../components/create-tutor-multi-step/step-one.component";
+import CreateTutorStepTwo from "../../../components/create-tutor-multi-step/step-two.component";
 
 class CreateTutor extends Component {
   constructor(props) {

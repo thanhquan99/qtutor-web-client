@@ -3,7 +3,7 @@ import { withAlert } from "react-alert";
 import { FaComment, FaStar } from "react-icons/fa";
 import { withRouter } from "react-router-dom";
 import { ACADEMIC_ACTION } from "../../constant";
-import GenderComponent from "../reuse/profile/gender.component";
+import GenderComponent from "../profile/gender.component";
 
 class TutorCard extends Component {
   constructor(props) {

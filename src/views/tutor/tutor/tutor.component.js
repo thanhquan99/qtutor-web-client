@@ -13,10 +13,10 @@ import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { FaComment, FaStar } from "react-icons/fa";
-import tutorService from "../../api-services/tutor.service";
-import { DEFAULT_AVATAR } from "../../constant";
-import RegisterACourse from "./register-a-course.component";
-import TutorPriceTable from "./tutor-price-table.component";
+import tutorService from "../../../api-services/tutor.service";
+import { DEFAULT_AVATAR } from "../../../constant";
+import RegisterACourse from "../../../components/register-a-course/register-a-course.component";
+import TutorPriceTable from "../../../components/tutor-price/tutor-price-table.component";
 import "./tutor.css";
 class Tutor extends Component {
   constructor(props) {

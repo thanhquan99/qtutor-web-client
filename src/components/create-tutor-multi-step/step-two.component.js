@@ -1,8 +1,8 @@
 import { Button, Col, Form, InputNumber, Row, Space } from "antd";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
-import tutorService from "../../../api-services/tutor.service";
-import CreateTutorContext from "../../../contexts/create-tutor.context";
+import tutorService from "../../api-services/tutor.service";
+import CreateTutorContext from "../../contexts/create-tutor.context";
 
 class CreateTutorStepTwo extends Component {
   static contextType = CreateTutorContext;

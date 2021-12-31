@@ -3,10 +3,9 @@ import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import studentService from "../../api-services/student.service";
-import CreateStudent from "./create-student.component";
-import MyStudentProfile from "./my-student-profile.component";
-import MyTutors from "./my-tutors.component";
-import "./style.css"
+import CreateStudent from "../../views/student/create/create-student.component";
+import MyStudentProfile from "../../views/student/my-student-profile/my-student-profile.component";
+import MyTutors from "../../views/student/my-tutors.component/my-tutors.component";
 import { Spin } from "antd";
 
 class MyStudentTabs extends Component {
@@ -26,7 +25,7 @@ class MyStudentTabs extends Component {
     this.setState((curState) => ({
       ...curState,
       currentStudent: data,
-      loadding: false
+      loadding: false,
     }));
   }
 
@@ -44,8 +43,8 @@ class MyStudentTabs extends Component {
         <Spin />
       </div>
     ) : (
-      <Container className="student">
-      {_.isEmpty(this.state.currentStudent) && <CreateStudent />}
+      <div className="main-tutor">
+        {_.isEmpty(this.state.currentStudent) && <CreateStudent />}
         {!_.isEmpty(this.state.currentStudent) && (
           <Tabs
             defaultActiveKey="profile"
@@ -60,7 +59,7 @@ class MyStudentTabs extends Component {
             </Tab>
           </Tabs>
         )}
-      </Container>
+      </div>
     );
   }
 }

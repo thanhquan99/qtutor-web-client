@@ -6,10 +6,12 @@ import { readNotifi } from "../../../api/notification";
 import { Button } from "antd";
 import { toast } from "react-toastify";
 
-const Item = ({ data, setData }) => {
+const Item = ({ data, setData ,fetchListNotifi,hide}) => {
   const history = useHistory();
   const handleNotiItem = async () => {
     await readNotifi(data.id, { isRead: true });
+    hide()
+    history.push(data.url)
   };
   const handleAccept = async () => {
     await readNotifi(data.id, { status: "Accepted" })
@@ -23,17 +25,8 @@ const Item = ({ data, setData }) => {
           draggable: true,
           progress: undefined,
         });
-        const newList = [...data];
-        const newNoti = [];
-        newList.forEach((element) => {
-          if (element.id === data.id) {
-            newNoti.push(response);
-          } else {
-            newNoti.push(element);
-          }
-        });
-        setData(newNoti)
-        history.push({ pathname: data.url });
+        hide()
+        fetchListNotifi()
       })
       .catch((error) => {
         toast.error("error!", {
@@ -46,7 +39,6 @@ const Item = ({ data, setData }) => {
           progress: undefined,
         });
       });
-    history.push({ pathname: data.url });
   };
   const handleCancel = async () => {
     await readNotifi(data.id, { status: "Cancel" })
@@ -60,16 +52,10 @@ const Item = ({ data, setData }) => {
           draggable: true,
           progress: undefined,
         });
-        const newList = [...data];
-        const newNoti = [];
-        newList.forEach((element) => {
-          if (element.id === data.id) {
-            newNoti.push(response);
-          } else {
-            newNoti.push(element);
-          }
-        });
-        setData(newNoti)      })
+        hide()
+        fetchListNotifi()
+        })
+        
       .catch((error) => {
         toast.error("error!", {
           position: "top-right",
@@ -81,11 +67,10 @@ const Item = ({ data, setData }) => {
           progress: undefined,
         });
       });
-    history.push({ pathname: data.url });
   };
   return (
     <div className="wrap-notifi">
-      <Link to={data.url} onClick={handleNotiItem} className="item-notifi">
+      <div onClick={handleNotiItem} className="item-notifi">
         <div className="group__left">
           <div className="avt">
             <img
@@ -103,7 +88,7 @@ const Item = ({ data, setData }) => {
         <div style={{ color: "#888" }} className="time">
           <TimeAgo date={data.createdAt} />
         </div>
-      </Link>
+      </div>
       {data.type === "Edit" && (
         <div className="group__button">
           <Button
