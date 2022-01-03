@@ -59,7 +59,7 @@ class MyTutorTabs extends Component {
             <Tab eventKey="profile" title="Tutor Profile">
               <MyTutorProfile />
             </Tab>
-            <Tab eventKey="students" title="Your Students">
+            <Tab eventKey="students" title="Your teachings">
               <MyStudents />
             </Tab>
           </Tabs>

@@ -5,7 +5,6 @@ import { useHistory, Link } from "react-router-dom";
 import { readNotifi } from "../../../api/notification";
 import { Button } from "antd";
 import { toast } from "react-toastify";
-
 const Item = ({ data, setData ,fetchListNotifi,hide}) => {
   const history = useHistory();
   const handleNotiItem = async () => {
@@ -52,11 +51,11 @@ const Item = ({ data, setData ,fetchListNotifi,hide}) => {
           draggable: true,
           progress: undefined,
         });
+
         hide()
         fetchListNotifi()
         })
-        
-      .catch((error) => {
+        .catch((error) => {
         toast.error("error!", {
           position: "top-right",
           autoClose: 1500,

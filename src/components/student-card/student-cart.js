@@ -25,11 +25,11 @@ class TutorCard extends Component {
     return (
       <div style={{border:'none'}} className="card hover-card">
         <div className="card-body" onClick={this.onClickCard}>
-            <img
-              src="https://cdn.mytutor.co.uk/images/tutor-profiles/135969.180_1-1_8.jpg?v=0"
+        <img
+              src="https://tse4.mm.bing.net/th?id=OIP.TCDgotAMe8wt4CtnVBoqmwHaEK&pid=Api&P=0&w=294&h=166"
               alt="Admin"
-              className="rounded-circle"
-              width="180px"
+              width= "100%"
+              height= {150}
             />
             <div className="item-card">
               <b style={{marginRight:'5px'}}>{tutor?.profile?.name}</b>
