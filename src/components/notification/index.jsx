@@ -54,6 +54,7 @@ const Notificaticon = () => {
             <ItemNotification 
             data={item} 
             setData={setData}
+            fetchListNotifi = {fetchListNotifi}
             />
           </div>
         ))

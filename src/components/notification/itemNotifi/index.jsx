@@ -6,7 +6,7 @@ import { readNotifi } from "../../../api/notification";
 import { Button } from "antd";
 import { toast } from "react-toastify";
 
-const Item = ({ data, setData }) => {
+const Item = ({ data, setData,fetchListNotifi }) => {
   const history = useHistory();
   const handleNotiItem = async () => {
     await readNotifi(data.id, { isRead: true });
@@ -23,16 +23,7 @@ const Item = ({ data, setData }) => {
           draggable: true,
           progress: undefined,
         });
-        const newList = [...data];
-        const newNoti = [];
-        newList.forEach((element) => {
-          if (element.id === data.id) {
-            newNoti.push(response);
-          } else {
-            newNoti.push(element);
-          }
-        });
-        setData(newNoti)
+        fetchListNotifi()
         history.push({ pathname: data.url });
       })
       .catch((error) => {
@@ -60,16 +51,8 @@ const Item = ({ data, setData }) => {
           draggable: true,
           progress: undefined,
         });
-        const newList = [...data];
-        const newNoti = [];
-        newList.forEach((element) => {
-          if (element.id === data.id) {
-            newNoti.push(response);
-          } else {
-            newNoti.push(element);
-          }
-        });
-        setData(newNoti)      })
+        fetchListNotifi()
+      })
       .catch((error) => {
         toast.error("error!", {
           position: "top-right",
