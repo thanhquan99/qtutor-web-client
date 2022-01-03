@@ -4,6 +4,8 @@ import { withAlert } from "react-alert";
 import { ListGroup } from "react-bootstrap";
 import tutorService from "../../../api-services/tutor.service";
 import "./my-tutor-profile.css";
+import { Col, Row } from "antd";
+
 class MyTutorProfile extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +26,9 @@ class MyTutorProfile extends Component {
   render() {
     return (
       <div className="tutor-profile">
+        <Row>
+          <Col span={1}></Col>
+          <Col span={22}>
         <div className="row">
           <div className="col-md-3">
             <div
@@ -185,6 +190,9 @@ class MyTutorProfile extends Component {
             </div>
           </div>
         </div>
+        </Col>
+        <Col span={1}></Col>
+        </Row>
       </div>
     );
   }

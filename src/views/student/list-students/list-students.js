@@ -65,7 +65,7 @@ class ListStudents extends Component {
           <Col span={22}>
             <div className="mt-3 align-items-center text-center">
               <List
-                grid={{ gutter: 12, column: 3 }}
+                grid={{ gutter: 12, column: 5 }}
                 dataSource={this.state.tutors || []}
                 renderItem={(tutor) => (
                   <List.Item>
@@ -76,7 +76,7 @@ class ListStudents extends Component {
               <Pagination
                 total={this.state.total}
                 onChange={this.onChangePage}
-                defaultPageSize={12}
+                defaultPageSize={10}
               />
             </div>
           </Col>

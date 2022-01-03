@@ -1,0 +1,29 @@
+.nameAndGender {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 3px;
+  font-size: 17px;
+  font-family: 'Padauk', sans-serif;
+}
+
+.hover-card {
+  -webkit-transition: .3s;
+  transition: .3s;
+  cursor: pointer;
+  margin: 8px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-family: 'Padauk', sans-serif;
+  height: 420px;
+}
+
+.hover-card:hover {
+  -webkit-box-shadow: 0px 4px 20px rgba(85, 84, 84, 0.25);
+          box-shadow: 0px 4px 20px rgba(85, 84, 84, 0.25);
+}
+
+.item-card {
+  margin: 3px 0;
+}
+/*# sourceMappingURL=style.css.map */

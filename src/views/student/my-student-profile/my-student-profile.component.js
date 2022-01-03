@@ -1,4 +1,4 @@
-
+import { Col, Row } from "antd";
 import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
@@ -25,6 +25,9 @@ class MyStudentProfile extends Component {
   render() {
     return (
       <div className="tutor-profile">
+         <Row>
+          <Col span={1}></Col>
+          <Col span={22}>
         <div className="row">
           <div className="col-md-3">
             <div
@@ -187,6 +190,9 @@ class MyStudentProfile extends Component {
             </div>
           </div>
         </div>
+        </Col>
+        <Col span={1}></Col>
+        </Row>
       </div>
     );
   }
