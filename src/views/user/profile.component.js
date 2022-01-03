@@ -5,7 +5,7 @@ import authService from "../../api-services/auth.service";
 import userService from "../../api-services/user.service";
 import eventBus from "../../common/EventBus";
 import { ACADEMIC_ACTION } from "../../constant";
-import ProfileCard from "../reuse/profile/profile-card.component";
+import ProfileCard from "../../components/profile/profile-card.component";
 
 class Profile extends Component {
   constructor(props) {

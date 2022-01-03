@@ -2,9 +2,9 @@ import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { ListGroup } from "react-bootstrap";
-import tutorService from "../../api-services/tutor.service";
-import "./my-tutor-profile.css";
-class MyTutorProfile extends Component {
+import tutorService from "../../../api-services/tutor.service";
+
+class TutorProfile extends Component {
   constructor(props) {
     super(props);
 
@@ -15,7 +15,11 @@ class MyTutorProfile extends Component {
 
   async componentDidMount() {
     const { alert } = this.props;
-    const data = await tutorService.getMe({ alert, component: this });
+    console.log(this.props.match.params);
+    const data = await tutorService.getOne({
+      alert,
+      id: this.props.match.params.id,
+    });
     if (!_.isEmpty(data)) {
       this.setState((curState) => ({ ...curState, currentTutor: data }));
     }
@@ -23,38 +27,36 @@ class MyTutorProfile extends Component {
 
   render() {
     return (
-      <div className="tutor-profile">
-        <div className="row">
-          <div className="col-md-3">
-            <div
-              style={{
-                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                marginRight: "30px",
-              }}
-              className="card"
-            >
-              <div className="card-body">
-                <div className="d-flex flex-column align-items-center text-center">
-                  <img
-                    src="https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg"
-                    alt="Admin"
-                    className="rounded-circle"
-                    width="150"
-                  />
-                  <div className="mt-3">
-                    <h4>{this.state.currentTutor?.profile?.name}</h4>
-                    <p className="text-secondary mb-1">
-                      Studying at Da Nang University
-                    </p>
-                    <p className="text-muted font-size-sm">
-                      Hai Chau, Da Nang city
-                    </p>
-                    {/* <button className="btn btn-primary">Follow</button>
+      <div className="container">
+        <div className="main-body">
+          <div className="row gutters-sm">
+            <div className="col-md-4 mb-3">
+              <div className="card">
+                <div className="card-body">
+                  <div className="d-flex flex-column align-items-center text-center">
+                    <img
+                      src="https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg"
+                      alt="Admin"
+                      className="rounded-circle"
+                      width="150"
+                    />
+                    <div className="mt-3">
+                      <h4>{this.state.currentTutor?.profile?.name}</h4>
+                      <p className="text-secondary mb-1">
+                        Studying at Da Nang University
+                      </p>
+                      <p className="text-muted font-size-sm">
+                        Hai Chau, Da Nang city
+                      </p>
+                      {/* <button className="btn btn-primary">Follow</button>
                       <button className="btn btn-outline-primary">
                         Message
                       </button> */}
+                    </div>
                   </div>
                 </div>
+              </div>
+              <div className="card mt-3">
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 className="mb-0">
@@ -128,59 +130,51 @@ class MyTutorProfile extends Component {
                 </ul>
               </div>
             </div>
-          </div>
-          <div className="col-md-3">
-            <div
-              style={{
-                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-              }}
-              className="card h-100"
-            >
-              <div className="card-body">
-                <h6 className="d-flex align-items-center mb-3 text-info">
-                  Teach Ability
-                </h6>
-                <ListGroup variant="flush">
-                  {this.state.currentTutor?.subjects?.map((subject) => (
-                    <ListGroup.Item key={subject.id}>
-                      {subject.name}
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div
-              style={{
-                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-              }}
-              className="card h-100"
-            >
-              <div className="card-body">
-                <h6 className="d-flex align-items-center mb-3 text-danger">
-                  Teaching
-                </h6>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>Coming soon</ListGroup.Item>
-                </ListGroup>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div
-              style={{
-                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-              }}
-              className="card h-100"
-            >
-              <div className="card-body">
-                <h6 className="d-flex align-items-center mb-3 text-success">
-                  Your Teaching History
-                </h6>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>Coming soon</ListGroup.Item>
-                </ListGroup>
+
+            <div className="col-md-8">
+              <div className="row gutters-sm">
+                <div className="col-sm-6 mb-3">
+                  <div className="card h-100">
+                    <div className="card-body">
+                      <h6 className="d-flex align-items-center mb-3 text-info">
+                        Teach Ability
+                      </h6>
+                      <ListGroup variant="flush">
+                        {this.state.currentTutor?.subjects?.map((subject) => (
+                          <ListGroup.Item key={subject.id}>
+                            {subject.name}
+                          </ListGroup.Item>
+                        ))}
+                      </ListGroup>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-sm-6 mb-3">
+                  <div className="card h-100">
+                    <div className="card-body">
+                      <h6 className="d-flex align-items-center mb-3 text-danger">
+                        Teaching
+                      </h6>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item>Coming soon</ListGroup.Item>
+                      </ListGroup>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-sm-6 mb-3">
+                  <div className="card h-100">
+                    <div className="card-body">
+                      <h6 className="d-flex align-items-center mb-3 text-success">
+                        Your Teaching History
+                      </h6>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item>Coming soon</ListGroup.Item>
+                      </ListGroup>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -190,4 +184,4 @@ class MyTutorProfile extends Component {
   }
 }
 
-export default withAlert()(MyTutorProfile);
+export default withAlert()(TutorProfile);

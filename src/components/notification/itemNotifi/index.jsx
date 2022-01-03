@@ -5,11 +5,12 @@ import { useHistory, Link } from "react-router-dom";
 import { readNotifi } from "../../../api/notification";
 import { Button } from "antd";
 import { toast } from "react-toastify";
-
-const Item = ({ data, setData,fetchListNotifi }) => {
+const Item = ({ data, setData ,fetchListNotifi,hide}) => {
   const history = useHistory();
   const handleNotiItem = async () => {
     await readNotifi(data.id, { isRead: true });
+    hide()
+    history.push(data.url)
   };
   const handleAccept = async () => {
     await readNotifi(data.id, { status: "Accepted" })
@@ -23,8 +24,8 @@ const Item = ({ data, setData,fetchListNotifi }) => {
           draggable: true,
           progress: undefined,
         });
+        hide()
         fetchListNotifi()
-        history.push({ pathname: data.url });
       })
       .catch((error) => {
         toast.error("error!", {
@@ -37,7 +38,6 @@ const Item = ({ data, setData,fetchListNotifi }) => {
           progress: undefined,
         });
       });
-    history.push({ pathname: data.url });
   };
   const handleCancel = async () => {
     await readNotifi(data.id, { status: "Cancel" })
@@ -51,9 +51,11 @@ const Item = ({ data, setData,fetchListNotifi }) => {
           draggable: true,
           progress: undefined,
         });
+
+        hide()
         fetchListNotifi()
-      })
-      .catch((error) => {
+        })
+        .catch((error) => {
         toast.error("error!", {
           position: "top-right",
           autoClose: 1500,
@@ -64,11 +66,10 @@ const Item = ({ data, setData,fetchListNotifi }) => {
           progress: undefined,
         });
       });
-    history.push({ pathname: data.url });
   };
   return (
     <div className="wrap-notifi">
-      <Link to={data.url} onClick={handleNotiItem} className="item-notifi">
+      <div onClick={handleNotiItem} className="item-notifi">
         <div className="group__left">
           <div className="avt">
             <img
@@ -86,7 +87,7 @@ const Item = ({ data, setData,fetchListNotifi }) => {
         <div style={{ color: "#888" }} className="time">
           <TimeAgo date={data.createdAt} />
         </div>
-      </Link>
+      </div>
       {data.type === "Edit" && (
         <div className="group__button">
           <Button

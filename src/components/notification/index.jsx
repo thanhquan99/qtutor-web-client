@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getlistNotifi } from "../../api/notification";
 import ItemNotification from "./itemNotifi";
 import "./style.css";
-const Notificaticon = () => {
+const Notificaticon = ({hide}) => {
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
   const [loadding, setLoadding] = useState(true);
@@ -54,7 +54,8 @@ const Notificaticon = () => {
             <ItemNotification 
             data={item} 
             setData={setData}
-            fetchListNotifi = {fetchListNotifi}
+            fetchListNotifi={fetchListNotifi}
+            hide={hide}
             />
           </div>
         ))

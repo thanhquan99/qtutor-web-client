@@ -1,0 +1,10 @@
+.main-tutor{
+    margin: 50px 100px;
+}
+.main-tutor .col-md-3{
+    padding: 0 2px;
+}
+.main-tutor .card {
+border: none;
+border-radius: 0;
+}

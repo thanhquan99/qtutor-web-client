@@ -19,13 +19,13 @@ import Login from "./views/auth/login.component";
 import Register from "./views/auth/register.component";
 import VerifyEmail from "./views/auth/verify-email.component";
 import Schedule from "./views/schedule";
-import ListStudents from "./views/student/list-student";
-import MyStudentTabs from "./views/student/my-student-tabs.component";
-import ListTutors from "./views/tutor/list-tutors.component";
-import MyTutorTabs from "./views/tutor/my-tutor-tabs.component";
-import Tutor from "./views/tutor/tutor.component";
+import ListStudents from "./views/student/list-students/list-students";
+import MyStudentTabs from "./components/my-student-tabs.component/my-student-tabs.component";
+import ListTutors from "./views/tutor/list-tutors/list-tutors.component";
+import MyTutorTabs from "./components/my-tutor-tabs.component/my-tutor-tabs.components";
+import Tutor from "./views/tutor/tutor/tutor.component";
 import Profile from "./views/user/profile.component";
-
+import Student from "./views/student/list-students/list-students"
 class App extends Component {
   constructor(props) {
     super(props);
@@ -105,6 +105,8 @@ class App extends Component {
           <Route exact path="/tutors/me" component={MyTutorTabs} />
           <Route exact path="/students/me" component={MyStudentTabs} />
           <Route exact path="/tutors/:id" component={Tutor} />
+          <Route exact path="/students/:id" component={Student} />
+
           <TutorAPIProvider value={DEFAULT_FILTER}>
             <Route exact path="/tutors" component={ListTutors} />
             <Route exact path="/students" component={ListStudents} />
