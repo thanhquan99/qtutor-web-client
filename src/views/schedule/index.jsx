@@ -13,7 +13,7 @@ const Schedule = () => {
     <div className="schedule">
       <Paper>
         <Scheduler data={appointments} height={830}>
-          <WeekView startDayHour={6} endDayHour={23} />
+          <WeekView startDayHour={6} endDayHour={23} cellDuration={60} />
           <Appointments />
         </Scheduler>
       </Paper>

@@ -1,10 +1,10 @@
-import React from "react";
-import "./style.css";
-import TimeAgo from "react-timeago";
-import { useHistory, Link } from "react-router-dom";
-import { readNotifi } from "../../../api/notification";
 import { Button } from "antd";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import TimeAgo from "react-timeago";
 import { toast } from "react-toastify";
+import { readNotifi } from "../../../api/notification";
+import "./style.css";
 const Item = ({ data, setData ,fetchListNotifi,hide}) => {
   const history = useHistory();
   const handleNotiItem = async () => {

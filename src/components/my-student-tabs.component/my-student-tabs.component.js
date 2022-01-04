@@ -1,12 +1,12 @@
+import { Spin } from "antd";
 import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
-import { Container, Tab, Tabs } from "react-bootstrap";
+import { Tab, Tabs } from "react-bootstrap";
 import studentService from "../../api-services/student.service";
 import CreateStudent from "../../views/student/create/create-student.component";
 import MyStudentProfile from "../../views/student/my-student-profile/my-student-profile.component";
 import MyTutors from "../../views/student/my-tutors.component/my-tutors.component";
-import { Spin } from "antd";
 
 class MyStudentTabs extends Component {
   constructor(props) {
