@@ -6,6 +6,11 @@ const DEFAULT_FILTER = {
   filter: JSON.stringify({}),
   customFilter: JSON.stringify({}),
 };
+const DEFAULT_QUERY_STRING = {
+  perPage: 10,
+  page: 1,
+  orderBy: JSON.stringify({ createdAt: "DESC" }),
+};
 const DEFAULT_AVATAR =
   "https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg";
 
@@ -31,4 +36,5 @@ module.exports = {
   DEFAULT_AVATAR,
   ACADEMIC_LEVEL,
   ACADEMIC_ACTION,
+  DEFAULT_QUERY_STRING,
 };
