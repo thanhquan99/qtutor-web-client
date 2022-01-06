@@ -7,11 +7,53 @@ import {
   DownOutlined,
   UpOutlined,
 } from "@ant-design/icons";
-import { getTeaching } from "../../api/schedule.api";
+import { getTeaching,createSchedule } from "../../api/schedule.api";
 import FormFreeTime from "./Form-free-time"
 import FormPersonal from "./Form-personal-plan"
 import FormTeaching from "./Form-teaching"
 const ModalAddSchedule = ({}) => {
+  const [dataUser, setDataUser] = useState(null)
+  const [dataFreeTime, setDataFreeTime] = useState({
+    isFreeTime: true,
+    description: "Free time",
+    startTimeDate:{
+      dayOfWeek: "SUNDAY",
+      hour: 7,
+      minute: 0,
+    },
+    endTimeDate:{
+      dayOfWeek: "SUNDAY",
+      hour: 7,
+      minute: 0,
+    }
+  });
+
+  const [dataPersonalPlan, setDataPersonalPlan] = useState({
+    description: "",
+    startTimeDate:{
+      dayOfWeek: "SUNDAY",
+      hour: 7,
+      minute: 0,
+    },
+    endTimeDate:{
+      dayOfWeek: "SUNDAY",
+      hour: 7,
+      minute: 0,
+    }
+  });
+  const [dataTeaching, setDataTeaching] = useState({
+    tutorStudentId: "",
+    startTimeDate:{
+      dayOfWeek: "SUNDAY",
+      hour: 7,
+      minute: 0,
+    },
+    endTimeDate:{
+      dayOfWeek: "SUNDAY",
+      hour: 7,
+      minute: 0,
+    }
+  })
   const { Option } = Select;
 const [optionActive, setOptionActive] = useState("Free Time")
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -20,21 +62,28 @@ const [optionActive, setOptionActive] = useState("Free Time")
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
+  const handleOk = async() => {
     setIsModalVisible(false);
+    let data = null
+    if( optionActive == "Free Time"){
+      data = dataFreeTime
+    }
+    else if( optionActive === "Teaching"){
+      data=dataTeaching
+    }
+    else if (optionActive === "Personal Plan"){
+      data = dataPersonalPlan
+    }
+    await Promise.all([createSchedule(data).catch((error) => {})]);
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  const onFinish = () => {
-    console.log("hihihi");
-  };
-  const [schedule, setSchedule] = useState([]);
-
   const fectchTeaching = async () => {
     const [response] = await Promise.all([getTeaching().catch((error) => {})]);
-    console.log(response, "response");
+    setDataUser(response)
+    
   };
   const onOptionChange = (value) => {
     setOptionActive(value)
@@ -62,7 +111,7 @@ const [optionActive, setOptionActive] = useState("Free Time")
           
         >
             <Option value="Free Time">Free Time</Option>
-            <Option value="Teaching">Teaching</Option>
+            {dataUser?.isTutor && <Option value="Teaching">Teaching</Option>}
             <Option value="Personal Plan">Personal Plan</Option>
         </Select>
           </div>}
@@ -73,17 +122,17 @@ const [optionActive, setOptionActive] = useState("Free Time")
       >
        {
          optionActive == "Free Time" ?(
-           <FormFreeTime/>
+           <FormFreeTime setDataFreeTime={setDataFreeTime} dataFreeTime={dataFreeTime}/>
          ): null
        }
         {
          optionActive === "Teaching" ?(
-           <FormTeaching/>
+           <FormTeaching teachings={dataUser?.teachings} dataTeaching={dataTeaching} setDataTeaching={setDataTeaching}/>
          ): null
        }
         {
          optionActive === "Personal Plan" ?(
-           <FormPersonal/>
+           <FormPersonal dataPersonalPlan ={dataPersonalPlan} setDataPersonalPlan={setDataPersonalPlan}/>
          ): null
        }
       </Modal>

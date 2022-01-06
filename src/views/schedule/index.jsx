@@ -48,6 +48,7 @@ const Schedule = () => {
         });
       })
     ])
+    console.log(response,"res")
    const res = []
    response.forEach(element => {
      res.push({

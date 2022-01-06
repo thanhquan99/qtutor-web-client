@@ -8,5 +8,5 @@ export const getMySchedules = (qs = DEFAULT_QUERY_STRING) => {
 export const createSchedule = (data) => axios.post("/schedules",data)
 export const getTeaching = (qs = DEFAULT_QUERY_STRING) => {
   const stringified = queryString.stringify(qs);
-  return axios.get(`/students/me?${stringified}`);
+  return axios.get(`/users/me?${stringified}`);
 };
