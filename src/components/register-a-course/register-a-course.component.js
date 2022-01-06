@@ -71,6 +71,7 @@ class RegisterACourse extends Component {
           onOk={this.handleCancel}
           onCancel={this.handleCancel}
           footer={[]}
+          centered
         >
           <Form
             name="basic"
