@@ -2,7 +2,7 @@ import { Component } from "react";
 import { withAlert } from "react-alert";
 import { FaComment, FaStar } from "react-icons/fa";
 import { withRouter } from "react-router-dom";
-import { ACADEMIC_ACTION } from "../../constant";
+import { ACADEMIC_ACTION, DEFAULT_AVATAR } from "../../constant";
 import GenderComponent from "../profile/gender.component";
 
 class TutorCard extends Component {
@@ -26,7 +26,7 @@ class TutorCard extends Component {
       <div style={{border:'none'}} className="card hover-card">
         <div className="card-body" onClick={this.onClickCard}>
             <img
-              src="https://tse4.mm.bing.net/th?id=OIP.TCDgotAMe8wt4CtnVBoqmwHaEK&pid=Api&P=0&w=294&h=166"
+              src={DEFAULT_AVATAR}
               alt="Admin"
               width= "100%"
               height= {150}

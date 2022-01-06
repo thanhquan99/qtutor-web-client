@@ -3,13 +3,14 @@ import React from "react";
 import "./style.css";
 import GenderComponent from "../profile/gender.component";
 import{Tag} from "antd"
+import { DEFAULT_AVATAR } from "../../constant";
 const MyStudents = ({data}) => {
   return (
     <div className="my__tudents">
        <div style={{border:'none'}} className="card hover-card">
         <div className="card-body">
             <img
-              src="https://tse4.mm.bing.net/th?id=OIP.TCDgotAMe8wt4CtnVBoqmwHaEK&pid=Api&P=0&w=294&h=166"
+              src={data.subject?.image}
               alt="Admin"
               width= "100%"
               height= {150}
