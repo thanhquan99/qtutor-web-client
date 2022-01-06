@@ -1,0 +1,16 @@
+.header__title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.ant-modal-close-icon {
+  display: none !important;
+}
+/*# sourceMappingURL=style.css.map */
