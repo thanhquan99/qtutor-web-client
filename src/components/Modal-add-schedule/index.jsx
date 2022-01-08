@@ -1,16 +1,14 @@
-import React, { useEffect, useState, useRef } from "react";
-import "./style.css";
-import { Button,Form, InputNumber, Modal, Select, Space } from "antd";
 import {
-  PlusOutlined,
-  SearchOutlined,
-  DownOutlined,
-  UpOutlined,
+  PlusOutlined
 } from "@ant-design/icons";
-import { getTeaching,createSchedule } from "../../api/schedule.api";
-import FormFreeTime from "./Form-free-time"
-import FormPersonal from "./Form-personal-plan"
-import FormTeaching from "./Form-teaching"
+import { Modal, Select } from "antd";
+import React, { useEffect, useState } from "react";
+import { createSchedule, getTeaching } from "../../api/schedule.api";
+import FormFreeTime from "./Form-free-time";
+import FormPersonal from "./Form-personal-plan";
+import FormTeaching from "./Form-teaching";
+import "./style.css";
+
 const ModalAddSchedule = ({}) => {
   const [dataUser, setDataUser] = useState(null)
   const [dataFreeTime, setDataFreeTime] = useState({

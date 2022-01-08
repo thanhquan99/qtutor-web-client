@@ -1,12 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import { Input, Select } from "antd";
+import React, { useEffect } from "react";
 import "./style.css";
-import { Button, Form, Input, Modal, Select, Space } from "antd";
-import {
-  PlusOutlined,
-  SearchOutlined,
-  DownOutlined,
-  UpOutlined,
-} from "@ant-design/icons";
+
 const Teaching = ({ teachings , dataTeaching, setDataTeaching}) => {
   const { Option } = Select;
   const { TextArea } = Input;
@@ -98,8 +93,8 @@ const Teaching = ({ teachings , dataTeaching, setDataTeaching}) => {
             defaultValue="hay chon"
             onChange={onStudentChange}
           >
-            {teachings.map((item) => (
-              <Option value={item.id}>{`${item.student.profile.name} - ${item.subject.name}`}</Option>
+            {teachings.map((item, index) => (
+              <Option key={index} value={item.id}>{`${item.student.profile.name} - ${item.subject.name}`}</Option>
             ))}
           </Select>
         </div>
@@ -127,8 +122,8 @@ const Teaching = ({ teachings , dataTeaching, setDataTeaching}) => {
             placeholder="7 hour"
             onChange={onHourChange}
           >
-            {listHour.map((item) => (
-              <Option value={item}>{`${item} hour`}</Option>
+            {listHour.map((item, index) => (
+              <Option key={index} value={item}>{`${item} hour`}</Option>
             ))}
           </Select>
           <Select
@@ -137,8 +132,8 @@ const Teaching = ({ teachings , dataTeaching, setDataTeaching}) => {
             placeholder="0 minute"
             onChange={onMinuteChange}
           >
-            {listMinute.map((item) => (
-              <Option value={item}>{`${item} minute`}</Option>
+            {listMinute.map((item, index) => (
+              <Option key={index} value={item}>{`${item} minute`}</Option>
             ))}
           </Select>
         </div>
@@ -166,8 +161,8 @@ const Teaching = ({ teachings , dataTeaching, setDataTeaching}) => {
             placeholder="7 hour"
             onChange={onHourChange1}
           >
-            {listHour.map((item) => (
-              <Option value={item}>{`${item} hour`}</Option>
+            {listHour.map((item, index) => (
+              <Option key={index} value={item}>{`${item} hour`}</Option>
             ))}
           </Select>
           <Select
@@ -176,8 +171,8 @@ const Teaching = ({ teachings , dataTeaching, setDataTeaching}) => {
             placeholder="0 minute"
             onChange={onMinuteChange1}
           >
-            {listMinute.map((item) => (
-              <Option value={item}>{`${item} minute`}</Option>
+            {listMinute.map((item, index) => (
+              <Option key={index} value={item}>{`${item} minute`}</Option>
             ))}
           </Select>
         </div>

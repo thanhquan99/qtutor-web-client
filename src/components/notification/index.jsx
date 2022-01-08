@@ -1,9 +1,9 @@
-/* eslint-disable jsx-a11y/alt-text */
 import { Button, Empty, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import { getlistNotifi } from "../../api/notification";
 import ItemNotification from "./itemNotifi";
 import "./style.css";
+
 const Notificaticon = ({hide}) => {
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);

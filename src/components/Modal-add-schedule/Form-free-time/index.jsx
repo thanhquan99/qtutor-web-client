@@ -1,12 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect } from "react";
 import "./style.css";
-import { Button, Form, InputNumber, Modal, Select, Space } from "antd";
-import {
-  PlusOutlined,
-  SearchOutlined,
-  DownOutlined,
-  UpOutlined,
-} from "@ant-design/icons";
+import { Select } from "antd";
+
 const ModalAddSchedule = ({ setDataFreeTime, dataFreeTime }) => {
   const { Option } = Select;
   useEffect(() => {}, []);

@@ -1,12 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import { Input, Select } from "antd";
+import React, { useEffect } from "react";
 import "./style.css";
-import { Button, Form, Input, Modal, Select, Space } from "antd";
-import {
-  PlusOutlined,
-  SearchOutlined,
-  DownOutlined,
-  UpOutlined,
-} from "@ant-design/icons";
+
 const ModalAddSchedule = ({dataPersonalPlan, setDataPersonalPlan}) => {
   const { Option } = Select;
   const { TextArea } = Input;

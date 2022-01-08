@@ -30,6 +30,16 @@ const ACADEMIC_ACTION = {
   Professor: "Teaching",
 };
 
+const TOAST_OPTIONS = {
+  position: "top-right",
+  autoClose: 1500,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+};
+
 module.exports = {
   API_URL,
   DEFAULT_FILTER,
@@ -37,4 +47,5 @@ module.exports = {
   ACADEMIC_LEVEL,
   ACADEMIC_ACTION,
   DEFAULT_QUERY_STRING,
+  TOAST_OPTIONS,
 };

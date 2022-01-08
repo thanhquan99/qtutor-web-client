@@ -1,9 +1,9 @@
-import { DEFAULT_QUERY_STRING } from "../constant";
-import axios from "./axios";
 import queryString from 'query-string';
-export const getMySchedules = (qs = DEFAULT_QUERY_STRING) => {
-  const stringified = queryString.stringify(qs);
-  return axios.get(`/schedules/me?${stringified}`);
+import { DEFAULT_QUERY_STRING } from "../constant";
+import axios, { axiosService } from "./axios";
+
+export const getMySchedules = async (qs = DEFAULT_QUERY_STRING) => {
+  return await axiosService.get('/schedules/me', qs)
 };
 export const createSchedule = (data) => axios.post("/schedules",data)
 export const getTeaching = (qs = DEFAULT_QUERY_STRING) => {
