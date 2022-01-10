@@ -1,0 +1,11 @@
+.slideSuggets{
+    margin-top: 20px;
+    padding: 10px 50px;
+    .slick-next:before, .slick-prev:before{
+        color: tomato;
+        font-size: 25px;
+    }
+}
+.slick-track{
+    width: 100% !important;
+}

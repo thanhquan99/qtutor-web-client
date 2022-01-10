@@ -1,0 +1,38 @@
+.CardSuggets {
+  margin-right: 10px;
+  background: #EAF4FC;
+  padding: 30px;
+  height: 251px;
+  border-radius: 23px;
+}
+
+.CardSuggets p {
+  margin-bottom: 0;
+}
+
+.CardSuggets .card__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.CardSuggets .card__top .avt {
+  margin-right: 13px;
+}
+
+.CardSuggets .card__top .avt img {
+  border-radius: 100%;
+}
+
+.CardSuggets .adress {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/*# sourceMappingURL=style.css.map */
