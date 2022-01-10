@@ -35,7 +35,7 @@ const Schedule = () => {
     console.log(response, "res");
 
     let dataNew = [];
-    response.map(({ startDate, endDate, ...restArgs }) => {
+    response?.map(({ startDate, endDate, ...restArgs }) => {
       const result = {
         ...makeTodayAppointment(startDate, endDate),
         ...restArgs,

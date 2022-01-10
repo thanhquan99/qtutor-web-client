@@ -1,5 +1,6 @@
+
 .main-tutor{
-    margin: 50px 100px;
+    margin: 50px 0;
 }
 .main-tutor .col-md-3{
     padding: 0 2px;
@@ -7,4 +8,8 @@
 .main-tutor .card {
 border: none;
 border-radius: 0;
+
+}
+.nav-tabs{
+padding: 0 60px;
 }

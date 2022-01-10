@@ -16,6 +16,19 @@ class TutorService extends ApiService {
     }
     return;
   }
+  async getStudentSugggest({ component, alert }) {
+    const response = await requestPN
+      .get(API_URL + "/students/my-suggestion", { ...this.getAuth() })
+      .catch((errorResponse) => {
+        this.handleErrorApiWithAuth({ errorResponse, alert, component });
+      });
+
+    if (response) {
+      const data = JSON.parse(response);
+      return data;
+    }
+    return;
+  }
 
   async createTutor({ component, alert, payload }) {
     const response = await requestPN
