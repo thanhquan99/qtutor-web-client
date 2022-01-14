@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React,{useEffect,useState} from "react";
-import "./style.css";
 import { Col, List, Pagination, Row } from "antd";
 import MyTutorCard from "../../../components/my-tutor-card"
 import {myCourses} from "../../../api/listMyTutor"
 import { toast } from "react-toastify";
-const MyTutor = () => {
+import './style.css';
+const MyStudent = () => {
   const [tutor,setTutor] = useState(null)
   const [total,setTotal] = useState()
   const fectchListStudents =async()=>{
@@ -73,4 +73,4 @@ const MyTutor = () => {
     </div>
   );
 };
-export default MyTutor;
+export default MyStudent;

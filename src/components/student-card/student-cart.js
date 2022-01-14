@@ -5,23 +5,22 @@ import { withRouter } from "react-router-dom";
 import { ACADEMIC_ACTION, DEFAULT_AVATAR } from "../../constant";
 import GenderComponent from "../profile/gender.component";
 
-class TutorCard extends Component {
+class StudentCard extends Component {
   constructor(props) {
     super(props);
     this.onClickCard = this.onClickCard.bind(this);
     this.state = {
-      tutors: [],
+      student: [],
     };
   }
 
   onClickCard() {
-    const { tutor } = this.props;
-    console.log(tutor,"turot")
-    this.props.history.push("/tutors/" + tutor.id);
+    const { student} = this.props;
+    this.props.history.push("/students/" + student.id);
   }
 
   render() {
-    const { tutor } = this.props;
+    const { student } = this.props;
     return (
       <div style={{border:'none'}} className="card hover-card">
         <div className="card-body" onClick={this.onClickCard}>
@@ -32,14 +31,14 @@ class TutorCard extends Component {
               height= {150}
             />
             <div className="item-card">
-              <b style={{marginRight:'5px'}}>{tutor?.profile?.name}</b>
+              <b style={{marginRight:'5px'}}>{student?.profile?.name}</b>
               <GenderComponent
-                isMale={tutor?.profile?.isMale}
+                isMale={student?.profile?.isMale}
               ></GenderComponent>
             </div>
             <div className="item-card" style={{ color: "#8B8B83" }}>
-              {tutor?.minimumSalary ? (
-                parseInt(tutor?.minimumSalary).toLocaleString("en-US", {
+              {student?.minimumSalary ? (
+                parseInt(student?.minimumSalary).toLocaleString("en-US", {
                   style: "currency",
                   currency: "VND",
                 })
@@ -48,23 +47,23 @@ class TutorCard extends Component {
               )}
             </div>
             <div className="item-card">
-              {tutor?.profile?.city?.name ? (
-                `Live at ${tutor?.profile?.city?.name}`
+              {student?.profile?.city?.name ? (
+                `Live at ${student?.profile?.city?.name}`
               ) : (
                 <br />
               )}
             </div>
             <div className="">
-              {tutor?.profile?.academicLevel ? (
-                tutor?.profile?.academicLevel
+              {student?.profile?.academicLevel ? (
+                student?.profile?.academicLevel
               ) : (
                 <br />
               )}
             </div>
             <div className="">
-              {tutor?.profile?.workLocation ? (
-                `${ACADEMIC_ACTION[tutor?.profile?.academicLevel]} at ${
-                  tutor?.profile?.workLocation
+              {student?.profile?.workLocation ? (
+                `${ACADEMIC_ACTION[student?.profile?.academicLevel]} at ${
+                  student?.profile?.workLocation
                 }`
               ) : (
                 <br />
@@ -86,4 +85,4 @@ class TutorCard extends Component {
   }
 }
 
-export default withAlert()(withRouter(TutorCard));
+export default withAlert()(withRouter(StudentCard));
