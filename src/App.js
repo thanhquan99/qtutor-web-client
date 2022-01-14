@@ -25,7 +25,7 @@ import ListTutors from "./views/tutor/list-tutors/list-tutors.component";
 import MyTutorTabs from "./components/my-tutor-tabs.component/my-tutor-tabs.components";
 import Tutor from "./views/tutor/tutor/tutor.component";
 import Profile from "./views/user/profile.component";
-import Student from "./views/student/list-students/list-students"
+import Student from "./views/student/student/student.component"
 class App extends Component {
   constructor(props) {
     super(props);
