@@ -8,45 +8,21 @@ import React, { useEffect, useState } from "react";
 import { getMySchedules } from "../../api/schedule.api";
 import ModalAddSchedule from "../../components/Modal-add-schedule";
 import "./style.css";
-const currentDate = moment();
-let date = currentDate.date();
 
-const makeTodayAppointment = (startDate, endDate) => {
-  const days = moment(startDate).diff(endDate, "days");
-  const nextStartDate = moment(startDate)
-    .year(currentDate.year())
-    .month(currentDate.month())
-    .date(date);
-  const nextEndDate = moment(endDate)
-    .year(currentDate.year())
-    .month(currentDate.month())
-    .date(date + days);
-
-  return {
-    startDate: nextStartDate.toDate(),
-    endDate: nextEndDate.toDate(),
-  };
-};
 const Schedule = () => {
   const [schedule, setSchedule] = useState([]);
 
   const fectchListStudents = async () => {
     const response = await getMySchedules();
-    console.log(response, "res");
 
-    let dataNew = [];
-    response?.map(({ startDate, endDate, ...restArgs }) => {
-      const result = {
-        ...makeTodayAppointment(startDate, endDate),
-        ...restArgs,
-      };
-      date += 1;
-      if (date > 31) date = 1;
-      dataNew.push(result);
-    });
-    console.log(dataNew);
+    const dataNew = response?.map((schedule)=>({
+      ...schedule,
+      startDate: moment(schedule.startDate),
+      endDate: moment(schedule.endDate)
+    }))
     setSchedule(dataNew);
   };
+
   useEffect(() => {
     fectchListStudents();
   }, []);
