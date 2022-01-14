@@ -54,6 +54,18 @@ class StudentService extends ApiService {
     }
     return;
   }
+  async getOne({ alert, id }) {
+    const response = await requestPN
+      .get(API_URL + "/students/" + id)
+      .catch((errorResponse) => {
+        this.handleErrorApi({ errorResponse, alert });
+      });
+
+    if (response) {
+      const data = JSON.parse(response);
+      return data;
+    }
+  }
 }
 
 export default new StudentService();

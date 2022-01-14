@@ -14,28 +14,28 @@ class ListStudents extends Component {
     this.handleFilter = this.handleFilter.bind(this);
 
     this.state = {
-      tutors: [],
+      students: [],
       total: 1,
     };
   }
 
   async componentDidMount() {
     const { alert } = this.props;
-    const { results: tutors, total } = await StudentService.getMany({
+    const { results: students, total } = await StudentService.getMany({
       alert,
       qs: { perPage: 12 },
     });
-    this.setState((curState) => ({ ...curState, tutors, total }));
-    console.log(this.state, tutors, total);
+    this.setState((curState) => ({ ...curState, students, total }));
+    console.log(this.state, students, total);
   }
 
   async onChangePage(page) {
     const { alert } = this.props;
-    const { results: tutors, total } = await StudentService.getMany({
+    const { results: students, total } = await StudentService.getMany({
       alert,
       qs: { perPage: 12, page },
     });
-    this.setState((curState) => ({ ...curState, tutors, total }));
+    this.setState((curState) => ({ ...curState, students, total }));
   }
 
   async handleFilter() {
@@ -45,7 +45,7 @@ class ListStudents extends Component {
     });
     this.setState((curState) => ({
       ...curState,
-      tutors: data.results,
+      students: data.results,
       total: data.total,
     }));
   }
@@ -66,10 +66,10 @@ class ListStudents extends Component {
             <div className="mt-3 align-items-center text-center">
               <List
                 grid={{ gutter: 12, column: 5 }}
-                dataSource={this.state.tutors || []}
-                renderItem={(tutor) => (
+                dataSource={this.state.students || []}
+                renderItem={(student) => (
                   <List.Item>
-                    <StudentCard tutor={tutor} />
+                    <StudentCard student={student} />
                   </List.Item>
                 )}
               />

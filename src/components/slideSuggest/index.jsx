@@ -3,7 +3,7 @@ import React from "react";
 import "./style.css";
 import Slider from "react-slick";
 import CardSuggets from "./CardSuggest";
-const slideSuggets = ({ data }) => {
+const slideSuggets = ({ data, type }) => {
   var settings = {
     dots: true,
     infinite: true,
@@ -15,13 +15,25 @@ const slideSuggets = ({ data }) => {
   };
   return (
     <div className="slideSuggets">
-      <Slider {...settings}>
+      
+      {
+        data.length > 4 ?
+        <Slider {...settings}>
         {data.map((item) => (
           <div>
-            <CardSuggets data={item} />
+            <CardSuggets type={type} data={item} />
           </div>
         ))}
       </Slider>
+        : <div className="row">
+          {data.map((item) => (
+            <div className="col-md-3">
+              <CardSuggets type={type} data={item} />
+            </div>
+          ))}
+        </div>
+      }
+     
     </div>
   );
 };

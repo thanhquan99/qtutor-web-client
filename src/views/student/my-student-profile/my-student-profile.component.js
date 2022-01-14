@@ -195,7 +195,8 @@ class MyStudentProfile extends Component {
               </div>
             </div>
             <div className="list_student_succgest">
-                  <SliderSuggest data = {this.state.tutors ? this.state.tutors : null}/>
+            <h1>Tutors recommend for you</h1>
+                  <SliderSuggest type="tutor" data = {this.state.tutors ? this.state.tutors : null}/>
   
             </div>
           </Col>
