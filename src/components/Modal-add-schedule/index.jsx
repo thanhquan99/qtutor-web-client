@@ -9,7 +9,7 @@ import FormPersonal from "./Form-personal-plan";
 import FormTeaching from "./Form-teaching";
 import "./style.css";
 
-const ModalAddSchedule = ({}) => {
+const ModalAddSchedule = ({fectchListStudents}) => {
   const [dataUser, setDataUser] = useState(null)
   const [dataFreeTime, setDataFreeTime] = useState({
     isFreeTime: true,
@@ -73,6 +73,7 @@ const [optionActive, setOptionActive] = useState("Free Time")
       data = dataPersonalPlan
     }
     await Promise.all([createSchedule(data).catch((error) => {})]);
+    fectchListStudents()
   };
 
   const handleCancel = () => {

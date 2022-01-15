@@ -1,8 +1,13 @@
 import {
-  Appointments, Scheduler,
-  WeekView
+  Appointments, 
+  Scheduler,
+  WeekView,
+  AppointmentTooltip
 } from "@devexpress/dx-react-scheduler-material-ui";
 import Paper from "@material-ui/core/Paper";
+import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
+import { withStyles } from '@material-ui/core/styles';
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { getMySchedules } from "../../api/schedule.api";
@@ -27,13 +32,81 @@ const makeTodayAppointment = (startDate, endDate) => {
     endDate: nextEndDate.toDate(),
   };
 };
+const styles = theme => ({
+  button: {
+    color: theme.palette.background.default,
+    padding: 0,
+  },
+  text: {
+    paddingTop: theme.spacing(1),
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+});
+const AppointmentBase = ({
+  children,
+  data,
+  onClick,
+  classes,
+  toggleVisibility,
+  onAppointmentMetaChange,
+  ...restProps
+}) => (
+  <Appointments.Appointment
+    {...restProps}
+  >
+    <React.Fragment>
+      <IconButton
+        className={classes.button}
+        onClick={({ target }) => {
+          toggleVisibility();
+          onAppointmentMetaChange({ target: target.parentElement.parentElement, data });
+        }}
+      >
+        <InfoIcon fontSize="small" />
+      </IconButton>
+      {children}
+    </React.Fragment>
+  </Appointments.Appointment>
+);
+
+const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);
+
 const Schedule = () => {
   const [schedule, setSchedule] = useState([]);
-
+  const [visible, setVisible] =useState(false)
+  const [appointmentMeta, setAppointmentMeta] =useState(
+    {
+      target: null,
+      data: {},
+    },
+  )
+  const toggleVisibility = () => {
+    // const { visible: tooltipVisibility } = this.state;
+    // this.setState({ visible: !tooltipVisibility });
+    setVisible(!visible)
+  };
+  const onAppointmentMetaChange = ({ data, target }) => {
+    // this.setState({ appointmentMeta: { data, target } });
+    setAppointmentMeta(
+      {
+        target,
+        data,
+      },
+    )
+  };
+  const myAppointment =(props)=> {
+    return (
+      <Appointment
+        {...props}
+        toggleVisibility={toggleVisibility}
+        onAppointmentMetaChange={onAppointmentMetaChange}
+      />
+    );
+  }
   const fectchListStudents = async () => {
     const response = await getMySchedules();
-    console.log(response, "res");
-
     let dataNew = [];
     response?.map(({ startDate, endDate, ...restArgs }) => {
       const result = {
@@ -44,7 +117,6 @@ const Schedule = () => {
       if (date > 31) date = 1;
       dataNew.push(result);
     });
-    console.log(dataNew);
     setSchedule(dataNew);
   };
   useEffect(() => {
@@ -53,12 +125,23 @@ const Schedule = () => {
   return (
     <div className="schedule">
       <div className="buttonAdd" style={{ float: "right" }}>
-        <ModalAddSchedule />
+        <ModalAddSchedule fectchListStudents={fectchListStudents}/>
       </div>
       <Paper>
         <Scheduler data={schedule} height={840}>
           <WeekView startDayHour={6} endDayHour={23} cellDuration={60} />
-          <Appointments />
+          <Appointments 
+          appointmentComponent={myAppointment}
+
+          />
+           <AppointmentTooltip
+           className="tootip"
+            showCloseButton
+            visible={visible}
+            onVisibilityChange={toggleVisibility}
+            appointmentMeta={appointmentMeta}
+            onAppointmentMetaChange={onAppointmentMetaChange}
+          />
         </Scheduler>
       </Paper>
     </div>

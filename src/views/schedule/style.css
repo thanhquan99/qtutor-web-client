@@ -44,6 +44,12 @@ padding: 10px;
     cursor: pointer;
     transition: .3s;
 }
+.tootip{
+    position: absolute;
+}
+.MuiIconButton-root{
+    position: relative!important;
+}
 .plus:hover{
     background-color: #ffd803;
 border: none;

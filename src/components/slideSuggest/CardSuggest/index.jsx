@@ -27,7 +27,7 @@ const CardSuggets = ({ data, type }) => {
       <p>{data.profile.workLocation ? data.profile.workLocation : <br/>}</p>
       <p>{data.minimumSalary? data.minimumSalary : <br/>}</p>
       <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-      {/* <Button onClick={type ==="tutor" ? history.push(`/tutors`) : history.push()} size="large" type="primary"> View Profile</Button> */}
+      <Button onClick={()=>(type ==="tutor" ? history.push(`/students/${data.id}`) : history.push(`/tutors/${data.id}`))} size="large" type="primary"> View Profile</Button>
       </div>
     </div>
   );

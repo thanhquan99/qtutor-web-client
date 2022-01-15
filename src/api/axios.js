@@ -78,7 +78,6 @@ export class AxiosService{
     const data = await this.instance.get(`${url}/?${stringified}`).catch((err)=>{
       toast.error(err.message, TOAST_OPTIONS);
     });
-    toast.success('Success', TOAST_OPTIONS)
     return data;
   }
 }
