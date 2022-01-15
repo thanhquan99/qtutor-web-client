@@ -13,8 +13,6 @@ import React, { useEffect, useState } from "react";
 import { getMySchedules } from "../../api/schedule.api";
 import ModalAddSchedule from "../../components/Modal-add-schedule";
 import "./style.css";
-const currentDate = moment();
-let date = currentDate.date();
 
 const makeTodayAppointment = (startDate, endDate) => {
   const days = moment(startDate).diff(endDate, "days");
@@ -73,6 +71,7 @@ const AppointmentBase = ({
 
 const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);
 
+
 const Schedule = () => {
   const [schedule, setSchedule] = useState([]);
   const [visible, setVisible] =useState(false)
@@ -107,18 +106,16 @@ const Schedule = () => {
   }
   const fectchListStudents = async () => {
     const response = await getMySchedules();
-    let dataNew = [];
-    response?.map(({ startDate, endDate, ...restArgs }) => {
-      const result = {
-        ...makeTodayAppointment(startDate, endDate),
-        ...restArgs,
-      };
-      date += 1;
-      if (date > 31) date = 1;
-      dataNew.push(result);
-    });
+
+
+    const dataNew = response?.map((schedule)=>({
+      ...schedule,
+      startDate: moment(schedule.startDate),
+      endDate: moment(schedule.endDate)
+    }))
     setSchedule(dataNew);
   };
+
   useEffect(() => {
     fectchListStudents();
   }, []);
