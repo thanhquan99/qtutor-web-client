@@ -6,6 +6,7 @@ import { ListGroup } from "react-bootstrap";
 import studentService from "../../../api-services/student.service";
 import "./my-student-profile.component.css";
 import SliderSuggest from "../../../components/slideSuggest";
+import { DEFAULT_AVATAR } from "../../../constant";
 
 class MyStudentProfile extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class MyStudentProfile extends Component {
                   <div className="card-body">
                     <div className="d-flex flex-column align-items-center text-center">
                       <img
-                        src="https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg"
+                        src={this.state.currentStudent?.profile?.avatar || DEFAULT_AVATAR}
                         alt="Admin"
                         className="rounded-circle"
                         width="150"

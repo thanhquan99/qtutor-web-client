@@ -4,7 +4,7 @@ import validator from "validator";
 import authService from "../../api-services/auth.service";
 import userService from "../../api-services/user.service";
 import eventBus from "../../common/EventBus";
-import { ACADEMIC_ACTION } from "../../constant";
+import { ACADEMIC_ACTION, DEFAULT_AVATAR } from "../../constant";
 import ProfileCard from "../../components/profile/profile-card.component";
 
 class Profile extends Component {
@@ -136,7 +136,7 @@ class Profile extends Component {
                 <div className="card-body">
                   <div className="d-flex flex-column align-items-center text-center">
                     <img
-                      src="https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg"
+                      src={this.state.currentUser?.profile?.avatar || DEFAULT_AVATAR}
                       alt="Admin"
                       className="rounded-circle"
                       width="150"

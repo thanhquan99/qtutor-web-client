@@ -69,7 +69,7 @@ class Student extends Component {
                       className=""
                     >
                       <img
-                        src="https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg"
+                        src={currentStudent?.profile?.avatar || DEFAULT_AVATAR}
                         alt="Admin"
                         className="rounded-circle"
                       />

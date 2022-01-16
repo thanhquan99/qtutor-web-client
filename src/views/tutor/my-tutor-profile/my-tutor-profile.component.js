@@ -6,6 +6,7 @@ import tutorService from "../../../api-services/tutor.service";
 import "./my-tutor-profile.css";
 import { Col, Row } from "antd";
 import SliderSuggest from "../../../components/slideSuggest"
+import { DEFAULT_AVATAR } from "../../../constant";
 class MyTutorProfile extends Component {
   constructor(props) {
     super(props);
@@ -47,7 +48,7 @@ class MyTutorProfile extends Component {
                   <div className="card-body">
                     <div className="d-flex flex-column align-items-center text-center">
                       <img
-                        src="https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg"
+                        src={this.state.currentTutor?.profile?.avatar || DEFAULT_AVATAR} 
                         alt="Admin"
                         className="rounded-circle"
                         width="150"

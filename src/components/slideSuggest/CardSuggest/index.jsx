@@ -4,6 +4,7 @@ import "./style.css";
 import IconMap from "./icon.png"
 import { Button } from "antd";
 import { useHistory } from "react-router-dom";
+import { DEFAULT_AVATAR } from "../../../constant";
 
 const CardSuggets = ({ data, type }) => {
   const history = useHistory();
@@ -12,7 +13,7 @@ const CardSuggets = ({ data, type }) => {
     <div className="CardSuggets">
       <div className="card__top">
         <div className="avt">
-          <img style={{width:'100px', height:'100px'}} src="https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg" alt="avatar" />
+          <img style={{width:'100px', height:'100px'}} src={data.profile?.avatar || DEFAULT_AVATAR} alt="avatar" />
         </div>
         <div className="name">
           <b style={{color:'tomato'}}>{data.profile.name ? data.profile.name : <br/>}</b>

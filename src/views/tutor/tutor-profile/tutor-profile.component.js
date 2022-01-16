@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { ListGroup } from "react-bootstrap";
 import tutorService from "../../../api-services/tutor.service";
+import { DEFAULT_AVATAR } from "../../../constant";
 
 class TutorProfile extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class TutorProfile extends Component {
                 <div className="card-body">
                   <div className="d-flex flex-column align-items-center text-center">
                     <img
-                      src="https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg"
+                      src={this.state.currentTutor?.profile?.avatar || DEFAULT_AVATAR}
                       alt="Admin"
                       className="rounded-circle"
                       width="150"

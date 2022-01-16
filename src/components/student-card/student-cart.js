@@ -25,7 +25,7 @@ class StudentCard extends Component {
       <div style={{border:'none'}} className="card hover-card">
         <div className="card-body" onClick={this.onClickCard}>
         <img
-              src={DEFAULT_AVATAR}
+              src={student?.profile?.avatar || DEFAULT_AVATAR}
               alt="Admin"
               width= "100%"
               height= {150}
