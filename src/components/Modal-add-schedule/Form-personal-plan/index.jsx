@@ -106,7 +106,7 @@ const ModalAddSchedule = ({dataPersonalPlan, setDataPersonalPlan}) => {
             <Option value="MONDAY">Monday</Option>
             <Option value="TUESDAY">Tuesday</Option>
             <Option value="WEDNESDAY">Wednesday</Option>
-            <Option value=" THURSDAY">Thursday</Option>
+            <Option value="THURSDAY">Thursday</Option>
             <Option value="FRIDAY">Friday</Option>
             <Option value="SATURDAY">Saturday</Option>
           </Select>
@@ -145,7 +145,7 @@ const ModalAddSchedule = ({dataPersonalPlan, setDataPersonalPlan}) => {
             <Option value="MONDAY">Monday</Option>
             <Option value="TUESDAY">Tuesday</Option>
             <Option value="WEDNESDAY">Wednesday</Option>
-            <Option value=" THURSDAY">Thursday</Option>
+            <Option value="THURSDAY">Thursday</Option>
             <Option value="FRIDAY">Friday</Option>
             <Option value="SATURDAY">Saturday</Option>
           </Select>

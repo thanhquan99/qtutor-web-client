@@ -13,23 +13,20 @@ import React, { useEffect, useState } from "react";
 import { getMySchedules } from "../../api/schedule.api";
 import ModalAddSchedule from "../../components/Modal-add-schedule";
 import "./style.css";
-const currentDate = moment();
-let date = currentDate.date();
+const now = new Date()
+const lastSunday = new Date(now.setDate(now.getDate() - now.getDay()));
+const lastSundayMidNight = lastSunday.setHours(0,0,0,0);
+const sundayInDB = (new Date('2022/01/09')).getTime();
+
+const distance = lastSundayMidNight - sundayInDB
 
 const makeTodayAppointment = (startDate, endDate) => {
-  const days = moment(startDate).diff(endDate, "days");
-  const nextStartDate = moment(startDate)
-    .year(currentDate.year())
-    .month(currentDate.month())
-    .date(date);
-  const nextEndDate = moment(endDate)
-    .year(currentDate.year())
-    .month(currentDate.month())
-    .date(date + days);
+  const startTime = new Date(new Date(startDate).getTime() + distance)
+  const endTime = new Date(new Date(endDate).getTime() + distance)
 
   return {
-    startDate: nextStartDate.toDate(),
-    endDate: nextEndDate.toDate(),
+    startDate: moment(startTime).toDate(),
+    endDate: moment(endTime).toDate(),
   };
 };
 const styles = theme => ({
@@ -113,8 +110,6 @@ const Schedule = () => {
         ...makeTodayAppointment(startDate, endDate),
         ...restArgs,
       };
-      date += 1;
-      if (date > 31) date = 1;
       dataNew.push(result);
     });
     setSchedule(dataNew);
