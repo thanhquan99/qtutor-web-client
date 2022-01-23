@@ -89,7 +89,7 @@ class CreateTutorStepTwo extends Component {
                   >
                     <InputNumber
                       style={{ width: 200 }}
-                      placeholder="VND/month"
+                      placeholder="VND/lesson"
                       formatter={(value) =>
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                       }
@@ -111,7 +111,7 @@ class CreateTutorStepTwo extends Component {
               >
                 <InputNumber
                   style={{ width: 200 }}
-                  placeholder="VND/month"
+                  placeholder="VND/lesson"
                   formatter={(value) =>
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }

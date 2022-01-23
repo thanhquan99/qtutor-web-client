@@ -57,7 +57,7 @@ class RegisterACourse extends Component {
             >
               <InputNumber
                 style={{ width: 300 }}
-                placeholder="VND/month"
+                placeholder="VND/lesson"
                 formatter={(value) =>
                   `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 }
