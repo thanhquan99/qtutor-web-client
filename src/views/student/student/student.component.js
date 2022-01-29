@@ -110,34 +110,12 @@ class Student extends Component {
                     <Row>
                       <Space>
                         <OfferStudent tutor={this.state.currentStudent} />
-                        <Button>More Info</Button>
+                        <Button size='large'>More Info</Button>
                       </Space>
                     </Row>
                   </Col>
                 </Row>
-
-                <Divider orientation="left">About me</Divider>
-                <Row>
-                  <p>{currentStudent?.profile?.description}</p>
-                </Row>
-
-                <Divider orientation="left">About my teaching</Divider>
-                <Row>
-                  <p>{currentStudent?.description}</p>
-                </Row>
-
-                <Divider orientation="left">Rating & Reviews</Divider>
-                <Row className="align-items-center text-center">
-                  <Space size="middle">
-                    <Rate
-                      style={{ color: "#66CDAA" }}
-                      disabled
-                      allowHalf
-                      defaultValue={4.6}
-                    />
-                    <span style={{ fontSize: 30, color: "#66CDAA" }}>4.3</span>
-                  </Space>
-                </Row>
+                
                 <Row>
                   <span>10 reviews</span>
                 </Row>

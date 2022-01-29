@@ -62,7 +62,7 @@ class RegisterACourse extends Component {
     const { tutor } = this.props;
     return (
       <>
-        <Button type="primary" onClick={this.showModal}>
+        <Button size="large" type="primary" onClick={this.showModal}>
           Register
         </Button>
         <Modal
