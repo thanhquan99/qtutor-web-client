@@ -1,10 +1,9 @@
 import { Button, Form, InputNumber, Modal, Select, Space } from "antd";
 import { Component } from "react";
 import { withAlert } from "react-alert";
-import {registerTutor} from "../../api/notification"
-import { toast } from 'react-toastify';
+import studentService from "../../api-services/student.service";
 
-class RegisterACourse extends Component {
+class StudyingRegistration extends Component {
   constructor(props) {
     super(props);
     this.showModal = this.showModal.bind(this);
@@ -15,8 +14,7 @@ class RegisterACourse extends Component {
     };
   }
 
-  async componentDidMount() {
-  }
+  async componentDidMount() {}
 
   showModal() {
     this.setState({ visible: true });
@@ -28,34 +26,13 @@ class RegisterACourse extends Component {
 
   onFinish(values) {
     this.setState({ visible: false });
-    const data ={
+    const data = {
       salary: values.salary,
       tutorId: this.props.tutor.id,
-      subjectId: values.subjectName
-    }
-    registerTutor(data)
-      .then((response) => {
-        toast.success('success!', {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          });
-      })
-      .catch((response) => {
-        toast.error('mon nay da dang ky', {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          });
-      })
+      subjectId: values.subjectName,
+      sessionsOfWeek: values.sessionsOfWeek,
+    };
+    studentService.registerStudy(data);
   }
 
   render() {
@@ -80,27 +57,12 @@ class RegisterACourse extends Component {
             onFinish={this.onFinish}
           >
             <Form.Item
-              label="Money Offered"
-              name="salary"
-              rules={[{ required: true, message: "Money Offered is required" }]}
-            >
-              <InputNumber
-                style={{ width: '250px' }}
-                placeholder="VND/month"
-                formatter={(value) =>
-                  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                }
-                parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-              />
-            </Form.Item>
-
-            <Form.Item
               label="Subject"
               name="subjectName"
               rules={[{ required: true, message: "Select a subject" }]}
             >
               <Select
-               style={{ width: '250px' }}
+                style={{ width: "250px" }}
                 showSearch
                 placeholder="Select a subject"
                 optionFilterProp="children"
@@ -112,6 +74,30 @@ class RegisterACourse extends Component {
                   </Select.Option>
                 ))}
               </Select>
+            </Form.Item>
+
+            <Form.Item
+              label="Money Offered"
+              name="salary"
+              rules={[{ required: true, message: "Money Offered is required" }]}
+            >
+              <InputNumber
+                style={{ width: "250px" }}
+                placeholder="VND/lesson"
+                formatter={(value) =>
+                  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+              />
+            </Form.Item>
+
+            <Form.Item
+              label="Sessions"
+              name="sessionsOfWeek"
+              placeholder="lessons/week"
+              rules={[{ required: true, message: "Sessions is required" }]}
+            >
+              <InputNumber style={{ width: 200 }} placeholder="days/week" />
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -129,4 +115,4 @@ class RegisterACourse extends Component {
   }
 }
 
-export default withAlert()(RegisterACourse);
+export default withAlert()(StudyingRegistration);

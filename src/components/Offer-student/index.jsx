@@ -1,10 +1,9 @@
 import { Button, Form, InputNumber, Modal, Select, Space } from "antd";
 import { Component } from "react";
 import { withAlert } from "react-alert";
-import {registerTutor} from "../../api/notification"
-import { toast } from 'react-toastify';
+import tutorService from "../../api-services/tutor.service";
 
-class RegisterACourse extends Component {
+class TeachingRegistration extends Component {
   constructor(props) {
     super(props);
     this.showModal = this.showModal.bind(this);
@@ -15,8 +14,7 @@ class RegisterACourse extends Component {
     };
   }
 
-  async componentDidMount() {
-  }
+  async componentDidMount() {}
 
   showModal() {
     this.setState({ visible: true });
@@ -26,40 +24,20 @@ class RegisterACourse extends Component {
     this.setState({ visible: false });
   }
 
-  onFinish(values) {
+  async onFinish(values) {
     this.setState({ visible: false });
-    const data ={
+    const data = {
       salary: values.salary,
-      tutorId: this.props.tutor.id,
-      subjectId: values.subjectName
-    }
-    registerTutor(data)
-      .then((response) => {
-        toast.success('success!', {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          });
-      })
-      .catch((response) => {
-        toast.error('mon nay da dang ky', {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          });
-      })
+      studentId: this.props.student.id,
+      subjectId: values.subjectName,
+      sessionsOfWeek: values.sessionsOfWeek,
+    };
+    await tutorService.registerTeaching(data);
   }
 
   render() {
-    const { tutor } = this.props;
+    const { student } = this.props;
+    console.log(this.props)
     return (
       <>
         <Button size='large' type="primary" onClick={this.showModal}>
@@ -80,13 +58,33 @@ class RegisterACourse extends Component {
             onFinish={this.onFinish}
           >
             <Form.Item
+              label="Subject"
+              name="subjectName"
+              rules={[{ required: true, message: "Select a subject" }]}
+            >
+              <Select
+                style={{ width: "250px" }}
+                showSearch
+                placeholder="Select a subject"
+                optionFilterProp="children"
+                // onChange={onChange}
+              >
+                {student?.subjects?.map((e, index) => (
+                  <Select.Option key={index} value={e.id}>
+                    {e.name}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+
+            <Form.Item
               label="Money Offered"
               name="salary"
               rules={[{ required: true, message: "Money Offered is required" }]}
             >
               <InputNumber
-                style={{ width: '250px' }}
-                placeholder="VND/month"
+                style={{ width: "250px" }}
+                placeholder="VND/lesson"
                 formatter={(value) =>
                   `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 }
@@ -95,23 +93,12 @@ class RegisterACourse extends Component {
             </Form.Item>
 
             <Form.Item
-              label="Subject"
-              name="subjectName"
-              rules={[{ required: true, message: "Select a subject" }]}
+              label="Sessions"
+              name="sessionsOfWeek"
+              placeholder="lessons/week"
+              rules={[{ required: true, message: "Sessions is required" }]}
             >
-              <Select
-               style={{ width: '250px' }}
-                showSearch
-                placeholder="Select a subject"
-                optionFilterProp="children"
-                // onChange={onChange}
-              >
-                {tutor?.subjects?.map((e, index) => (
-                  <Select.Option key={index} value={e.id}>
-                    {e.name}
-                  </Select.Option>
-                ))}
-              </Select>
+              <InputNumber style={{ width: 200 }} placeholder="days/week" />
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -129,4 +116,4 @@ class RegisterACourse extends Component {
   }
 }
 
-export default withAlert()(RegisterACourse);
+export default withAlert()(TeachingRegistration);

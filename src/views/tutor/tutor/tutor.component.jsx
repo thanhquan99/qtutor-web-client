@@ -15,7 +15,7 @@ import { withAlert } from "react-alert";
 import { FaComment, FaStar } from "react-icons/fa";
 import tutorService from "../../../api-services/tutor.service";
 import { DEFAULT_AVATAR } from "../../../constant";
-import RegisterACourse from "../../../components/register-a-course/register-a-course.component";
+import StudyingRegistration from "../../../components/register-a-course/register-a-course.component";
 import TutorPriceTable from "../../../components/tutor-price/tutor-price-table.component";
 import "./tutor.css";
 class Tutor extends Component {
@@ -170,7 +170,10 @@ class Tutor extends Component {
                       </span>
                     </Row>
                     <Row>
-                     
+                      <Space>
+                        <StudyingRegistration tutor={this.state.currentTutor} />
+                        <Button>More Info</Button>
+                      </Space>
                     </Row>
                   </Col>
                 </Row>

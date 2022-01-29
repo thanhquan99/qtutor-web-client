@@ -1,6 +1,7 @@
 import { API_URL } from "../constant";
 import requestPN from "request-promise-native";
 import ApiService from "./api.service";
+import { axiosService } from "../api/axios";
 
 class TutorService extends ApiService {
   async getMe({ component, alert }) {
@@ -65,6 +66,10 @@ class TutorService extends ApiService {
       const data = JSON.parse(response);
       return data;
     }
+  }
+
+  async registerTeaching(data) {
+    return await axiosService.post("/tutors/my-teachings", data);
   }
 }
 
