@@ -17,6 +17,7 @@ import tutorService from "../../../api-services/tutor.service";
 import { DEFAULT_AVATAR } from "../../../constant";
 import StudyingRegistration from "../../../components/register-a-course/register-a-course.component";
 import TutorPriceTable from "../../../components/tutor-price/tutor-price-table.component";
+import RegisterACourse from "../../../components/register-a-course/register-a-course.component"
 import "./tutor.css";
 class Tutor extends Component {
   constructor(props) {
