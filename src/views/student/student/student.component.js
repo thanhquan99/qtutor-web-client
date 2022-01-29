@@ -41,7 +41,7 @@ class Student extends Component {
   render() {
     const { currentStudent } = this.state;
     return (
-      <div className="wrappers mt-3 view-tutor">
+      <div className="wrappers mt-3 view-student">
         <div className="centers">
           <Row>
             <h3>Student View</h3>
