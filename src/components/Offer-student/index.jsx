@@ -40,7 +40,7 @@ class TeachingRegistration extends Component {
     console.log(this.props)
     return (
       <>
-        <Button type="primary" onClick={this.showModal}>
+        <Button size='large' type="primary" onClick={this.showModal}>
           Offer
         </Button>
         <Modal
@@ -103,10 +103,10 @@ class TeachingRegistration extends Component {
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
               <Space>
-                <Button type="primary" htmlType="submit">
+                <Button size='large' type="primary" htmlType="submit">
                   Submit
                 </Button>
-                <Button onClick={this.handleCancel}>Cancel</Button>
+                <Button size="large" onClick={this.handleCancel}>Cancel</Button>
               </Space>
             </Form.Item>
           </Form>

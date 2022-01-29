@@ -38,12 +38,74 @@ class Tutor extends Component {
       this.setState((curState) => ({ ...curState, currentTutor: data }));
     }
   }
-
   render() {
     const { currentTutor } = this.state;
+    console.log(currentTutor, "currentTutor");
     return (
-      <div className="wrappers mt-3 view-tutor">
-        <div className="centers">
+      <div className=" mt-3 view-tutor">
+        <Row>
+          <Col span={4}></Col>
+          <Col span={16}>
+            <div className="info__header">
+              <div className="bia">
+                <img
+                  src="https://akadon.edu.vn/static/media/public-profile.e2e4a8be.svg"
+                  alt=""
+                />
+                <div className="avts">
+                  <img
+                    src={currentTutor?.profile?.avatar || DEFAULT_AVATAR}
+                    alt="Admin"
+                    className="rounded"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="descript">
+              <b>{currentTutor?.profile?.name}</b>
+              <p>{currentTutor?.description}</p>
+              <Space>
+                <RegisterACourse tutor={this.state.currentTutor} />
+                <Button size="large">More Info</Button>
+              </Space>
+            </div>
+            <div className="content-info">
+              <div className="row">
+              <div className="col-md-6 bg-white">
+                  <b>About me</b>
+
+                  <p>{currentTutor?.description}</p>
+                </div>
+                <div className="col-md-6 bg-white">
+                  <b>About me</b>
+
+                  <p>{currentTutor?.description}</p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-6 bg-white">
+                  <b>Môn học</b>
+
+                  <List
+                    size="small"
+                    dataSource={currentTutor?.subjects}
+                    renderItem={(subject) => (
+                      <List.Item key={subject.id}>{subject.name}</List.Item>
+                    )}
+                  />
+                </div>
+                <div className="col-md-6 bg-white">
+                  <b>Bảng giá</b>
+
+                  <TutorPriceTable tutor={this.state.currentTutor} />
+                </div>
+              </div>
+            </div>
+          </Col>
+          <Col span={4}></Col>
+        </Row>
+
+        {/* <div className="centers">
           <Row>
             <h3>Tutor View</h3>
           </Row>
@@ -78,7 +140,6 @@ class Tutor extends Component {
                   </Col>
                   <Col span={12}>
                     <Row>
-                      <b>{currentTutor?.profile?.name}</b>
                     </Row>
                     <Row>
                       <span>Live at {currentTutor?.profile?.city?.name}</span>
@@ -241,12 +302,11 @@ class Tutor extends Component {
                   <Divider orientation="left">Subjects offered</Divider>
                 </Row>
                 <Row>
-                  <TutorPriceTable tutor={this.state.currentTutor} />
                 </Row>
               </div>
             </Col>
           </Row>
-        </div>
+        </div> */}
       </div>
     );
   }
