@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import subjectService from "../../api-services/subject.service";
 import CreateTutorContext from "../../contexts/create-tutor.context";
-
+import './style.css'
 class CreateTutorStepOne extends Component {
   static contextType = CreateTutorContext;
   constructor(props) {
@@ -63,23 +63,32 @@ class CreateTutorStepOne extends Component {
   render() {
     const { payload } = this.context;
     return (
-      <>
-        <Row className="justify-content-md-center">
-          <Col xs={12} className="justify-content-md-center border bg-light">
-            <h3 className="text-primary text-center mb-4">Become a Tutor</h3>
+      <div className="create-student">
+        <Row className="justify-content-md-center"
+      
+        >
+          <Col
+           xs={10}
+           style={{
+            boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' ,
+            padding: "50px 60px",
+            background: "white",
+            margin: "40px 0"
+          }}
+           className="">
+            <h2 className="">Become a Tutor</h2>
             <Form
               name="basic"
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
+           
               onFinish={this.onFinish}
-              style={{ width: 500 }}
               initialValues={{
                 description: payload?.description,
                 subjects: payload?.subjects,
               }}
             >
+                              <p>Description</p>
               <Form.Item
-                label="Description"
+              
                 name="description"
                 rules={[
                   {
@@ -90,9 +99,8 @@ class CreateTutorStepOne extends Component {
               >
                 <Input.TextArea placeholder="Some thing about your teaching" />
               </Form.Item>
-
+              <p>Subject</p>
               <Form.Item
-                label="Subject"
                 name="subjects"
                 rules={[
                   {
@@ -118,14 +126,14 @@ class CreateTutorStepOne extends Component {
               </Form.Item>
 
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type="primary" htmlType="submit">
+                <Button size="large" type="primary" htmlType="submit">
                   Next
                 </Button>
               </Form.Item>
             </Form>
           </Col>
         </Row>
-      </>
+      </div>
     );
   }
 }

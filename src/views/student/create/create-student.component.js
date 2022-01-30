@@ -1,4 +1,4 @@
-import { Select } from "antd";
+import { Select, Button } from "antd";
 import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
@@ -23,10 +23,15 @@ class CreateStudent extends Component {
       subjects: [],
       payload: {
         description: undefined,
+        Experience: undefined,
         studentSubjects: undefined,
       },
       errs: {
         description: {
+          isValidated: false,
+          message: undefined,
+        },
+        Experience: {
           isValidated: false,
           message: undefined,
         },
@@ -66,7 +71,25 @@ class CreateStudent extends Component {
       });
     });
   }
-
+  onChangExperience(e) {
+    const Experience = e.target.value;
+    if (_.isEmpty(Experience)) {
+      this.setState((curState) => {
+        return invalidSetState({
+          curState,
+          fieldName: "Experience",
+        });
+      });
+      return;
+    }
+    this.setState((curState) => {
+      return validSetState({
+        curState,
+        fieldName: "Experience",
+        value: Experience,
+      });
+    });
+  }
   onChangeSubject(values, elements) {
     if (_.isEmpty(values)) {
       this.setState((curState) => {
@@ -159,7 +182,20 @@ class CreateStudent extends Component {
                   </Form.Text>
                 )}
               </Form.Group>
-
+              <Form.Group className="mb-3">
+                <Form.Label>Years experience</Form.Label>
+                <Form.Control
+                  as="input"
+                  rows={3}
+                  placeholder="Years experience"
+                  onChange={this.onChangExperience}
+                />
+                {this.state.errs.Experience?.message && (
+                  <Form.Text className="text-danger ">
+                    {this.state.errs.Experience?.message}
+                  </Form.Text>
+                )}
+              </Form.Group>
               <Form.Label>Want to Learn</Form.Label>
               <br />
               <Select
@@ -185,9 +221,9 @@ class CreateStudent extends Component {
               <br />
 
               <div className="loginButton">
-                  <button type="submit">
+                  <Button size="large" type="primary" type="submit">
                 Submit
-              </button>
+              </Button>
                   </div>
             </Form>
           </Col>
