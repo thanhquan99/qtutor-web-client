@@ -11,6 +11,10 @@ body {
     overflow-x: hidden;
     background-color: #f9f4ef !important;
   }
+  .items-center{
+    display: flex;
+    align-items: center;
+  }
   a{
     color: black !important;
   }

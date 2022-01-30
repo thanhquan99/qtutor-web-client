@@ -4,6 +4,13 @@
   border-radius: 100% !important;
   
 }
+.cmtAndRate{
+  padding: 10px 30px;
+}
+.buttonCmt{
+  text-align: right;
+  margin-top: 10px;
+}
 .view-tutor .descript{
   text-align: center;
   padding-top: 80px;
@@ -16,6 +23,9 @@
 }
 .col-md-6{
   max-width: 48%;
+}
+.col-md-12{
+  max-width: 98%;
 }
 .bg-white{
   background-color: white;

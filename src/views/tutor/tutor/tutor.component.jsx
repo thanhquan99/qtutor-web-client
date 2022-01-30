@@ -8,6 +8,7 @@ import {
   Space,
   List,
   Button,
+  Input,
 } from "antd";
 import _ from "lodash";
 import React, { Component } from "react";
@@ -17,17 +18,27 @@ import tutorService from "../../../api-services/tutor.service";
 import { DEFAULT_AVATAR } from "../../../constant";
 import StudyingRegistration from "../../../components/register-a-course/register-a-course.component";
 import TutorPriceTable from "../../../components/tutor-price/tutor-price-table.component";
-import RegisterACourse from "../../../components/register-a-course/register-a-course.component"
+import RegisterACourse from "../../../components/register-a-course/register-a-course.component";
 import "./tutor.css";
+const desc = ["terrible", "bad", "normal", "good", "wonderful"];
+const { TextArea } = Input;
+
 class Tutor extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       currentTutor: {},
+      value: 3,
+      valueComment: "",
     };
   }
-
+  handleChangeRate = (value) => {
+    this.setState((curState) => ({ ...curState, value: value }));
+  };
+  onCmtChange = ({ target: { value } }) => {
+    this.setState((curState) => ({ ...curState, valueComment: value }));
+  };
   async componentDidMount() {
     const { alert } = this.props;
     console.log(this.props.match.params);
@@ -42,8 +53,12 @@ class Tutor extends Component {
   render() {
     const { currentTutor } = this.state;
     console.log(currentTutor, "currentTutor");
+    const { value } = this.state;
+    const { valueComment } = this.state;
+
     return (
       <div className=" mt-3 view-tutor">
+
         <Row>
           <Col span={4}></Col>
           <Col span={16}>
@@ -72,15 +87,18 @@ class Tutor extends Component {
             </div>
             <div className="content-info">
               <div className="row">
-              <div className="col-md-6 bg-white">
+                <div className="col-md-6 bg-white">
                   <b>About me</b>
-
+                  <p>Live at {currentTutor?.profile?.city?.name}</p>
+                  <p>{currentTutor?.additionalInformation}</p>
+                  <p>{currentTutor?.dateOfBirth}</p>
                   <p>{currentTutor?.description}</p>
                 </div>
                 <div className="col-md-6 bg-white">
-                  <b>About me</b>
-
-                  <p>{currentTutor?.description}</p>
+                  <b>Chuyên môn</b>
+                  <p>số năm kinh nhiệm: {currentTutor?.yearsExperience}</p>
+                  <p>Số  môn học đã dạy: {currentTutor?.totalCourses}</p>
+                  <p>Số học sinh đã dạy: {currentTutor?.totalStudents}</p>
                 </div>
               </div>
               <div className="row">
@@ -99,6 +117,76 @@ class Tutor extends Component {
                   <b>Bảng giá</b>
 
                   <TutorPriceTable tutor={this.state.currentTutor} />
+                </div>
+              </div>
+              <div className="row ">
+                <div className="col-md-12 bg-white ">
+                  <b>Đánh giá</b>
+
+                  <div className="cmt cmtAndRate">
+                    <div>
+                      <Rate
+                        tooltips={desc}
+                        onChange={this.handleChangeRate}
+                        value={value}
+                      />
+                    </div>
+                    <div className="items-center">
+                      <TextArea
+                        placeholder="Autosize height with minimum and maximum number of lines"
+                        autoSize={{ minRows: 2, maxRows: 6 }}
+                      />
+                    </div>
+                    <div className="buttonCmt">
+                      <Button type="primary" size="large">
+                        Comment
+                      </Button>
+                    </div>
+                    <div className="list-cmt ">
+                      <Comment
+                        author={
+                          <span>
+                            Anonymous{" "}
+                            <Rate
+                              style={{ color: "#66CDAA" }}
+                              disabled
+                              defaultValue={4}
+                            />
+                          </span>
+                        }
+                        avatar={<Avatar src={DEFAULT_AVATAR} alt="User 1" />}
+                        content={
+                          <p>
+                            We supply a series of design principles, practical
+                            patterns and high quality design resources (Sketch
+                            and Axure), to help people create their product
+                            prototypes beautifully and efficiently.
+                          </p>
+                        }
+                      />
+                      <Comment
+                        author={
+                          <span>
+                            Anonymous{" "}
+                            <Rate
+                              style={{ color: "#66CDAA" }}
+                              disabled
+                              defaultValue={4}
+                            />
+                          </span>
+                        }
+                        avatar={<Avatar src={DEFAULT_AVATAR} alt="User 1" />}
+                        content={
+                          <p>
+                            We supply a series of design principles, practical
+                            patterns and high quality design resources (Sketch
+                            and Axure), to help people create their product
+                            prototypes beautifully and efficiently.
+                          </p>
+                        }
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
