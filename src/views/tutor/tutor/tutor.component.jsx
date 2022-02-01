@@ -1,24 +1,16 @@
 import {
-  Avatar,
-  Col,
-  Comment,
-  Divider,
-  Rate,
+  Avatar, Button, Col,
+  Comment, Input, List, Rate,
   Row,
-  Space,
-  List,
-  Button,
-  Input,
+  Space
 } from "antd";
 import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
-import { FaComment, FaStar } from "react-icons/fa";
 import tutorService from "../../../api-services/tutor.service";
-import { DEFAULT_AVATAR } from "../../../constant";
-import StudyingRegistration from "../../../components/register-a-course/register-a-course.component";
-import TutorPriceTable from "../../../components/tutor-price/tutor-price-table.component";
 import RegisterACourse from "../../../components/register-a-course/register-a-course.component";
+import TutorPriceTable from "../../../components/tutor-price/tutor-price-table.component";
+import { DEFAULT_AVATAR } from "../../../constant";
 import "./tutor.css";
 const desc = ["terrible", "bad", "normal", "good", "wonderful"];
 const { TextArea } = Input;

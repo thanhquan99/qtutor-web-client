@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
+import { Tag } from "antd";
 import React from "react";
-import "./style.css";
 import GenderComponent from "../profile/gender.component";
-import{Tag} from "antd"
-import { DEFAULT_AVATAR } from "../../constant";
+import "./style.css";
 const MyStudents = ({data}) => {
   return (
     <div className="my__tudents">

@@ -1,40 +1,55 @@
-/* eslint-disable jsx-a11y/alt-text */
-import React from "react";
-import "./style.css";
-import Slider from "react-slick";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
 import CardSuggets from "./CardSuggest";
+
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+    slidesToSlide: 3, // optional, default to 1.
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+    slidesToSlide: 2, // optional, default to 1.
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    slidesToSlide: 1, // optional, default to 1.
+  },
+};
 const slideSuggets = ({ data, type }) => {
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    autoplay: true,
-    autoplaySpeed: 5000,
-  };
   return (
     <div className="slideSuggets">
-      
-      {
-        data.length > 4 ?
-        <Slider {...settings}>
-        {data.map((item) => (
-          <div>
+      <Carousel
+        swipeable={false}
+        draggable={false}
+        showDots={true}
+        responsive={responsive}
+        ssr={true} // means to render carousel on server-side.
+        infinite={true}
+        autoPlay={false}
+        autoPlaySpeed={1000}
+        keyBoardControl={true}
+        customTransition="transform 1000ms ease-in-out"
+        transitionDuration={300}
+        containerClass="carousel-container"
+        removeArrowOnDeviceType={["tablet", "mobile"]}
+        deviceType="desktop"
+        dotListClass="custom-dot-list-style"
+        itemClass="carousel-item-padding-40-px"
+      >
+        {data.map((item, index) => (
+          <div key={index}>
             <CardSuggets type={type} data={item} />
           </div>
         ))}
-      </Slider>
-        : <div className="row">
-          {data.map((item) => (
-            <div className="col-md-3">
-              <CardSuggets type={type} data={item} />
-            </div>
-          ))}
-        </div>
-      }
-     
+      </Carousel>
+      ;
     </div>
   );
 };
+
 export default slideSuggets;

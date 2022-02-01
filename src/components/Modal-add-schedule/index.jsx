@@ -63,7 +63,7 @@ const [optionActive, setOptionActive] = useState("Free Time")
   const handleOk = async() => {
     setIsModalVisible(false);
     let data = null
-    if( optionActive == "Free Time"){
+    if( optionActive === "Free Time"){
       data = dataFreeTime
     }
     else if( optionActive === "Teaching"){
@@ -120,7 +120,7 @@ const [optionActive, setOptionActive] = useState("Free Time")
         width={650}
       >
        {
-         optionActive == "Free Time" ?(
+         optionActive === "Free Time" ?(
            <FormFreeTime setDataFreeTime={setDataFreeTime} dataFreeTime={dataFreeTime}/>
          ): null
        }
