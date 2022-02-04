@@ -4,7 +4,7 @@ import { getlistNotifi } from "../../api/notification";
 import ItemNotification from "./itemNotifi";
 import "./style.css";
 
-const Notificaticon = ({hide}) => {
+const Notification = ({hide}) => {
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
   const [loadding, setLoadding] = useState(true);
@@ -73,4 +73,4 @@ const Notificaticon = ({hide}) => {
     </div>
   );
 };
-export default Notificaticon;
+export default Notification;
