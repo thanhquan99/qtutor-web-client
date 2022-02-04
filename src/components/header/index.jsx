@@ -88,7 +88,7 @@ class Header extends Component {
 
     return (
       <AlertProvider template={AlertTemplate} {...alertOptions}>
-        <Navbar collapseOnSelect expand="lg">
+        <Navbar collapseOnSelect expand="lg" id="navbar">
           <div className="header mx-5">
             <Nav.Link href="/home">
               <span className="logo">QTutor</span>{" "}

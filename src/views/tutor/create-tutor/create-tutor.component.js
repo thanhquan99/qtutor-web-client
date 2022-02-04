@@ -16,19 +16,25 @@ class CreateTutor extends Component {
     this.onSearchSubject = this.onSearchSubject.bind(this);
     this.handleNextStep = this.handleNextStep.bind(this);
     this.handlePreviousStep = this.handlePreviousStep.bind(this);
-
+    this.onChangExperience = this.onChangExperience.bind(this);
     this.handleCreateTutor = this.handleCreateTutor.bind(this);
 
     this.state = {
       currentTutor: {},
       subjects: [],
       step: 1,
+      Experience: null,
+
       payload: {
         description: undefined,
         tutorSubjects: undefined,
       },
       errs: {
         description: {
+          isValidated: false,
+          message: undefined,
+        },
+        Experience: {
           isValidated: false,
           message: undefined,
         },
@@ -68,7 +74,25 @@ class CreateTutor extends Component {
       });
     });
   }
-
+  onChangExperience(e) {
+    const Experience = e.target.value;
+    if (_.isEmpty(Experience)) {
+      this.setState((curState) => {
+        return invalidSetState({
+          curState,
+          fieldName: "Experience",
+        });
+      });
+      return;
+    }
+    this.setState((curState) => {
+      return validSetState({
+        curState,
+        fieldName: "Experience",
+        value: Experience,
+      });
+    });
+  }
   onChangeSubject(values, elements) {
     if (_.isEmpty(values)) {
       this.setState((curState) => {

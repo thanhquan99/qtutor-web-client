@@ -4,7 +4,7 @@ import { FaComment, FaStar } from "react-icons/fa";
 import { withRouter } from "react-router-dom";
 import { ACADEMIC_ACTION, DEFAULT_AVATAR } from "../../constant";
 import GenderComponent from "../profile/gender.component";
-
+import './style.css'
 class TutorCard extends Component {
   constructor(props) {
     super(props);
@@ -25,12 +25,15 @@ class TutorCard extends Component {
     return (
       <div style={{border:'none'}} className="card hover-card">
         <div className="card-body" onClick={this.onClickCard}>
-            <img
+          <div className="avtTT">
+          <img
               src={tutor?.profile?.avatar || DEFAULT_AVATAR}
               alt="Admin"
               width= "100%"
-              height= {150}
+              height= "100%"
             />
+          </div>
+           
             <div className="item-card">
               <b style={{marginRight:'5px'}}>{tutor?.profile?.name}</b>
               <GenderComponent
