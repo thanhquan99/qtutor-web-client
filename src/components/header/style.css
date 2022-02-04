@@ -20,6 +20,7 @@
 }
 .navbar-nav{
     align-items: center;
+    flex-direction: row !important;
 }
 .dropdown-item{
 font-size: 18px;
