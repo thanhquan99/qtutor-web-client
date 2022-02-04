@@ -40,6 +40,13 @@ const TOAST_OPTIONS = {
   progress: undefined,
 };
 
+const WEB_CLIENT_URL = "http://localhost:3000";
+
+const SORTER_ORDER = {
+  ascend: "ASC",
+  descend: "DESC",
+};
+
 module.exports = {
   API_URL,
   DEFAULT_FILTER,
@@ -48,4 +55,6 @@ module.exports = {
   ACADEMIC_ACTION,
   DEFAULT_QUERY_STRING,
   TOAST_OPTIONS,
+  WEB_CLIENT_URL,
+  SORTER_ORDER,
 };

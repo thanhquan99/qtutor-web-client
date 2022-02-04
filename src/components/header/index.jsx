@@ -1,19 +1,24 @@
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
-import "./style.css";
+import { Avatar, Image, Space } from "antd";
+import _ from "lodash";
+import { Component } from "react";
 import {
-  transitions,
   positions,
   Provider as AlertProvider,
+  transitions,
   types,
 } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
-import _ from "lodash";
-import { BellOutlined } from "@ant-design/icons";
-import { Component } from "react";
-import eventBus from "../../common/EventBus";
-import { Popover } from "antd";
-import Notificaticon from "../notification";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { getNotifiNumber } from "../../api/notification";
+import eventBus from "../../common/EventBus";
+import { DEFAULT_AVATAR, WEB_CLIENT_URL } from "../../constant";
+import NotificationIcon from "./child/notification-icon";
+import ScheduleIcon from "./child/schedule-icon";
+import StudentIcon from "./child/student-icon";
+import TransactionIcon from "./child/transaction-icon";
+import TutorIcon from "./child/tutor-icon";
+import "./style.css";
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -24,19 +29,7 @@ class Header extends Component {
       numberNotificationUnRead: 0,
     };
   }
-  state = {
-    visible: false,
-  };
 
-  hide = () => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  handleVisibleChange = visible => {
-    this.setState({ visible });
-  };
   componentDidMount() {
     getNotifiNumber()
       .then((response) => {
@@ -73,7 +66,7 @@ class Header extends Component {
     this.setState({
       currentUser: undefined,
     });
-    window.location.reload();
+    window.open(`${WEB_CLIENT_URL}/login`, "_self");
   }
 
   login() {
@@ -84,7 +77,7 @@ class Header extends Component {
   }
 
   render() {
-    const { currentUser, numberNotificationUnRead } = this.state;
+    const { currentUser } = this.state;
     const alertOptions = {
       position: positions.TOP_RIGHT,
       timeout: 5000,
@@ -96,16 +89,11 @@ class Header extends Component {
     return (
       <AlertProvider template={AlertTemplate} {...alertOptions}>
         <Navbar collapseOnSelect expand="lg" id="navbar">
-          {" "}
           <div className="header mx-5">
             <Nav.Link href="/home">
-              {" "}
               <span className="logo">QTutor</span>{" "}
             </Nav.Link>
             <Nav className="me-auto">
-              <Nav.Link href="/tutors/me">Tutor</Nav.Link>
-              <Nav.Link href="/students/me">Student</Nav.Link>
-              <Nav.Link href="/schedule/me">Schedule</Nav.Link>
               <NavDropdown title="Find" id="collasible-nav-dropdown">
                 <NavDropdown.Item href="/tutors">Tutor</NavDropdown.Item>
                 <NavDropdown.Item href="/students">Student</NavDropdown.Item>
@@ -118,34 +106,29 @@ class Header extends Component {
               </Nav>
             ) : (
               <Nav>
-                <NavDropdown
-                  title={currentUser.profile.name}
-                  id="collasible-nav-dropdown"
-                >
-                  <NavDropdown.Item href="/users/profile">
-                    Profile
-                  </NavDropdown.Item>
-                  <NavDropdown.Item onClick={this.logout}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-                <Popover
-                  placement="bottomRight"
-                  content={<Notificaticon hide={this.hide} />}
-                  trigger="click"
-                  visible={this.state.visible}
-                  onVisibleChange={this.handleVisibleChange}
-                >
-                  <div className="grop-number">
-                    <BellOutlined className="far" />
-                    {numberNotificationUnRead ? (
-                      <div className="chil">
-                        {" "}
-                        <span>{numberNotificationUnRead}</span>{" "}
-                      </div>
-                    ) : null}
-                  </div>
-                </Popover>
+                <Space size="large">
+                  <TutorIcon />
+                  <StudentIcon />
+                  <ScheduleIcon />
+                  <TransactionIcon />
+                  <NotificationIcon />
+                  <NavDropdown
+                    title={
+                      <Avatar
+                        src={currentUser?.profile?.avatar || DEFAULT_AVATAR}
+                        size={40}
+                      />
+                    }
+                    id="collasible-nav-dropdown"
+                  >
+                    <NavDropdown.Item href="/users/profile">
+                      Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.logout}>
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </Space>
               </Nav>
             )}
           </div>
