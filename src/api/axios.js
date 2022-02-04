@@ -78,7 +78,12 @@ export class AxiosService {
     const data = await this.instance
       .get(`${url}/?${stringified}`)
       .catch((err) => {
-        toast.error(err.message, TOAST_OPTIONS);
+        const {
+          response: {
+            data: { message },
+          },
+        } = err;
+        toast.error(message, TOAST_OPTIONS);
       });
     return data;
   }
@@ -100,7 +105,7 @@ export class AxiosService {
         progress: undefined,
       });
     });
-  
+
     if (res) {
       toast.success("Success", {
         position: "top-right",
@@ -132,7 +137,7 @@ export class AxiosService {
         progress: undefined,
       });
     });
-  
+
     if (res) {
       toast.success("Success", {
         position: "top-right",
@@ -147,7 +152,7 @@ export class AxiosService {
     }
   }
 
-  async delete(url){
+  async delete(url) {
     const res = await this.instance.delete(url).catch((err) => {
       const {
         response: {
@@ -164,7 +169,7 @@ export class AxiosService {
         progress: undefined,
       });
     });
-  
+
     if (res) {
       toast.success("Delete successfully", {
         position: "top-right",
