@@ -30,6 +30,7 @@ import Profile from "./views/user/profile.component";
 import Student from "./views/student/student/student.component";
 import MyTransactionsView from "./views/transaction/me";
 import TransactionPaymentCallback from "./views/transaction/payment-callback";
+import HomeView from "./views/home";
 
 class App extends Component {
   constructor(props) {
@@ -102,6 +103,7 @@ class App extends Component {
         />
         <Header />
         <Switch>
+          <Route exact path={["/home", "/", ""]} component={HomeView} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/schedule/me" component={Schedule} />
@@ -112,7 +114,11 @@ class App extends Component {
           <Route exact path="/tutors/:id" component={Tutor} />
           <Route exact path="/students/:id" component={Student} />
           <Route exact path="/transactions/me" component={MyTransactionsView} />
-          <Route exact path="/transactions/me/:id/paypal/payment/callback" component={TransactionPaymentCallback} />
+          <Route
+            exact
+            path="/transactions/me/:id/paypal/payment/callback"
+            component={TransactionPaymentCallback}
+          />
 
           <TutorAPIProvider value={DEFAULT_FILTER}>
             <Route exact path="/tutors" component={ListTutors} />
