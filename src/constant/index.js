@@ -14,14 +14,6 @@ const DEFAULT_QUERY_STRING = {
 const DEFAULT_AVATAR =
   "https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg";
 
-const ACADEMIC_LEVEL = {
-  STUDENT: "Student",
-  COLLEGE_STUDENT: "College Student",
-  TEACHER: "Teacher",
-  MASTER: "Master",
-  PROFESSOR: "Professor",
-};
-
 const ACADEMIC_ACTION = {
   Student: "Studying",
   "College Student": "Studying",
@@ -45,6 +37,15 @@ const WEB_CLIENT_URL = "http://localhost:3000";
 const SORTER_ORDER = {
   ascend: "ASC",
   descend: "DESC",
+};
+
+const ACADEMIC_LEVEL = {
+  STUDENT: "Student",
+  COLLEGE_STUDENT: "College Student",
+  UNIVERSITY_STUDENT: "University Student",
+  BACHELOR: "Bachelor",
+  MASTER: "Master",
+  PROFESSOR: "Professor",
 };
 
 module.exports = {

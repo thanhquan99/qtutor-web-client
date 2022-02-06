@@ -31,6 +31,7 @@ import Student from "./views/student/student/student.component";
 import MyTransactionsView from "./views/transaction/me";
 import TransactionPaymentCallback from "./views/transaction/payment-callback";
 import HomeView from "./views/home";
+import AuthRegisterView from "./views/auth/register";
 
 class App extends Component {
   constructor(props) {
@@ -105,7 +106,7 @@ class App extends Component {
         <Switch>
           <Route exact path={["/home", "/", ""]} component={HomeView} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
+          <Route exact path="/register" component={AuthRegisterView} />
           <Route exact path="/schedule/me" component={Schedule} />
           <Route exact path="/verify-email" component={VerifyEmail} />
           <Route exact path="/users/profile" component={Profile} />
