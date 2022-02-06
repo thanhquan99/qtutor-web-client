@@ -9,7 +9,7 @@ import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import tutorService from "../../../api-services/tutor.service";
 import RegisterACourse from "../../../components/register-a-course/register-a-course.component";
-import TutorPriceTable from "../../../components/tutor-price/tutor-price-table.component";
+import TutorPriceTable from "../../../components/tutor/tutor-price/tutor-price-table.component";
 import { DEFAULT_AVATAR } from "../../../constant";
 import "./tutor.css";
 const desc = ["terrible", "bad", "normal", "good", "wonderful"];

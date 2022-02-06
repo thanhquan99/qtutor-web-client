@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React,{useEffect,useState} from "react";
 import { Col, List, Pagination, Row } from "antd";
-import MyTutorCard from "../../../components/my-tutor-card"
+import MyTutorCard from "../../../components/tutor/my-tutor-card"
 import {myCourses} from "../../../api/listMyTutor"
 import { toast } from "react-toastify";
 import './style.css';

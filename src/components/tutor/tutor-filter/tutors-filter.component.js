@@ -1,9 +1,9 @@
 import { Button, Input, Select } from "antd";
 import _ from "lodash";
 import React, { Component } from "react";
-import cityService from "../../api-services/city.service";
-import subjectService from "../../api-services/subject.service";
-import TutorAPIContext from "../../contexts/tutor-api.context";
+import cityService from "../../../api-services/city.service";
+import subjectService from "../../../api-services/subject.service";
+import TutorAPIContext from "../../../contexts/tutor-api.context";
 
 class UserFilter extends Component {
   static contextType = TutorAPIContext;

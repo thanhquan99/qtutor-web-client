@@ -7,7 +7,7 @@ import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import StudentService from "../../../api-services/student.service";
 import TeachingRegistration from "../../../components/Offer-student";
-import TutorPriceTable from "../../../components/tutor-price/tutor-price-table.component";
+import TutorPriceTable from "../../../components/tutor/tutor-price/tutor-price-table.component";
 import { DEFAULT_AVATAR } from "../../../constant";
 import "./student.css";
 const desc = ["terrible", "bad", "normal", "good", "wonderful"];

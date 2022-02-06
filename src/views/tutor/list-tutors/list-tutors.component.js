@@ -3,8 +3,8 @@ import { Component } from "react";
 import { withAlert } from "react-alert";
 import tutorService from "../../../api-services/tutor.service";
 import TutorAPIContext from "../../../contexts/tutor-api.context";
-import TutorCard from "../../../components/tutor-card/tutor-card.component";
-import TutorsFilter from "../../../components/tutor-filter/tutors-filter.component";
+import TutorCard from "../../../components/tutor/tutor-card/tutor-card.component";
+import TutorsFilter from "../../../components/tutor/tutor-filter/tutors-filter.component";
 import "./tutor-list.css"
 class ListTutors extends Component {
   static contextType = TutorAPIContext;
@@ -65,7 +65,7 @@ class ListTutors extends Component {
           <Col span={22}>
             <div className="mt-3 align-items-center text-center">
               <List
-                grid={{ gutter: 12, column: 5 }}
+                grid={{ gutter: 12, column: 4 }}
                 dataSource={this.state.tutors || []}
                 renderItem={(tutor) => (
                   <List.Item>

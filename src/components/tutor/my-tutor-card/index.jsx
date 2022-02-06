@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { Tag } from "antd";
 import React from "react";
-import GenderComponent from "../profile/gender.component";
+import GenderComponent from "../../profile/gender.component";
 import "./style.css";
 const MyStudents = ({data}) => {
   return (
