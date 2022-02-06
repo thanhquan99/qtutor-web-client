@@ -38,9 +38,6 @@ class Tutor extends Component {
   }
   render() {
     const { currentTutor } = this.state;
-    console.log(currentTutor, "currentTutor");
-    const { value } = this.state;
-    const { valueComment } = this.state;
 
     return (
       <div className=" mt-3 view-tutor">
@@ -102,7 +99,7 @@ class Tutor extends Component {
                   <TutorPriceTable tutor={this.state.currentTutor} />
                 </div>
               </div>
-              <TutorRating />
+              <TutorRating tutor={this.state.currentTutor} />
             </div>
           </Col>
         </Row>

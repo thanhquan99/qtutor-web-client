@@ -1,10 +1,8 @@
-import {
-  Avatar, Button,
-  Comment, Input, Rate, Space
-} from "antd";
+import { Button, Input, Rate, Space } from "antd";
 import React, { Component } from "react";
 import cityApi from "../../../api/city.api";
-import { DEFAULT_AVATAR } from "../../../constant";
+import TutorListRatings from '../tutor-list-ratings';
+
 const desc = ["terrible", "bad", "normal", "good", "wonderful"];
 
 class TutorRating extends Component {
@@ -56,50 +54,7 @@ class TutorRating extends Component {
                 Comment
               </Button>
             </div>
-            <div className="list-cmt ">
-              <Comment
-                author={
-                  <span>
-                    Anonymous{" "}
-                    <Rate
-                      style={{ color: "#66CDAA" }}
-                      disabled
-                      defaultValue={4}
-                    />
-                  </span>
-                }
-                avatar={<Avatar src={DEFAULT_AVATAR} alt="User 1" />}
-                content={
-                  <p>
-                    We supply a series of design principles, practical patterns
-                    and high quality design resources (Sketch and Axure), to
-                    help people create their product prototypes beautifully and
-                    efficiently.
-                  </p>
-                }
-              />
-              <Comment
-                author={
-                  <span>
-                    Anonymous{" "}
-                    <Rate
-                      style={{ color: "#66CDAA" }}
-                      disabled
-                      defaultValue={4}
-                    />
-                  </span>
-                }
-                avatar={<Avatar src={DEFAULT_AVATAR} alt="User 1" />}
-                content={
-                  <p>
-                    We supply a series of design principles, practical patterns
-                    and high quality design resources (Sketch and Axure), to
-                    help people create their product prototypes beautifully and
-                    efficiently.
-                  </p>
-                }
-              />
-            </div>
+            <TutorListRatings tutor={this.props.tutor} />
           </div>
         </div>
       </div>

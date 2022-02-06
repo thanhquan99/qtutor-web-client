@@ -83,7 +83,7 @@ export class AxiosService {
             data: { message },
           },
         } = err;
-        toast.error(message, TOAST_OPTIONS);
+        toast.error(message?.[0] || message, TOAST_OPTIONS);
       });
     return data;
   }
