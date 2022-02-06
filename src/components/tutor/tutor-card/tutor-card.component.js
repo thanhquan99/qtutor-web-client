@@ -1,8 +1,10 @@
 import { Component } from "react";
-import { withAlert } from "react-alert";
 import { FaComment, FaStar } from "react-icons/fa";
-import { withRouter } from "react-router-dom";
-import { ACADEMIC_ACTION, DEFAULT_AVATAR } from "../../../constant";
+import {
+  ACADEMIC_ACTION,
+  DEFAULT_AVATAR,
+  WEB_CLIENT_URL,
+} from "../../../constant";
 import GenderComponent from "../../profile/gender.component";
 import "./style.css";
 
@@ -17,8 +19,7 @@ class TutorCard extends Component {
 
   onClickCard() {
     const { tutor } = this.props;
-    console.log(tutor, "turot");
-    this.props.history.push("/tutors/" + tutor.id);
+    window.open(`${WEB_CLIENT_URL}/tutors/${tutor.id}`, "_blank");
   }
 
   render() {
@@ -84,4 +85,4 @@ class TutorCard extends Component {
   }
 }
 
-export default withAlert()(withRouter(TutorCard));
+export default TutorCard;

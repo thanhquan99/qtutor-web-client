@@ -32,7 +32,7 @@ const TOAST_OPTIONS = {
   progress: undefined,
 };
 
-const WEB_CLIENT_URL = "http://localhost:3000";
+const WEB_CLIENT_URL = "https://qtutor-web-client.herokuapp.com";
 
 const SORTER_ORDER = {
   ascend: "ASC",
