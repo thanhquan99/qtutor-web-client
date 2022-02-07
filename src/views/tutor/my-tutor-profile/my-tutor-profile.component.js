@@ -5,7 +5,7 @@ import { ListGroup } from "react-bootstrap";
 import tutorService from "../../../api-services/tutor.service";
 import "./my-tutor-profile.css";
 import { Col, Row } from "antd";
-import SliderSuggest from "../../../components/slideSuggest"
+import SliderSuggest from "../../../components/slideSuggest";
 import { DEFAULT_AVATAR } from "../../../constant";
 class MyTutorProfile extends Component {
   constructor(props) {
@@ -48,7 +48,10 @@ class MyTutorProfile extends Component {
                   <div className="card-body">
                     <div className="d-flex flex-column align-items-center text-center">
                       <img
-                        src={this.state.currentTutor?.profile?.avatar || DEFAULT_AVATAR} 
+                        src={
+                          this.state.currentTutor?.profile?.avatar ||
+                          DEFAULT_AVATAR
+                        }
                         alt="Admin"
                         className="rounded-circle"
                         width="150"
@@ -194,13 +197,14 @@ class MyTutorProfile extends Component {
               </div>
             </div>
             <div className="list_student_succgest">
-            <h1>Students recommend for you</h1>
+              <h1>Students recommend for you</h1>
 
-                  <SliderSuggest type="student" data = {this.state.students ? this.state.students : null}/>
-  
+              <SliderSuggest
+                type="student"
+                data={this.state.students ? this.state.students : null}
+              />
             </div>
           </Col>
-          <Col span={1}></Col>
         </Row>
       </div>
     );

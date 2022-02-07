@@ -1,183 +1,226 @@
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  InputNumber,
+  Row,
+  Select,
+  Space,
+} from "antd";
 import _ from "lodash";
 import React, { Component } from "react";
-import { withAlert } from "react-alert";
-import subjectService from "../../../api-services/subject.service";
-import tutorService from "../../../api-services/tutor.service";
-import { invalidSetState, validSetState } from "../../utils";
-import CreateTutorStepOne from "../../../components/create-tutor-multi-step/step-one.component";
-import CreateTutorStepTwo from "../../../components/create-tutor-multi-step/step-two.component";
+import subjectApi from "../../../api/subject.api";
+import tutorApi from "../../../api/tutor.api";
+import { WEB_CLIENT_URL } from "../../../constant";
 
 class CreateTutor extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    subjects: [],
+  };
 
-    this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.onChangeSubject = this.onChangeSubject.bind(this);
-    this.onSearchSubject = this.onSearchSubject.bind(this);
-    this.handleNextStep = this.handleNextStep.bind(this);
-    this.handlePreviousStep = this.handlePreviousStep.bind(this);
-    this.onChangExperience = this.onChangExperience.bind(this);
-    this.handleCreateTutor = this.handleCreateTutor.bind(this);
-
-    this.state = {
-      currentTutor: {},
-      subjects: [],
-      step: 1,
-      Experience: null,
-
-      payload: {
-        description: undefined,
-        tutorSubjects: undefined,
-      },
-      errs: {
-        description: {
-          isValidated: false,
-          message: undefined,
-        },
-        Experience: {
-          isValidated: false,
-          message: undefined,
-        },
-        tutorSubjects: {
-          isValidated: false,
-          message: undefined,
-        },
-      },
-    };
-  }
-
-  async componentDidMount() {
-    const { alert } = this.props;
-    const { results: subjects } = await subjectService.getMany({
-      alert,
-      qs: { perPage: 5 },
+  componentDidMount = async () => {
+    const { results: subjects } = await subjectApi.getMany({
+      perPage: 5,
+      page: 1,
+      orderBy: JSON.stringify({ name: "ASC" }),
     });
-    this.setState((curState) => ({ ...curState, subjects }));
-  }
+    await this.setState({ subjects });
+  };
 
-  onChangeDescription(e) {
-    const description = e.target.value;
-    if (_.isEmpty(description)) {
-      this.setState((curState) => {
-        return invalidSetState({
-          curState,
-          fieldName: "description",
-        });
-      });
-      return;
-    }
-    this.setState((curState) => {
-      return validSetState({
-        curState,
-        fieldName: "description",
-        value: description,
-      });
-    });
-  }
-  onChangExperience(e) {
-    const Experience = e.target.value;
-    if (_.isEmpty(Experience)) {
-      this.setState((curState) => {
-        return invalidSetState({
-          curState,
-          fieldName: "Experience",
-        });
-      });
-      return;
-    }
-    this.setState((curState) => {
-      return validSetState({
-        curState,
-        fieldName: "Experience",
-        value: Experience,
-      });
-    });
-  }
-  onChangeSubject(values, elements) {
-    if (_.isEmpty(values)) {
-      this.setState((curState) => {
-        return invalidSetState({
-          curState,
-          fieldName: "tutorSubjects",
-          message: "Select at least 1 subject",
-        });
-      });
-      this.setState((curState) => ({
-        ...curState,
-        payload: { ...curState.payload, tutorSubjects: [] },
-      }));
-      return;
-    }
-    this.setState((curState) => {
-      return validSetState({
-        curState,
-        fieldName: "tutorSubjects",
-        value: elements.map((e) => ({ subjectId: e.key })),
-      });
-    });
-  }
-
-  async onSearchSubject(value) {
-    const { alert } = this.props;
+  onSearchSubject = async (value) => {
     if (_.isEmpty(value)) {
       return;
     }
     const filter = { name: { $ilike: value } };
-    const { results: subjects } = await subjectService.getMany({
-      alert,
-      qs: { perPage: 5, filter: JSON.stringify(filter) },
+    const { results: subjects } = await subjectApi.getMany({
+      perPage: 5,
+      page: 1,
+      orderBy: JSON.stringify({ name: "ASC" }),
+      filter: JSON.stringify(filter),
     });
-    this.setState((curState) => ({
-      ...curState,
-      subjects,
-    }));
-  }
 
-  handleNextStep() {
-    this.setState((curState) => ({
-      ...curState,
-      step: curState.step + 1,
-    }));
-  }
+    await this.setState({ subjects });
+  };
 
-  handlePreviousStep() {
-    this.setState((curState) => ({
-      ...curState,
-      step: curState.step - 1,
-    }));
-  }
-
-  async handleCreateTutor(e) {
-    e.preventDefault();
-    const { alert } = this.props;
-    const { errs } = this.state;
-
-    for (const key in errs) {
-      if (!errs[key].isValidated) {
-        return;
-      }
+  onFinish = async (values) => {
+    console.log("Received values of form:", values);
+    const res = await tutorApi.createTutor(values)
+    if(res){
+      window.open(`${WEB_CLIENT_URL}/tutors/me`, "_self");
     }
-
-    const data = await tutorService.createTutor({
-      payload: this.state.payload,
-      alert,
-      component: this,
-    });
-    if (!_.isEmpty(data)) {
-      window.location.reload();
-    }
-  }
+  };
 
   render() {
-    switch (this.state.step) {
-      case 1:
-        return <CreateTutorStepOne handleNextStep={this.handleNextStep} />;
-      case 2:
-        return <CreateTutorStepTwo handlePreviousStep={this.handlePreviousStep} />;
-      default:
-        break;
-    }
+    return (
+      <div className="login">
+        <Row xs={12} className="justify-content-md-center">
+          <Col
+            xs={12}
+            className="justify-content-md-center border border-light"
+            style={{
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+              padding: "50px 60px",
+              background: "white",
+              margin: "40px 0",
+            }}
+          >
+            <h2
+              className="text-center text-primary"
+              style={{ margin: "0 0 40px 0" }}
+            >
+              Become A Tutor
+            </h2>
+
+            <Form
+              name="dynamic_form_nest_item"
+              onFinish={this.onFinish}
+              autoComplete="off"
+            >
+              <Form.Item
+                label="Years Experience"
+                name="yearsExperience"
+                rules={[{ required: true, message: "Invalid", type: "number" }]}
+              >
+                <InputNumber />
+              </Form.Item>
+
+              <Form.Item
+                label="Expected Salary"
+                name="minimumSalary"
+                rules={[
+                  {
+                    required: true,
+                    message: "price is required",
+                  },
+                ]}
+              >
+                <InputNumber
+                  style={{ width: 200 }}
+                  placeholder="VND/lesson"
+                  formatter={(value) =>
+                    `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  }
+                  parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                />
+              </Form.Item>
+
+              <Form.Item
+                label="About your teaching"
+                name="description"
+                rules={[
+                  {
+                    required: true,
+                    message: "price is required",
+                  },
+                ]}
+              >
+                <Input.TextArea
+                  placeholder="Description"
+                  autoSize={{ minRows: 2, maxRows: 6 }}
+                />
+              </Form.Item>
+
+              <Form.List
+                name="tutorSubjects"
+                rules={[
+                  {
+                    validator: async (_, tutorSubjects) => {
+                      if (!tutorSubjects || tutorSubjects.length < 1) {
+                        return Promise.reject(new Error("At least 1 subject"));
+                      }
+                    },
+                  },
+                ]}
+              >
+                {(fields, { add, remove }) => (
+                  <>
+                    {fields.map(({ key, name, ...restField }) => (
+                      <Space
+                        key={key}
+                        style={{ display: "flex", marginBottom: 8 }}
+                        align="baseline"
+                      >
+                        <Form.Item
+                          {...restField}
+                          name={[name, "subjectId"]}
+                          rules={[
+                            { required: true, message: "Missing subject" },
+                          ]}
+                        >
+                          <Select
+                            showSearch
+                            style={{ width: 200 }}
+                            optionFilterProp="children"
+                            placeholder="Select subject"
+                            onSearch={this.onSearchSubject}
+                          >
+                            {this.state.subjects?.map((subject, index) => (
+                              <Select.Option key={index} value={subject.id}>
+                                {subject.name}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        </Form.Item>
+
+                        <Form.Item
+                          {...restField}
+                          name={[name, "sessionsOfWeek"]}
+                          rules={[
+                            { required: true, message: "Missing sessions" },
+                          ]}
+                        >
+                          <InputNumber
+                            style={{ width: 200 }}
+                            placeholder="days/week"
+                          />
+                        </Form.Item>
+
+                        <Form.Item
+                          {...restField}
+                          name={[name, "price"]}
+                          rules={[{ required: true, message: "Missing price" }]}
+                        >
+                          <InputNumber
+                            style={{ width: 200 }}
+                            placeholder="VND/lesson"
+                            formatter={(value) =>
+                              `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                            }
+                            parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                          />
+                        </Form.Item>
+
+                        <MinusCircleOutlined onClick={() => remove(name)} />
+                      </Space>
+                    ))}
+
+                    <Form.Item>
+                      <Button
+                        type="dashed"
+                        onClick={() => add()}
+                        block
+                        icon={<PlusOutlined />}
+                      >
+                        Add Subject
+                      </Button>
+                    </Form.Item>
+                  </>
+                )}
+              </Form.List>
+
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Submit
+                </Button>
+              </Form.Item>
+            </Form>
+          </Col>
+        </Row>
+      </div>
+    );
   }
 }
 
-export default withAlert()(CreateTutor);
+export default CreateTutor;
