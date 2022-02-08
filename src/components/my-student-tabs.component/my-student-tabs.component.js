@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { Tab, Tabs } from "react-bootstrap";
 import studentService from "../../api-services/student.service";
-import CreateStudent from "../../views/student/create/create-student.component";
+import CreateStudentView from "../../views/student/create-student";
 import MyStudentProfile from "../../views/student/my-student-profile/my-student-profile.component";
 import MyTutors from "../../views/student/my-tutors.component/my-tutors.component";
 
@@ -44,7 +44,7 @@ class MyStudentTabs extends Component {
       </div>
     ) : (
       <div className="main-tutor">
-        {_.isEmpty(this.state.currentStudent) && <CreateStudent />}
+        {_.isEmpty(this.state.currentStudent) && <CreateStudentView />}
         {!_.isEmpty(this.state.currentStudent) && (
           <Tabs
             defaultActiveKey="profile"

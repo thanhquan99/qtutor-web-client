@@ -7,15 +7,15 @@ import {
   InputNumber,
   Row,
   Select,
-  Space,
+  Space
 } from "antd";
 import _ from "lodash";
 import React, { Component } from "react";
+import studentApi from "../../../api/student.api";
 import subjectApi from "../../../api/subject.api";
-import tutorApi from "../../../api/tutor.api";
 import { WEB_CLIENT_URL } from "../../../constant";
 
-class CreateTutorView extends Component {
+class CreateStudentView extends Component {
   state = {
     subjects: [],
   };
@@ -45,10 +45,9 @@ class CreateTutorView extends Component {
   };
 
   onFinish = async (values) => {
-    console.log("Received values of form:", values);
-    const res = await tutorApi.createTutor(values)
-    if(res){
-      window.open(`${WEB_CLIENT_URL}/tutors/me`, "_self");
+    const res = await studentApi.createStudent(values);
+    if (res) {
+      window.open(`${WEB_CLIENT_URL}/students/me`, "_self");
     }
   };
 
@@ -70,7 +69,7 @@ class CreateTutorView extends Component {
               className="text-center text-primary"
               style={{ margin: "0 0 40px 0" }}
             >
-              Become A Tutor
+              Become A Student
             </h2>
 
             <Form
@@ -79,40 +78,12 @@ class CreateTutorView extends Component {
               autoComplete="off"
             >
               <Form.Item
-                label="Years Experience"
-                name="yearsExperience"
-                rules={[{ required: true, message: "Invalid", type: "number" }]}
-              >
-                <InputNumber />
-              </Form.Item>
-
-              <Form.Item
-                label="Expected Salary"
-                name="minimumSalary"
-                rules={[
-                  {
-                    required: true,
-                    message: "price is required",
-                  },
-                ]}
-              >
-                <InputNumber
-                  style={{ width: 200 }}
-                  placeholder="VND/lesson"
-                  formatter={(value) =>
-                    `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                  }
-                  parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="About your teaching"
+                label="About your studying"
                 name="description"
                 rules={[
                   {
                     required: true,
-                    message: "price is required",
+                    message: "description is required",
                   },
                 ]}
               >
@@ -123,11 +94,11 @@ class CreateTutorView extends Component {
               </Form.Item>
 
               <Form.List
-                name="tutorSubjects"
+                name="studentSubjects"
                 rules={[
                   {
-                    validator: async (_, tutorSubjects) => {
-                      if (!tutorSubjects || tutorSubjects.length < 1) {
+                    validator: async (_, studentSubjects) => {
+                      if (!studentSubjects || studentSubjects.length < 1) {
                         return Promise.reject(new Error("At least 1 subject"));
                       }
                     },
@@ -223,4 +194,4 @@ class CreateTutorView extends Component {
   }
 }
 
-export default CreateTutorView;
+export default CreateStudentView;
