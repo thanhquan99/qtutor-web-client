@@ -1,4 +1,4 @@
-import { Button, Col, List, Row, Space } from "antd";
+import { Button, Col, List, Row, Space, Spin } from "antd";
 import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
@@ -17,6 +17,7 @@ class Tutor extends Component {
       currentTutor: {},
       value: 3,
       valueComment: "",
+      loading: true,
     };
   }
   handleChangeRate = (value) => {
@@ -33,13 +34,28 @@ class Tutor extends Component {
       id: this.props.match.params.id,
     });
     if (!_.isEmpty(data)) {
-      this.setState((curState) => ({ ...curState, currentTutor: data }));
+      this.setState((curState) => ({
+        ...curState,
+        currentTutor: data,
+        loading: false,
+      }));
     }
   }
   render() {
-    const { currentTutor } = this.state;
-
-    return (
+    const { currentTutor, loading } = this.state;
+    return loading ? (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "80vh",
+        }}
+        className="spin"
+      >
+        <Spin />
+      </div>
+    ) : (
       <div className=" mt-3 view-tutor">
         <Row>
           <Col span={4}></Col>

@@ -2,7 +2,7 @@ import { Avatar, Button, Comment, List, Rate } from "antd";
 import { Component } from "react";
 import tutorApi from "../../../api/tutor.api";
 import { DEFAULT_AVATAR } from "../../../constant";
-import delay from "delay";
+import eventBus from "../../../common/EventBus";
 
 class TutorListRatings extends Component {
   state = {
@@ -14,12 +14,19 @@ class TutorListRatings extends Component {
   };
 
   componentDidMount = async () => {
-    await delay(2000);
     await this.fetchData({
       perPage: 3,
       page: 1,
       orderBy: JSON.stringify({ createdAt: "DESC" }),
     });
+
+    eventBus.on("createTutorRating", (rating) => {
+      this.setState({ ratings: [rating].concat(this.state.ratings) });
+    });
+  };
+
+  componentWillUnmount = () => {
+    eventBus.remove("createTutorRating");
   };
 
   fetchData = async (qs) => {
@@ -32,7 +39,7 @@ class TutorListRatings extends Component {
       this.setState({
         ratings: this.state.ratings.concat(res.results),
         loading: false,
-        total: res.total
+        total: res.total,
       });
     }
   };
@@ -83,7 +90,7 @@ class TutorListRatings extends Component {
                 <Rate
                   style={{ color: "#66CDAA" }}
                   disabled
-                  defaultValue={rating.rating}
+                  value={rating?.rating}
                 />
               </span>
             }

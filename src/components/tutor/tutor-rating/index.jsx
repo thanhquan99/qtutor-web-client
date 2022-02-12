@@ -1,9 +1,8 @@
-import { Button, Input, Rate, Space } from "antd";
+import { Rate, Space } from "antd";
 import React, { Component } from "react";
 import cityApi from "../../../api/city.api";
-import TutorListRatings from '../tutor-list-ratings';
-
-const desc = ["terrible", "bad", "normal", "good", "wonderful"];
+import TutorListRatings from "../tutor-list-ratings";
+import TutorRatingComment from "../tutor-rating-comment";
 
 class TutorRating extends Component {
   state = {};
@@ -14,6 +13,10 @@ class TutorRating extends Component {
       orderBy: JSON.stringify({ name: "ASC" }),
     });
     await this.setState({ cities });
+  };
+
+  onFinish = async (values) => {
+    console.log(values);
   };
 
   render() {
@@ -36,24 +39,7 @@ class TutorRating extends Component {
           </div>
 
           <div className="cmt cmtAndRate">
-            <div>
-              <Rate
-                tooltips={desc}
-                onChange={this.handleChangeRate}
-                value={3.5}
-              />
-            </div>
-            <div className="items-center">
-              <Input.TextArea
-                placeholder="Your comment"
-                autoSize={{ minRows: 2, maxRows: 6 }}
-              />
-            </div>
-            <div className="buttonCmt">
-              <Button type="primary" size="large">
-                Comment
-              </Button>
-            </div>
+            <TutorRatingComment tutor={this.props.tutor} />
             <TutorListRatings tutor={this.props.tutor} />
           </div>
         </div>
