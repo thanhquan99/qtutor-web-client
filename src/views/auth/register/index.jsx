@@ -1,13 +1,15 @@
-import { Button, Col, Form, Input, Row, Select } from "antd";
+import { Button, Col, Form, Input, Row, Select, Upload } from "antd";
 import _ from "lodash";
 import React, { Component } from "react";
 import authApi from "../../../api/auth.api";
 import cityApi from "../../../api/city.api";
-import { ACADEMIC_LEVEL } from "../../../constant";
+import { ACADEMIC_LEVEL, DEFAULT_AVATAR } from "../../../constant";
+import { signS3Url, uploadFileToS3 } from "../../../utils";
 
 class AuthRegisterView extends Component {
   state = {
     cities: [],
+    imageUrl: DEFAULT_AVATAR,
   };
 
   componentDidMount = async () => {
@@ -19,7 +21,12 @@ class AuthRegisterView extends Component {
   };
 
   onFinish = async (values) => {
-    const res = await authApi.register(values);
+    delete values.image;
+
+    const res = await authApi.register({
+      ...values,
+      avatar: this.state.imageUrl,
+    });
     if (res) {
       this.props.history.push("/verify-email");
     }
@@ -39,8 +46,22 @@ class AuthRegisterView extends Component {
     await this.setState({ cities });
   };
 
+  uploadImageToS3 = async (options) => {
+    const { onSuccess, onError, file } = options;
+    const { uploadUrl, url } = await signS3Url(file);
+
+    const response = await uploadFileToS3(uploadUrl, file);
+
+    if (response?.status === 200) {
+      onSuccess(url, file);
+    } else {
+      onError(null, { status: "done" });
+    }
+    this.setState({ imageUrl: url });
+  };
+
   render() {
-    const { cities } = this.state;
+    const { cities, imageUrl } = this.state;
     return (
       <div className="login">
         <Row xs={12} className="justify-content-md-center">
@@ -69,6 +90,18 @@ class AuthRegisterView extends Component {
               onFinish={this.onFinish}
               autoComplete="off"
             >
+              <Form.Item name="image" className="justify-content-md-center">
+                <Upload
+                  name="avatar"
+                  listType="picture-card"
+                  className="avatar-uploader text-center"
+                  showUploadList={false}
+                  customRequest={this.uploadImageToS3}
+                >
+                  <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
+                </Upload>
+              </Form.Item>
+
               <Form.Item
                 label="Email"
                 name="email"

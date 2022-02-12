@@ -9,7 +9,6 @@ import {
 } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { getNotifiNumber } from "../../api/notification";
 import eventBus from "../../common/EventBus";
 import { DEFAULT_AVATAR, WEB_CLIENT_URL } from "../../constant";
 import NotificationIcon from "./child/notification-icon";
@@ -31,15 +30,6 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    getNotifiNumber()
-      .then((response) => {
-        this.setState({
-          numberNotificationUnRead: response.totalUnread,
-        });
-      })
-      .catch((error) => {
-        console.log("error");
-      });
     const user = JSON.parse(localStorage.getItem("user"));
     if (!_.isEmpty(user)) {
       this.setState({
