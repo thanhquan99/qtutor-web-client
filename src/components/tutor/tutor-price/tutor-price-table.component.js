@@ -1,6 +1,5 @@
 import { Table } from "antd";
 import React, { Component } from "react";
-import { withAlert } from "react-alert";
 
 class TutorPriceTable extends Component {
   constructor(props) {
@@ -32,25 +31,20 @@ class TutorPriceTable extends Component {
         key: "price",
         render: (price) => (
           <span style={{ color: "#8B8B83" }}>
-            {parseInt(price).toLocaleString("en-US", {
-              style: "currency",
-              currency: "VND",
-            })}
+            {new Intl.NumberFormat().format(price)}/lesson
           </span>
         ),
       },
     ];
-    const { teachingPrices } = this.props.tutor;
-    const data = teachingPrices?.map((e)=>(
-      {
-        key: e.id,
-        subject: e.subject?.name,
-        price: e.price,
-        sessionsOfWeek: e.sessionsOfWeek,
-      }
-    ))
+    const { tutor } = this.props;
+    const data = tutor.tutorSubjects?.map((e) => ({
+      key: e.id,
+      subject: e.subject?.name,
+      price: e.price,
+      sessionsOfWeek: e.sessionsOfWeek,
+    }));
     return <Table columns={columns} dataSource={data} pagination={false} />;
   }
 }
 
-export default withAlert()(TutorPriceTable);
+export default TutorPriceTable;
