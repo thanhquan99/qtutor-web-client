@@ -19,8 +19,8 @@ class TutorRatingComment extends Component {
     const rating = await tutorApi.createRating(this.props.tutor?.id, values);
     if (rating) {
       eventBus.dispatch("createTutorRating", rating);
+      this.setState({ isCommentVisible: false });
     }
-    console.log(values);
   };
 
   render() {

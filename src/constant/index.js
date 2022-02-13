@@ -49,6 +49,16 @@ const ACADEMIC_LEVEL = {
   PROFESSOR: "Professor",
 };
 
+const DAY_OF_WEEKS = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
 module.exports = {
   API_URL,
   DEFAULT_FILTER,
@@ -59,4 +69,5 @@ module.exports = {
   TOAST_OPTIONS,
   WEB_CLIENT_URL,
   SORTER_ORDER,
+  DAY_OF_WEEKS,
 };

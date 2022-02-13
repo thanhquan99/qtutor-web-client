@@ -39,14 +39,6 @@
 .view-tutor .content-info b{
   color: tomato;
 }
-.view-tutor{
-  background-color: #f9f4ef !important;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  transform: translateY(-128px);
-}
 .view-tutor .ant-list-sm .ant-list-item{
   padding: 0;
 }
@@ -76,9 +68,7 @@
 .wrappers .centers{
     width: 80%;
 }
-.wrappers .ant-divider-horizontal.ant-divider-with-text{
-    font-size: 24px !important;
-}
+
 .wrappers .ant-table-wrapper{
     width: 100%;
 }

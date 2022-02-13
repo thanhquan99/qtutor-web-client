@@ -6,6 +6,7 @@ import tutorService from "../../../api-services/tutor.service";
 import RegisterACourse from "../../../components/register-a-course/register-a-course.component";
 import TutorPriceTable from "../../../components/tutor/tutor-price/tutor-price-table.component";
 import TutorRating from "../../../components/tutor/tutor-rating";
+import TutorSchedule from "../../../components/tutor/tutor-schedule";
 import { DEFAULT_AVATAR } from "../../../constant";
 import "./tutor.css";
 
@@ -77,26 +78,27 @@ class Tutor extends Component {
             </div>
             <div className="descript">
               <b>{currentTutor?.profile?.name}</b>
-              <p>{currentTutor?.description}</p>
+              <p>Live at {currentTutor?.profile?.city?.name}</p>
               <Space>
                 <RegisterACourse tutor={this.state.currentTutor} />
-                <Button size="large">More Info</Button>
               </Space>
             </div>
             <div className="content-info">
               <div className="row">
                 <div className="col-md-6 bg-white">
                   <b>About me</b>
-                  <p>Live at {currentTutor?.profile?.city?.name}</p>
-                  <p>{currentTutor?.additionalInformation}</p>
-                  <p>{currentTutor?.dateOfBirth}</p>
-                  <p>{currentTutor?.description}</p>
+                  <p style={{ fontSize: 14 }}>{currentTutor?.description}</p>
                 </div>
                 <div className="col-md-6 bg-white">
-                  <b>Chuyên môn</b>
-                  <p>số năm kinh nhiệm: {currentTutor?.yearsExperience}</p>
-                  <p>Số môn học đã dạy: {currentTutor?.totalCourses}</p>
-                  <p>Số học sinh đã dạy: {currentTutor?.totalStudents}</p>
+                  <b>Teaching Experience</b>
+                  <List
+                    dataSource={[
+                      `Years experience: ${currentTutor?.yearsExperience}`,
+                      `Total courses: ${currentTutor?.totalCourses}`,
+                      `Total students: ${currentTutor?.totalStudents}`,
+                    ]}
+                    renderItem={(item) => <List.Item>{item}</List.Item>}
+                  />
                 </div>
               </div>
               <div className="row">
@@ -112,10 +114,14 @@ class Tutor extends Component {
                 </div>
                 <div className="col-md-6 bg-white">
                   <b>Price</b>
-                  <TutorPriceTable tutor={this.state.currentTutor} />
+                  <TutorPriceTable tutor={currentTutor} />
                 </div>
               </div>
-              <TutorRating tutor={this.state.currentTutor} />
+              <div className="row bg-white">
+                <b>Free Time</b>
+                <TutorSchedule schedule={currentTutor?.schedules} />
+              </div>
+              <TutorRating tutor={currentTutor} />
             </div>
           </Col>
         </Row>

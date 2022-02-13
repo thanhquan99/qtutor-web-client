@@ -1,54 +1,44 @@
 import { Col, List, Pagination, Row } from "antd";
 import { Component } from "react";
-import { withAlert } from "react-alert";
-import tutorService from "../../../api-services/tutor.service";
-import TutorAPIContext from "../../../contexts/tutor-api.context";
+import tutorApi from "../../../api/tutor.api";
 import TutorCard from "../../../components/tutor/tutor-card/tutor-card.component";
 import TutorsFilter from "../../../components/tutor/tutor-filter/tutors-filter.component";
-import "./tutor-list.css"
+import "./tutor-list.css";
+
 class ListTutors extends Component {
-  static contextType = TutorAPIContext;
-  constructor(props) {
-    super(props);
-    this.onChangePage = this.onChangePage.bind(this);
-    this.handleFilter = this.handleFilter.bind(this);
+  state = {
+    tutors: [],
+    total: 1,
+    filter: {},
+    page: 1,
+    perPage: 12,
+    customFilter: {},
+  };
 
-    this.state = {
-      tutors: [],
-      total: 1,
-    };
-  }
+  componentDidMount = async () => {
+    await this.fetchData();
+  };
 
-  async componentDidMount() {
-    const { alert } = this.props;
-    const { results: tutors, total } = await tutorService.getMany({
-      alert,
-      qs: { perPage: 12 },
+  fetchData = async () => {
+    const { perPage, page, filter, customFilter } = this.state;
+    const { results: tutors, total } = await tutorApi.getMany({
+      perPage,
+      page,
+      filter: JSON.stringify(filter),
+      customFilter: JSON.stringify(customFilter),
     });
-    this.setState((curState) => ({ ...curState, tutors, total }));
-    console.log(this.state, tutors, total);
-  }
+    this.setState({ tutors, total });
+  };
 
-  async onChangePage(page) {
-    const { alert } = this.props;
-    const { results: tutors, total } = await tutorService.getMany({
-      alert,
-      qs: { perPage: 12, page },
-    });
-    this.setState((curState) => ({ ...curState, tutors, total }));
-  }
+  onChangePage = async (page) => {
+    await this.setState({ page });
+    await this.fetchData();
+  };
 
-  async handleFilter() {
-    const data = await tutorService.getMany({
-      alert,
-      qs: this.context,
-    });
-    this.setState((curState) => ({
-      ...curState,
-      tutors: data.results,
-      total: data.total,
-    }));
-  }
+  handleFilter = async (filter = {}, customFilter = {}) => {
+    await this.setState({ filter, page: 1, customFilter });
+    await this.fetchData();
+  };
 
   render() {
     return (
@@ -76,7 +66,8 @@ class ListTutors extends Component {
               <Pagination
                 total={this.state.total}
                 onChange={this.onChangePage}
-                defaultPageSize={10}
+                defaultPageSize={12}
+                current={this.state.page}
               />
             </div>
           </Col>
@@ -87,4 +78,4 @@ class ListTutors extends Component {
   }
 }
 
-export default withAlert()(ListTutors);
+export default ListTutors;

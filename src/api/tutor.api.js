@@ -16,6 +16,10 @@ class TutorAPI {
   async getRatedExamination(tutorId) {
     return await axiosService.get(`tutors/${tutorId}/rated-examination`);
   }
+
+  async getMany(qs) {
+    return await axiosService.get("/tutors", qs);
+  }
 }
 
 const tutorApi = new TutorAPI();

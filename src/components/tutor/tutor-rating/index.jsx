@@ -7,19 +7,8 @@ import TutorRatingComment from "../tutor-rating-comment";
 class TutorRating extends Component {
   state = {};
 
-  componentDidMount = async () => {
-    const { results: cities } = await cityApi.getMany({
-      perPage: 5,
-      orderBy: JSON.stringify({ name: "ASC" }),
-    });
-    await this.setState({ cities });
-  };
-
-  onFinish = async (values) => {
-    console.log(values);
-  };
-
   render() {
+    const { tutor } = this.props;
     return (
       <div className="row ">
         <div className="col-md-12 bg-white ">
@@ -30,12 +19,14 @@ class TutorRating extends Component {
                 style={{ color: "#66CDAA" }}
                 disabled
                 allowHalf
-                defaultValue={4.6}
+                defaultValue={tutor?.averageRating}
               />
-              <span style={{ fontSize: 30, color: "#66CDAA" }}>4.3</span>
+              <span style={{ fontSize: 30, color: "#66CDAA" }}>
+                {tutor?.averageRating}
+              </span>
             </Space>
             <br />
-            <span>10 reviews</span>
+            <span>{tutor?.totalRatings} reviews</span>
           </div>
 
           <div className="cmt cmtAndRate">
