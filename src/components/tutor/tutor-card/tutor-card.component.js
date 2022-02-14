@@ -73,10 +73,12 @@ class TutorCard extends Component {
 
           <div className="nameAndGender">
             <span>
-              <FaStar style={{ color: "#66CDAA" }}></FaStar> 4.3
+              <FaStar style={{ color: "#66CDAA" }}></FaStar>{" "}
+              {tutor?.averageRating}
             </span>
             <span>
-              <FaComment style={{ color: "#FFCC99" }}></FaComment> 29
+              <FaComment style={{ color: "#FFCC99" }}></FaComment>{" "}
+              {tutor?.totalRatings}
             </span>
           </div>
         </div>

@@ -20,6 +20,10 @@ class TutorAPI {
   async getMany(qs) {
     return await axiosService.get("/tutors", qs);
   }
+
+  async getMe() {
+    return await axiosService.get("/tutors/me");
+  }
 }
 
 const tutorApi = new TutorAPI();

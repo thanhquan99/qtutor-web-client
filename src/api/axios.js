@@ -73,7 +73,7 @@ export class AxiosService {
     );
   }
 
-  async get(url, qs) {
+  async get(url, qs = {}) {
     const stringified = queryString.stringify(qs);
     const data = await this.instance
       .get(`${url}/?${stringified}`)
