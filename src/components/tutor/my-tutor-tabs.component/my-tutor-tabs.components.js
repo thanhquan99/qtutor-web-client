@@ -3,11 +3,11 @@ import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { Tab, Tabs } from "react-bootstrap";
-import tutorService from "../../api-services/tutor.service";
-import { CreateTutorProvider } from "../../contexts/create-tutor.context";
-import CreateTutor from "../../views/tutor/create-tutor/create-tutor.component";
-import MyStudents from "../../views/tutor/my-students/my-students.component";
-import MyTutorProfile from "../../views/tutor/my-tutor-profile/my-tutor-profile.component";
+import tutorService from "../../../api-services/tutor.service";
+import { CreateTutorProvider } from "../../../contexts/create-tutor.context";
+import CreateTutor from "../../../views/tutor/create-tutor/create-tutor.component";
+import MyTeachings from "../../../views/tutor/my-teachings/my-teachings.component";
+import MyTutorProfile from "../../../views/tutor/my-tutor-profile/my-tutor-profile.component";
 
 class MyTutorTabs extends Component {
   constructor(props) {
@@ -60,7 +60,7 @@ class MyTutorTabs extends Component {
               <MyTutorProfile />
             </Tab>
             <Tab eventKey="students" title="Your teachings">
-              <MyStudents />
+              <MyTeachings />
             </Tab>
           </Tabs>
         )}

@@ -24,7 +24,7 @@ import Schedule from "./views/schedule";
 import ListStudents from "./views/student/list-students/list-students";
 import MyStudentTabs from "./components/my-student-tabs.component/my-student-tabs.component";
 import ListTutors from "./views/tutor/list-tutors/list-tutors.component";
-import MyTutorTabs from "./components/my-tutor-tabs.component/my-tutor-tabs.components";
+import MyTutorTabs from "./components/tutor/my-tutor-tabs.component/my-tutor-tabs.components";
 import Tutor from "./views/tutor/tutor/tutor.component";
 import Profile from "./views/user/profile.component";
 import Student from "./views/student/student/student.component";

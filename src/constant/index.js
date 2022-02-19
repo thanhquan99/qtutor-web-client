@@ -49,6 +49,14 @@ const ACADEMIC_LEVEL = {
   PROFESSOR: "Professor",
 };
 
+const TUTOR_STUDENT_STATUS = {
+  WAITING_TUTOR_ACCEPT: "Waiting Tutor Accept",
+  WAITING_STUDENT_ACCEPT: "Waiting Student Accept",
+  ACCEPTED: "Accepted",
+  ARCHIVED: "Archived",
+  CANCEL: "Cancel",
+};
+
 const DAY_OF_WEEKS = [
   "Sunday",
   "Monday",
@@ -70,4 +78,5 @@ module.exports = {
   WEB_CLIENT_URL,
   SORTER_ORDER,
   DAY_OF_WEEKS,
+  TUTOR_STUDENT_STATUS,
 };

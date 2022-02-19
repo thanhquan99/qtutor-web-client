@@ -24,6 +24,14 @@ class TutorAPI {
   async getMe() {
     return await axiosService.get("/tutors/me");
   }
+
+  async getMyTeachings(qs) {
+    return await axiosService.get("/tutors/my-teachings", qs);
+  }
+
+  async getMyTeachingDetail(teachingId) {
+    return await axiosService.get(`/tutors/my-teachings/${teachingId}/detail`);
+  }
 }
 
 const tutorApi = new TutorAPI();
