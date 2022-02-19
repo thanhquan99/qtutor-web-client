@@ -1,81 +1,52 @@
 import { Button } from "antd";
 import React from "react";
-import { useHistory } from "react-router-dom";
 import TimeAgo from "react-timeago";
-import { toast } from "react-toastify";
-import { readNotifi } from "../../../api/notification";
 import "./style.css";
-const Item = ({ data, setData ,fetchListNotifi,hide}) => {
-  const history = useHistory();
-  const handleNotiItem = async () => {
-    await readNotifi(data.id, { isRead: true });
-    hide()
-    history.push(data.url)
-  };
-  const handleAccept = async () => {
-    await readNotifi(data.id, { status: "Accepted" })
-      .then((response) => {
-        toast.success("success!", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        hide()
-        fetchListNotifi()
-      })
-      .catch((error) => {
-        toast.error("error!", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      });
-  };
-  const handleCancel = async () => {
-    await readNotifi(data.id, { status: "Cancel" })
-      .then((response) => {
-        toast.success("success!", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+import notificationApi from "../../../api/notification.api";
+import tutorStudentApi from "../../../api/tutor-student.api";
+import { TUTOR_STUDENT_STATUS, WEB_CLIENT_URL } from "../../../constant";
 
-        hide()
-        fetchListNotifi()
-        })
-        .catch((error) => {
-        toast.error("error!", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+const NotificationItem = ({ data, hide, handleUpdateOne }) => {
+  const handleClickItem = async () => {
+    if (!data.isRead) {
+      const updatedData = await notificationApi.updateOne(data.id, {
+        isRead: true,
       });
+      if (updatedData) {
+        handleUpdateOne(updatedData);
+      }
+    }
+    window.open(`${WEB_CLIENT_URL}/${data.url}`, "_self");
   };
+
+  const handleAccept = async () => {
+    const updatedTeaching = await tutorStudentApi.updateOne(data.extraId, {
+      status: TUTOR_STUDENT_STATUS.ACCEPTED,
+    });
+    hide();
+    if (updatedTeaching) {
+      handleUpdateOne(updatedTeaching.notification);
+    }
+  };
+
+  const handleCancel = async () => {
+    const updatedTeaching = await tutorStudentApi.updateOne(data.extraId, {
+      status: TUTOR_STUDENT_STATUS.CANCEL,
+    });
+    hide();
+    if (updatedTeaching) {
+      handleUpdateOne(updatedTeaching.notification);
+    }
+  };
+
+  const backgroundColor = data.isRead ? "white" : "whitesmoke";
+
   return (
-    <div className="wrap-notifi">
-      <div onClick={handleNotiItem} className="item-notifi">
+    <div className="wrap-notifi" style={{ backgroundColor }}>
+      <div onClick={handleClickItem} className="item-notifi">
         <div className="group__left">
           <div className="avt">
-            <img
-              src="https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg"
-              alt=""
-            />
+            <img src={data.sender?.profile?.avatar} alt="" />
           </div>
           <div className="text">
             <div style={{ marginTop: "3px" }} className="messenger">
@@ -105,4 +76,4 @@ const Item = ({ data, setData ,fetchListNotifi,hide}) => {
     </div>
   );
 };
-export default Item;
+export default NotificationItem;

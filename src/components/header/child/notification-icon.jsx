@@ -3,7 +3,7 @@ import { Popover } from "antd";
 import "antd/dist/antd.css";
 import React, { Component } from "react";
 import { getNotifiNumber } from "../../../api/notification";
-import Notification from "../../notification";
+import Notification from "../../notification/list-noti";
 
 class NotificationIcon extends Component {
   state = {

@@ -1,15 +1,16 @@
 import { Button, Empty, Spin } from "antd";
 import React, { useEffect, useState } from "react";
-import { getlistNotifi } from "../../api/notification";
-import ItemNotification from "./itemNotifi";
+import { getlistNotifi } from "../../../api/notification";
+import ItemNotification from "../itemNotifi";
 import "./style.css";
 
-const Notification = ({hide}) => {
+const Notification = ({ hide }) => {
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
-  const [loadding, setLoadding] = useState(true);
+  const [loading, setLoading] = useState(true);
+
   const fetchListNotifi = async () => {
-    setLoadding(true);
+    setLoading(true);
     await getlistNotifi(page)
       .then((response) => {
         console.log(response, "res");
@@ -18,8 +19,9 @@ const Notification = ({hide}) => {
       .catch((error) => {
         console.log("loi");
       });
-    setLoadding(false);
+    setLoading(false);
   };
+
   const handleLoadMore = async () => {
     setPage(page + 1);
     await getlistNotifi(page + 1)
@@ -30,10 +32,22 @@ const Notification = ({hide}) => {
         console.log("loi");
       });
   };
+
+  const handleUpdateOne = (notification) => {
+    setData(
+      data.map((e) => {
+        if (e.id === notification.id) {
+          return notification;
+        }
+        return e;
+      })
+    );
+  };
+
   useEffect(() => {
     fetchListNotifi(page);
   }, []);
-  return loadding ? (
+  return loading ? (
     <div
       style={{
         display: "flex",
@@ -48,14 +62,14 @@ const Notification = ({hide}) => {
     </div>
   ) : (
     <div className="notifi">
-      {data.length>0 ? (
+      {data.length > 0 ? (
         data.map((item) => (
-          <div>
-            <ItemNotification 
-            data={item} 
-            setData={setData}
-            fetchListNotifi={fetchListNotifi}
-            hide={hide}
+          <div key={item.id}>
+            <ItemNotification
+              data={item}
+              fetchListNotifi={fetchListNotifi}
+              hide={hide}
+              handleUpdateOne={handleUpdateOne}
             />
           </div>
         ))
@@ -63,7 +77,11 @@ const Notification = ({hide}) => {
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       )}
       <div
-        style={data.length>0 ? { textAlign: "center", marginTop:'10px' } : { display: "none" }}
+        style={
+          data.length > 0
+            ? { textAlign: "center", marginTop: "10px" }
+            : { display: "none" }
+        }
         className="button"
       >
         <Button onClick={handleLoadMore} style={{ backgroundColor: "#ffd803" }}>
