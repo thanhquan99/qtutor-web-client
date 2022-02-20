@@ -72,6 +72,7 @@ const [optionActive, setOptionActive] = useState("Free Time")
     else if (optionActive === "Personal Plan"){
       data = dataPersonalPlan
     }
+    console.log(data)
     await Promise.all([createSchedule(data).catch((error) => {})]);
     fectchListStudents()
   };

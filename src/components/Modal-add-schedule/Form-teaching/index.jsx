@@ -22,6 +22,11 @@ const Teaching = ({ teachings , dataTeaching, setDataTeaching}) => {
         dayOfWeek: value,
         hour: dataTeaching.startTimeDate.hour,
         minute: dataTeaching.startTimeDate.minute,
+      },
+      endTimeDate:{
+        dayOfWeek: value,
+        hour: dataTeaching.endTimeDate.hour,
+        minute: dataTeaching.endTimeDate.minute,
       }
     });
   };
@@ -89,8 +94,8 @@ const Teaching = ({ teachings , dataTeaching, setDataTeaching}) => {
         <div className="group__select">
         <Select
             size="large"
-            style={{ width: "300px" }}
-            defaultValue="hay chon"
+            style={{ width: 500 }}
+            placeholder="Select teaching"
             onChange={onStudentChange}
           >
             {teachings.map((item, index) => (
@@ -144,8 +149,7 @@ const Teaching = ({ teachings , dataTeaching, setDataTeaching}) => {
           <Select
             size="large"
             style={{ width: "150px" }}
-            defaultValue="SUNDAY"
-            onChange={onDayChange1}
+            disabled
           >
             <Option value="SUNDAY">Sunday</Option>
             <Option value="MONDAY">Monday</Option>

@@ -2,7 +2,7 @@ import { Input, Select } from "antd";
 import React, { useEffect } from "react";
 import "./style.css";
 
-const ModalAddSchedule = ({dataPersonalPlan, setDataPersonalPlan}) => {
+const ModalAddSchedule = ({ dataPersonalPlan, setDataPersonalPlan }) => {
   const { Option } = Select;
   const { TextArea } = Input;
 
@@ -18,68 +18,73 @@ const ModalAddSchedule = ({dataPersonalPlan, setDataPersonalPlan}) => {
   const onDayChange = (value) => {
     setDataPersonalPlan({
       ...dataPersonalPlan,
-      startTimeDate:{
+      startTimeDate: {
         dayOfWeek: value,
         hour: dataPersonalPlan.startTimeDate.hour,
         minute: dataPersonalPlan.startTimeDate.minute,
-      }
+      },
+      endTimeDate: {
+        dayOfWeek: value,
+        hour: dataPersonalPlan.endTimeDate.hour,
+        minute: dataPersonalPlan.endTimeDate.minute,
+      },
     });
   };
   const onHourChange = (value) => {
     setDataPersonalPlan({
       ...dataPersonalPlan,
-      startTimeDate:{
+      startTimeDate: {
         dayOfWeek: dataPersonalPlan.startTimeDate.dayOfWeek,
         hour: value,
         minute: dataPersonalPlan.startTimeDate.minute,
-      }
+      },
     });
   };
   const onMinuteChange = (value) => {
     setDataPersonalPlan({
       ...dataPersonalPlan,
-      startTimeDate:{
+      startTimeDate: {
         dayOfWeek: dataPersonalPlan.startTimeDate.dayOfWeek,
         hour: dataPersonalPlan.startTimeDate.hour,
         minute: value,
-      }
+      },
     });
   };
 
   const onDayChange1 = (value) => {
     setDataPersonalPlan({
       ...dataPersonalPlan,
-      endTimeDate:{
+      endTimeDate: {
         dayOfWeek: value,
         hour: dataPersonalPlan.endTimeDate.hour,
         minute: dataPersonalPlan.endTimeDate.minute,
-      }
+      },
     });
   };
   const onHourChange1 = (value) => {
     setDataPersonalPlan({
       ...dataPersonalPlan,
-      endTimeDate:{
+      endTimeDate: {
         dayOfWeek: dataPersonalPlan.endTimeDate.dayOfWeek,
         hour: value,
         minute: dataPersonalPlan.endTimeDate.minute,
-      }
+      },
     });
   };
   const onMinuteChange1 = (value) => {
     setDataPersonalPlan({
       ...dataPersonalPlan,
-      endTimeDate:{
+      endTimeDate: {
         dayOfWeek: dataPersonalPlan.endTimeDate.dayOfWeek,
         hour: dataPersonalPlan.endTimeDate.hour,
         minute: value,
-      }
+      },
     });
   };
   const onDesChange = (value) => {
     setDataPersonalPlan({
       ...dataPersonalPlan,
-      description: value.target.value
+      description: value.target.value,
     });
   };
   return (
@@ -87,13 +92,14 @@ const ModalAddSchedule = ({dataPersonalPlan, setDataPersonalPlan}) => {
       <div className="time">
         <span>Description: </span>
         <div className="group__select">
-          <TextArea 
-           onChange={onDesChange}
-           placeholder="description...."
-          rows={3} />
+          <TextArea
+            onChange={onDesChange}
+            placeholder="description...."
+            rows={3}
+          />
         </div>
       </div>
-        <div className="time">
+      <div className="time">
         <span>Start Time: </span>
         <div className="group__select">
           <Select
@@ -113,7 +119,7 @@ const ModalAddSchedule = ({dataPersonalPlan, setDataPersonalPlan}) => {
           <Select
             size="large"
             style={{ width: "150px" }}
-           placeholder = "7 hour"
+            placeholder="7 hour"
             onChange={onHourChange}
           >
             {listHour.map((item) => (
@@ -135,12 +141,7 @@ const ModalAddSchedule = ({dataPersonalPlan, setDataPersonalPlan}) => {
       <div className="time">
         <span>End Time: </span>
         <div className="group__select">
-          <Select
-            size="large"
-            style={{ width: "150px" }}
-            defaultValue="SUNDAY"
-            onChange={onDayChange1}
-          >
+          <Select size="large" style={{ width: "150px" }} disabled>
             <Option value="SUNDAY">Sunday</Option>
             <Option value="MONDAY">Monday</Option>
             <Option value="TUESDAY">Tuesday</Option>

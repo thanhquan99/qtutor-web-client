@@ -16,62 +16,69 @@ const ModalAddSchedule = ({ setDataFreeTime, dataFreeTime }) => {
   const onDayChange = (value) => {
     setDataFreeTime({
       ...dataFreeTime,
-      startTimeDate:{
+      startTimeDate: {
         dayOfWeek: value,
         hour: dataFreeTime.startTimeDate.hour,
         minute: dataFreeTime.startTimeDate.minute,
-      }
+      },
+      endTimeDate: {
+        dayOfWeek: value,
+        hour: dataFreeTime.endTimeDate.hour,
+        minute: dataFreeTime.endTimeDate.minute,
+      },
     });
+    // onDayChange1(value);
   };
   const onHourChange = (value) => {
     setDataFreeTime({
       ...dataFreeTime,
-      startTimeDate:{
+      startTimeDate: {
         dayOfWeek: dataFreeTime.startTimeDate.dayOfWeek,
         hour: value,
         minute: dataFreeTime.startTimeDate.minute,
-      }
+      },
     });
   };
   const onMinuteChange = (value) => {
     setDataFreeTime({
       ...dataFreeTime,
-      startTimeDate:{
+      startTimeDate: {
         dayOfWeek: dataFreeTime.startTimeDate.dayOfWeek,
         hour: dataFreeTime.startTimeDate.hour,
         minute: value,
-      }
+      },
     });
   };
 
   const onDayChange1 = (value) => {
+    console.log('hello')
     setDataFreeTime({
       ...dataFreeTime,
-      endTimeDate:{
+      endTimeDate: {
         dayOfWeek: value,
         hour: dataFreeTime.endTimeDate.hour,
         minute: dataFreeTime.endTimeDate.minute,
-      }
+      },
     });
   };
   const onHourChange1 = (value) => {
     setDataFreeTime({
       ...dataFreeTime,
-      endTimeDate:{
+      endTimeDate: {
         dayOfWeek: dataFreeTime.endTimeDate.dayOfWeek,
         hour: value,
         minute: dataFreeTime.endTimeDate.minute,
-      }
+      },
     });
   };
   const onMinuteChange1 = (value) => {
     setDataFreeTime({
       ...dataFreeTime,
-      endTimeDate:{
+      endTimeDate: {
         dayOfWeek: dataFreeTime.endTimeDate.dayOfWeek,
         hour: dataFreeTime.endTimeDate.hour,
         minute: value,
-      }
+      },
     });
   };
   return (
@@ -121,8 +128,7 @@ const ModalAddSchedule = ({ setDataFreeTime, dataFreeTime }) => {
           <Select
             size="large"
             style={{ width: "150px" }}
-            defaultValue="SUNDAY"
-            onChange={onDayChange1}
+            disabled
           >
             <Option value="SUNDAY">Sunday</Option>
             <Option value="MONDAY">Monday</Option>
