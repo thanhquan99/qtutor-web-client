@@ -1,22 +1,19 @@
 import { Button, Form, InputNumber, Modal, Select, Space } from "antd";
 import { Component } from "react";
-import { withAlert } from "react-alert";
+import studentService from "../../../api-services/student.service";
 
-class RegisterACourse extends Component {
+class StudyingRegistration extends Component {
   constructor(props) {
     super(props);
-
     this.showModal = this.showModal.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.onFinish = this.onFinish.bind(this);
-
     this.state = {
       visible: false,
     };
   }
 
-  async componentDidMount() {
-  }
+  async componentDidMount() {}
 
   showModal() {
     this.setState({ visible: true });
@@ -26,15 +23,22 @@ class RegisterACourse extends Component {
     this.setState({ visible: false });
   }
 
-  onFinish(values) {
-    console.log(values);
+  async onFinish(values) {
+    this.setState({ visible: false });
+    const data = {
+      salary: values.salary,
+      tutorId: this.props.tutor.id,
+      subjectId: values.subjectName,
+      sessionsOfWeek: values.sessionsOfWeek,
+    };
+    await studentService.registerStudy(data);
   }
 
   render() {
     const { tutor } = this.props;
     return (
       <>
-        <Button type="primary" onClick={this.showModal}>
+        <Button size="large" type="primary" onClick={this.showModal}>
           Register
         </Button>
         <Modal
@@ -43,20 +47,41 @@ class RegisterACourse extends Component {
           onOk={this.handleCancel}
           onCancel={this.handleCancel}
           footer={[]}
+          centered
         >
           <Form
             name="basic"
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
+            labelCol={{ span: 10 }}
+            wrapperCol={{ span: 10 }}
             onFinish={this.onFinish}
           >
+            <Form.Item
+              label="Subject"
+              name="subjectName"
+              rules={[{ required: true, message: "Select a subject" }]}
+            >
+              <Select
+                style={{ width: "250px" }}
+                showSearch
+                placeholder="Select a subject"
+                optionFilterProp="children"
+                // onChange={onChange}
+              >
+                {tutor?.subjects?.map((e, index) => (
+                  <Select.Option key={index} value={e.id}>
+                    {e.name}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+
             <Form.Item
               label="Money Offered"
               name="salary"
               rules={[{ required: true, message: "Money Offered is required" }]}
             >
               <InputNumber
-                style={{ width: 300 }}
+                style={{ width: "250px" }}
                 placeholder="VND/lesson"
                 formatter={(value) =>
                   `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -66,22 +91,12 @@ class RegisterACourse extends Component {
             </Form.Item>
 
             <Form.Item
-              label="Subject"
-              name="subjectName"
-              rules={[{ required: true, message: "Select a subject" }]}
+              label="Sessions"
+              name="sessionsOfWeek"
+              placeholder="lessons/week"
+              rules={[{ required: true, message: "Sessions is required" }]}
             >
-              <Select
-                showSearch
-                placeholder="Select a subject"
-                optionFilterProp="children"
-                // onChange={onChange}
-              >
-                {tutor?.subjects?.map((e, index) => (
-                  <Select.Option key={index} value={e.name}>
-                    {e.name}
-                  </Select.Option>
-                ))}
-              </Select>
+              <InputNumber style={{ width: 200 }} placeholder="days/week" />
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -99,4 +114,4 @@ class RegisterACourse extends Component {
   }
 }
 
-export default withAlert()(RegisterACourse);
+export default StudyingRegistration;

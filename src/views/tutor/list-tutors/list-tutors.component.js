@@ -21,13 +21,15 @@ class ListTutors extends Component {
 
   fetchData = async () => {
     const { perPage, page, filter, customFilter } = this.state;
-    const { results: tutors, total } = await tutorApi.getMany({
+    const res = await tutorApi.getMany({
       perPage,
       page,
       filter: JSON.stringify(filter),
       customFilter: JSON.stringify(customFilter),
     });
-    this.setState({ tutors, total });
+    if (res) {
+      this.setState({ tutors: res.results, total: res.total });
+    }
   };
 
   onChangePage = async (page) => {

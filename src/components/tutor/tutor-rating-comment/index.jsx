@@ -9,9 +9,12 @@ class TutorRatingComment extends Component {
   };
 
   componentDidMount = async () => {
-    const res = await tutorApi.getRatedExamination(this.props.tutor?.id);
-    if (res) {
-      this.setState({ isCommentVisible: res.canRating });
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      const res = await tutorApi.getRatedExamination(this.props.tutor?.id);
+      if (res) {
+        this.setState({ isCommentVisible: res.canRating });
+      }
     }
   };
 

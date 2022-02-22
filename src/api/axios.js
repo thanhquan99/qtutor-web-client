@@ -54,11 +54,13 @@ export class AxiosService {
       },
     });
 
-    this.instance.interceptors.request.use(async (config) => {
-      const token = localStorage.getItem("accessToken");
-      config.headers.Authorization = `Bearer ${token}`;
-      return config;
-    });
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      this.instance.interceptors.request.use(async (config) => {
+        config.headers.Authorization = `Bearer ${token}`;
+        return config;
+      });
+    }
 
     this.instance.interceptors.response.use(
       (response) => {

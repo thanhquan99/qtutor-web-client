@@ -1,54 +1,47 @@
 import { Col, List, Pagination, Row } from "antd";
 import { Component } from "react";
 import { withAlert } from "react-alert";
-import StudentService from "../../../api-services/student.service";
-import TutorAPIContext from "../../../contexts/tutor-api.context";
+import studentApi from "../../../api/student.api";
 import StudentCard from "../../../components/student-card/student-cart";
-import StudentsFilter from "../../../components/student-filter/student-filter.component";
-import "./list-students.css"
+import ListStudentsFilter from "../../../components/student/student-filter/student-filter.component";
+import "./list-students.css";
+
 class ListStudents extends Component {
-  static contextType = TutorAPIContext;
-  constructor(props) {
-    super(props);
-    this.onChangePage = this.onChangePage.bind(this);
-    this.handleFilter = this.handleFilter.bind(this);
+  state = {
+    students: [],
+    total: 1,
+    filter: {},
+    page: 1,
+    perPage: 12,
+    customFilter: {},
+  };
 
-    this.state = {
-      students: [],
-      total: 1,
-    };
-  }
+  componentDidMount = async () => {
+    await this.fetchData();
+  };
 
-  async componentDidMount() {
-    const { alert } = this.props;
-    const { results: students, total } = await StudentService.getMany({
-      alert,
-      qs: { perPage: 12 },
+  fetchData = async () => {
+    const { perPage, page, filter, customFilter } = this.state;
+    const res = await studentApi.getMany({
+      perPage,
+      page,
+      filter: JSON.stringify(filter),
+      customFilter: JSON.stringify(customFilter),
     });
-    this.setState((curState) => ({ ...curState, students, total }));
-    console.log(this.state, students, total);
-  }
+    if (res) {
+      this.setState({ students: res.results, total: res.total });
+    }
+  };
 
-  async onChangePage(page) {
-    const { alert } = this.props;
-    const { results: students, total } = await StudentService.getMany({
-      alert,
-      qs: { perPage: 12, page },
-    });
-    this.setState((curState) => ({ ...curState, students, total }));
-  }
+  onChangePage = async (page) => {
+    await this.setState({ page });
+    await this.fetchData();
+  };
 
-  async handleFilter() {
-    const data = await StudentService.getMany({
-      alert,
-      qs: this.context,
-    });
-    this.setState((curState) => ({
-      ...curState,
-      students: data.results,
-      total: data.total,
-    }));
-  }
+  handleFilter = async (filter = {}, customFilter = {}) => {
+    await this.setState({ filter, page: 1, customFilter });
+    await this.fetchData();
+  };
 
   render() {
     return (
@@ -56,7 +49,7 @@ class ListStudents extends Component {
         <Row>
           <Col span={1}></Col>
           <Col span={22}>
-            <StudentsFilter handleFilter={this.handleFilter} />
+            <ListStudentsFilter handleFilter={this.handleFilter} />
           </Col>
           <Col span={1}></Col>
         </Row>
@@ -65,7 +58,7 @@ class ListStudents extends Component {
           <Col span={22}>
             <div className="mt-3 align-items-center text-center">
               <List
-                grid={{ gutter: 12, column: 5 }}
+                grid={{ gutter: 12, column: 4 }}
                 dataSource={this.state.students || []}
                 renderItem={(student) => (
                   <List.Item>
@@ -76,7 +69,8 @@ class ListStudents extends Component {
               <Pagination
                 total={this.state.total}
                 onChange={this.onChangePage}
-                defaultPageSize={10}
+                defaultPageSize={12}
+                current={this.state.page}
               />
             </div>
           </Col>

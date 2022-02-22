@@ -3,7 +3,7 @@ import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import tutorService from "../../../api-services/tutor.service";
-import RegisterACourse from "../../../components/register-a-course/register-a-course.component";
+import RegisterACourse from "../../../components/tutor/register-a-course/register-a-course.component";
 import TutorPriceTable from "../../../components/tutor/tutor-price/tutor-price-table.component";
 import TutorRating from "../../../components/tutor/tutor-rating";
 import TutorSchedule from "../../../components/tutor/tutor-schedule";

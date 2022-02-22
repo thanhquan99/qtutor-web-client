@@ -8,6 +8,10 @@ class StudentAPI {
   async getMySuggestion(qs) {
     return await axiosService.get("/students/my-suggestions", qs);
   }
+
+  async getMany(qs) {
+    return await axiosService.get("./students", qs);
+  }
 }
 
 const studentApi = new StudentAPI();
