@@ -10,7 +10,11 @@ class StudentAPI {
   }
 
   async getMany(qs) {
-    return await axiosService.get("./students", qs);
+    return await axiosService.get("/students", qs);
+  }
+
+  async getOne(id) {
+    return await axiosService.get(`/students/${id}`);
   }
 }
 

@@ -1,6 +1,6 @@
 import { Component } from "react";
-import { DEFAULT_AVATAR, WEB_CLIENT_URL } from "../../constant";
-import GenderComponent from "../profile/gender.component";
+import { DEFAULT_AVATAR, WEB_CLIENT_URL } from "../../../constant";
+import GenderComponent from "../../profile/gender.component";
 
 class StudentCard extends Component {
   constructor(props) {

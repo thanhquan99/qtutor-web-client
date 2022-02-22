@@ -32,6 +32,10 @@ class TutorAPI {
   async getMyTeachingDetail(teachingId) {
     return await axiosService.get(`/tutors/my-teachings/${teachingId}/detail`);
   }
+
+  async registerTeaching(data) {
+    return await axiosService.post("/tutors/my-teachings", data);
+  }
 }
 
 const tutorApi = new TutorAPI();

@@ -2,7 +2,7 @@ import { Col, List, Pagination, Row } from "antd";
 import { Component } from "react";
 import { withAlert } from "react-alert";
 import studentApi from "../../../api/student.api";
-import StudentCard from "../../../components/student-card/student-cart";
+import StudentCard from "../../../components/student/student-card/student-cart";
 import ListStudentsFilter from "../../../components/student/student-filter/student-filter.component";
 import "./list-students.css";
 

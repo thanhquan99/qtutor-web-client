@@ -50,7 +50,10 @@ class MyStudentProfile extends Component {
                   <div className="card-body">
                     <div className="d-flex flex-column align-items-center text-center">
                       <img
-                        src={this.state.currentStudent?.profile?.avatar || DEFAULT_AVATAR}
+                        src={
+                          this.state.currentStudent?.profile?.avatar ||
+                          DEFAULT_AVATAR
+                        }
                         alt="Admin"
                         className="rounded-circle"
                         width="150"
@@ -139,7 +142,7 @@ class MyStudentProfile extends Component {
                   </div>
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-md-6">
                 <div
                   style={{
                     boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
@@ -177,28 +180,13 @@ class MyStudentProfile extends Component {
                   </div>
                 </div>
               </div>
-              <div className="col-md-3">
-                <div
-                  style={{
-                    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                  }}
-                  className="card h-100"
-                >
-                  <div className="card-body">
-                    <h6 className="d-flex align-items-center mb-3 text-success">
-                      Your Studying History
-                    </h6>
-                    <ListGroup variant="flush">
-                      <ListGroup.Item>Coming soon</ListGroup.Item>
-                    </ListGroup>
-                  </div>
-                </div>
-              </div>
             </div>
             <div className="list_student_succgest">
-            <h1>Tutors recommend for you</h1>
-                  <SliderSuggest type="tutor" data = {this.state.tutors ? this.state.tutors : null}/>
-  
+              <h1>Tutors recommend for you</h1>
+              <SliderSuggest
+                type="tutor"
+                data={this.state.tutors ? this.state.tutors : null}
+              />
             </div>
           </Col>
           <Col span={1}></Col>

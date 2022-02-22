@@ -1,30 +1,21 @@
 import { Button, Form, InputNumber, Modal, Select, Space } from "antd";
 import { Component } from "react";
-import { withAlert } from "react-alert";
-import tutorService from "../../api-services/tutor.service";
+import tutorApi from "../../api/tutor.api";
 
 class TeachingRegistration extends Component {
-  constructor(props) {
-    super(props);
-    this.showModal = this.showModal.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.onFinish = this.onFinish.bind(this);
-    this.state = {
-      visible: false,
-    };
-  }
+  state = {
+    visible: false,
+  };
 
-  async componentDidMount() {}
-
-  showModal() {
+  showModal = () => {
     this.setState({ visible: true });
-  }
+  };
 
-  handleCancel() {
+  handleCancel = () => {
     this.setState({ visible: false });
-  }
+  };
 
-  async onFinish(values) {
+  onFinish = async (values) => {
     this.setState({ visible: false });
     const data = {
       salary: values.salary,
@@ -32,16 +23,15 @@ class TeachingRegistration extends Component {
       subjectId: values.subjectName,
       sessionsOfWeek: values.sessionsOfWeek,
     };
-    await tutorService.registerTeaching(data);
-  }
+    await tutorApi.registerTeaching(data);
+  };
 
   render() {
     const { student } = this.props;
-    console.log(this.props)
     return (
       <>
-        <Button size='large' type="primary" onClick={this.showModal}>
-          Offer
+        <Button size="large" type="primary" onClick={this.showModal}>
+          Register To Teach
         </Button>
         <Modal
           title="Form Register"
@@ -67,11 +57,10 @@ class TeachingRegistration extends Component {
                 showSearch
                 placeholder="Select a subject"
                 optionFilterProp="children"
-                // onChange={onChange}
               >
-                {student?.subjects?.map((e, index) => (
-                  <Select.Option key={index} value={e.id}>
-                    {e.name}
+                {student?.studentSubjects?.map((e, index) => (
+                  <Select.Option key={index} value={e.subject?.id}>
+                    {e.subject?.name}
                   </Select.Option>
                 ))}
               </Select>
@@ -103,10 +92,12 @@ class TeachingRegistration extends Component {
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
               <Space>
-                <Button size='large' type="primary" htmlType="submit">
+                <Button size="large" type="primary" htmlType="submit">
                   Submit
                 </Button>
-                <Button size="large" onClick={this.handleCancel}>Cancel</Button>
+                <Button size="large" onClick={this.handleCancel}>
+                  Cancel
+                </Button>
               </Space>
             </Form.Item>
           </Form>
@@ -116,4 +107,4 @@ class TeachingRegistration extends Component {
   }
 }
 
-export default withAlert()(TeachingRegistration);
+export default TeachingRegistration;

@@ -27,7 +27,7 @@ import ListTutors from "./views/tutor/list-tutors/list-tutors.component";
 import MyTutorTabs from "./components/tutor/my-tutor-tabs.component/my-tutor-tabs.components";
 import Tutor from "./views/tutor/tutor/tutor.component";
 import Profile from "./views/user/profile.component";
-import Student from "./views/student/student/student.component";
+import Student from "./views/student/one-student/student.component";
 import MyTransactionsView from "./views/transaction/me";
 import TransactionPaymentCallback from "./views/transaction/payment-callback";
 import HomeView from "./views/home";
