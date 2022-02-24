@@ -47,7 +47,6 @@ const slideSuggets = ({ data, type }) => {
           </div>
         ))}
       </Carousel>
-      ;
     </div>
   );
 };

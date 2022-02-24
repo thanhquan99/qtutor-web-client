@@ -27,14 +27,13 @@ const CardSuggets = ({ data, type }) => {
               alt=""
             />
             <span>
-              {data.profile.city.name ? data.profile.city.name : <br />}
+              {data.profile?.city?.name ? data.profile.city.name : <br />}
             </span>
           </div>
         </div>
       </div>
-      <p>{data.description ? data.description : <br />}</p>
-      <p>{data.profile.workLocation ? data.profile.workLocation : <br />}</p>
-      <p>{data.minimumSalary ? data.minimumSalary : <br />}</p>
+      <p>{data.profile?.academicLevel ? data.profile.academicLevel : <br />}</p>
+      <p>{data.minimumSalary ? new Intl.NumberFormat().format(data.minimumSalary) : <br />}</p>
       <div
         style={{
           display: "flex",
@@ -48,10 +47,9 @@ const CardSuggets = ({ data, type }) => {
               ? window.open(`${WEB_CLIENT_URL}/tutors/${data.id}`, "_blank")
               : window.open(`${WEB_CLIENT_URL}/students/${data.id}`, "_blank")
           }
-          size="large"
+          size="small"
           type="primary"
         >
-          {" "}
           View Profile
         </Button>
       </div>

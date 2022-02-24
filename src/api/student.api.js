@@ -16,6 +16,10 @@ class StudentAPI {
   async getOne(id) {
     return await axiosService.get(`/students/${id}`);
   }
+
+  async getMe() {
+    return await axiosService.get(`/students/me`);
+  }
 }
 
 const studentApi = new StudentAPI();

@@ -1,38 +1,62 @@
 import { Col, Row } from "antd";
-import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
-import { ListGroup } from "react-bootstrap";
-import studentService from "../../../api-services/student.service";
-import "./my-student-profile.component.css";
+import studentApi from "../../../api/student.api";
+import tutorApi from "../../../api/tutor.api";
+import eventBus from "../../../common/EventBus";
 import SliderSuggest from "../../../components/slideSuggest";
 import { DEFAULT_AVATAR } from "../../../constant";
+import ListDesiredLearnings from "./list-desired-learn";
+import ListLearnings from "./list-learnings";
+import ModalCreateLearning from "./modal-create-learning";
+import "./my-student-profile.component.css";
 
 class MyStudentProfile extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    tutors: [],
+    student: {},
+  };
 
-    this.state = {
-      tutors: [],
-      currentStudent: {},
-    };
-  }
+  componentDidMount = async () => {
+    const [student, { results: tutors }] = await Promise.all([
+      studentApi.getMe(),
+      tutorApi.getMySuggestion({ perPage: 15, page: 1 }),
+    ]);
+    this.setState({ tutors, student });
 
-  async componentDidMount() {
-    const { alert } = this.props;
-    const data = await studentService.getMe({ alert, component: this });
-    const data2 = await studentService.getTutorSugggest({
-      alert,
+    eventBus.on("update-student-subject", (studentSubject) => {
+      this.setState({
+        student: {
+          ...this.state.student,
+          studentSubjects: this.state.student?.studentSubjects?.map((e) => {
+            if (e.id === studentSubject.id) {
+              return studentSubject;
+            }
+            return e;
+          }),
+        },
+      });
     });
-    if (!_.isEmpty(data)) {
-      this.setState((curState) => ({ ...curState, currentStudent: data }));
-    }
-    if (!_.isEmpty(data2)) {
-      this.setState((curState) => ({ ...curState, tutors: data2?.results }));
-    }
+
+    eventBus.on("create-student-subject", (studentSubject) => {
+      this.setState({
+        student: {
+          ...this.state.student,
+          studentSubjects: [studentSubject].concat(
+            this.state.student?.studentSubjects
+          ),
+        },
+      });
+    });
+  };
+
+  componentWillUnmount() {
+    eventBus.remove("update-student-subject");
+    eventBus.remove("create-student-subject");
   }
 
   render() {
+    const { student, tutors } = this.state;
     return (
       <div className="tutor-profile">
         <Row>
@@ -50,21 +74,18 @@ class MyStudentProfile extends Component {
                   <div className="card-body">
                     <div className="d-flex flex-column align-items-center text-center">
                       <img
-                        src={
-                          this.state.currentStudent?.profile?.avatar ||
-                          DEFAULT_AVATAR
-                        }
+                        src={student.profile?.avatar || DEFAULT_AVATAR}
                         alt="Admin"
                         className="rounded-circle"
                         width="150"
                       />
                       <div className="mt-3">
-                        <h4>{this.state.currentStudent?.profile?.name}</h4>
+                        <h4>{student.profile?.name}</h4>
                         <p className="text-secondary mb-1">
-                          Studying at Da Nang University
+                          Live at {student.profile?.city?.name}
                         </p>
                         <p className="text-muted font-size-sm">
-                          Hai Chau, Da Nang city
+                          {student.profile?.academicLevel}
                         </p>
                       </div>
                     </div>
@@ -142,7 +163,7 @@ class MyStudentProfile extends Component {
                   </div>
                 </div>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-5">
                 <div
                   style={{
                     boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
@@ -150,16 +171,19 @@ class MyStudentProfile extends Component {
                   className="card h-100"
                 >
                   <div className="card-body">
-                    <h6 className="d-flex align-items-center mb-3 text-info">
-                      Want to Learn
-                    </h6>
-                    <ListGroup variant="flush">
-                      {this.state.currentStudent?.subjects?.map((subject) => (
-                        <ListGroup.Item key={subject.id}>
-                          {subject.name}
-                        </ListGroup.Item>
-                      ))}
-                    </ListGroup>
+                    <div className="row">
+                      <div className="col-md-10">
+                        <h6 className="d-flex align-items-center mb-3 text-info">
+                          Teach Ability
+                        </h6>
+                      </div>
+
+                      <div className="col-md-2">
+                        <ModalCreateLearning />
+                      </div>
+                    </div>
+
+                    <ListDesiredLearnings student={student} />
                   </div>
                 </div>
               </div>
@@ -174,19 +198,14 @@ class MyStudentProfile extends Component {
                     <h6 className="d-flex align-items-center mb-3 text-danger">
                       Studying
                     </h6>
-                    <ListGroup variant="flush">
-                      <ListGroup.Item>Coming soon</ListGroup.Item>
-                    </ListGroup>
+                    <ListLearnings student={student} />
                   </div>
                 </div>
               </div>
             </div>
             <div className="list_student_succgest">
               <h1>Tutors recommend for you</h1>
-              <SliderSuggest
-                type="tutor"
-                data={this.state.tutors ? this.state.tutors : null}
-              />
+              <SliderSuggest type="tutor" data={tutors ? tutors : null} />
             </div>
           </Col>
           <Col span={1}></Col>
