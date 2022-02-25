@@ -3,10 +3,11 @@ import _ from "lodash";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
 import { Tab, Tabs } from "react-bootstrap";
-import studentService from "../../api-services/student.service";
-import CreateStudentView from "../../views/student/create-student";
-import MyStudentProfile from "../../views/student/my-student-profile/my-student-profile.component";
-import MyTutors from "../../views/student/my-tutors.component/my-tutors.component";
+import studentService from "../../../api-services/student.service";
+import CreateStudentView from "../../../views/student/create-student";
+import MyLearnings from "../../../views/student/my-learnings/my-learnings.component";
+import MyStudentProfile from "../../../views/student/my-student-profile/my-student-profile.component";
+import MyTutors from "../../../views/student/my-tutors.component/my-tutors.component";
 
 class MyStudentTabs extends Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class MyStudentTabs extends Component {
               <MyStudentProfile />
             </Tab>
             <Tab eventKey="tutors" title="Your courses">
-              <MyTutors />
+              <MyLearnings />
             </Tab>
           </Tabs>
         )}

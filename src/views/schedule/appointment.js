@@ -60,10 +60,11 @@ const AppointmentBase = ({
           >
             <InfoIcon fontSize="small" />
           </IconButton>
-
-          <IconButton className={classes.button} onClick={onDelete}>
-            <DeleteIcon fontSize="small" />
-          </IconButton>
+          {data.isEdit && (
+            <IconButton className={classes.button} onClick={onDelete}>
+              <DeleteIcon fontSize="small" />
+            </IconButton>
+          )}
         </Space>
         {children}
       </React.Fragment>
