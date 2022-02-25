@@ -14,8 +14,15 @@ class TransactionAPI {
     return await axiosService.post(`/transactions/${id}/paypal/payment`, data);
   }
 
-  async executePaypalPayment(data, id){
-    return await axiosService.post(`/transactions/${id}/paypal/execution`, data);
+  async executePaypalPayment(data, id) {
+    return await axiosService.post(
+      `/transactions/${id}/paypal/execution`,
+      data
+    );
+  }
+
+  async getMySummary() {
+    return await axiosService.get(`/transactions/my-summary`);
   }
 }
 

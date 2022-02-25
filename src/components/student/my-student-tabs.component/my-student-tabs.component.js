@@ -31,6 +31,7 @@ class MyStudentTabs extends Component {
   }
 
   render() {
+    const { currentStudent } = this.state;
     return this.state.loadding ? (
       <div
         style={{
@@ -45,8 +46,8 @@ class MyStudentTabs extends Component {
       </div>
     ) : (
       <div className="main-tutor">
-        {_.isEmpty(this.state.currentStudent) && <CreateStudentView />}
-        {!_.isEmpty(this.state.currentStudent) && (
+        {_.isEmpty(currentStudent) && <CreateStudentView />}
+        {!_.isEmpty(currentStudent) && currentStudent.isActive && (
           <Tabs
             defaultActiveKey="profile"
             id="uncontrolled-tab-example"
@@ -59,6 +60,9 @@ class MyStudentTabs extends Component {
               <MyLearnings />
             </Tab>
           </Tabs>
+        )}
+        {!_.isEmpty(currentStudent) && !currentStudent.isActive && (
+          <h1 className="m-5">Waiting for admin to approve</h1>
         )}
       </div>
     );

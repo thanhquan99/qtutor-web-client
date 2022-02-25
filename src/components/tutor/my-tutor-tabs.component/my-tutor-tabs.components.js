@@ -26,11 +26,12 @@ class MyTutorTabs extends Component {
     this.setState((curState) => ({
       ...curState,
       currentTutor: data,
-      loadding: false
+      loadding: false,
     }));
   }
 
   render() {
+    const { currentTutor } = this.state;
     return this.state.loadding ? (
       <div
         style={{
@@ -45,12 +46,12 @@ class MyTutorTabs extends Component {
       </div>
     ) : (
       <div className="main-tutor">
-         {_.isEmpty(this.state.currentTutor) && (
+        {_.isEmpty(currentTutor) && (
           <CreateTutorProvider value={{}}>
             <CreateTutor />
           </CreateTutorProvider>
         )}
-        {!_.isEmpty(this.state.currentTutor) && (
+        {!_.isEmpty(currentTutor) && currentTutor.isActive && (
           <Tabs
             defaultActiveKey="profile"
             id="uncontrolled-tab-example"
@@ -63,6 +64,9 @@ class MyTutorTabs extends Component {
               <MyTeachings />
             </Tab>
           </Tabs>
+        )}
+        {!_.isEmpty(currentTutor) && !currentTutor.isActive && (
+          <h1 className="m-5">Waiting for admin to approve</h1>
         )}
       </div>
     );
