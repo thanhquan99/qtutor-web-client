@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { FaMoneyBill } from "react-icons/fa";
 import transactionApi from "../../../api/transaction.api";
 import { WEB_CLIENT_URL } from "../../../constant";
+import delay from "delay";
 
 class TransactionIcon extends Component {
   state = {
@@ -11,10 +12,15 @@ class TransactionIcon extends Component {
   };
 
   componentDidMount = async () => {
-    const res = await transactionApi.getMySummary();
-    if (res) {
-      this.setState({ totalUnpaidCount: parseInt(res.totalUnpaidCount) });
-    }
+    // await delay(2000);
+    // const token = localStorage.getItem("accessToken");
+    // if (token) {
+    //   console.log(token)
+    //   const res = await transactionApi.getMySummary();
+    //   if (res) {
+    //     this.setState({ totalUnpaidCount: parseInt(res.totalUnpaidCount) });
+    //   }
+    // }
   };
 
   gotoMyTransactions = async () => {

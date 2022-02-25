@@ -22,7 +22,7 @@ class TransactionAPI {
   }
 
   async getMySummary() {
-    return await axiosService.get(`/transactions/my-summary`);
+    return await axiosService.get("transactions/my-summary");
   }
 }
 
