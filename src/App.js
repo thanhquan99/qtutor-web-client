@@ -32,6 +32,7 @@ import MyTransactionsView from "./views/transaction/me";
 import TransactionPaymentCallback from "./views/transaction/payment-callback";
 import HomeView from "./views/home";
 import AuthRegisterView from "./views/auth/register";
+import userApi from "./api/user.api";
 
 class App extends Component {
   constructor(props) {
@@ -43,12 +44,20 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!_.isEmpty(user)) {
       this.setState({
         currentUser: user,
       });
+    }
+
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      const res = await userApi.getMe();
+      if (res) {
+        localStorage.setItem("currentUser", JSON.stringify(res));
+      }
     }
 
     eventBus.on("logout", () => {

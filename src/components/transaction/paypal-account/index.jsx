@@ -6,6 +6,12 @@ import userApi from "../../../api/user.api";
 class TransactionPaypalAccount extends Component {
   state = {
     isModalVisible: false,
+    user: {},
+  };
+
+  componentDidMount = () => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    this.setState({ user });
   };
 
   showModal = () => {
@@ -25,13 +31,12 @@ class TransactionPaypalAccount extends Component {
   };
 
   onFinish = async (values) => {
-    console.log(values);
     await userApi.updateMe(values);
-    this.handleOk();
+    window.location.reload();
   };
 
   render() {
-    const { user } = this.props;
+    const { user } = this.state;
     return (
       <>
         <Button type="primary" onClick={this.showModal}>
@@ -46,6 +51,7 @@ class TransactionPaypalAccount extends Component {
             <Form.Item
               name="paypalEmail"
               label="Paypal Email"
+              initialValue={user?.paypalEmail}
               rules={[
                 {
                   required: true,
