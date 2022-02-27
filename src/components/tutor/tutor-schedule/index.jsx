@@ -11,11 +11,13 @@ class TutorSchedule extends Component {
         title: "Day",
         dataIndex: "day",
         key: "day",
+        render: (e) => <b style={{fontSize: 20}}>{e}</b>,
       },
       {
         title: "Time",
         dataIndex: "time",
         key: "time",
+        render: (e) => <span style={{fontSize: 20}}>{e}</span>,
       },
     ];
     const { schedule } = this.props;

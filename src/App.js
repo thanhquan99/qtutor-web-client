@@ -33,6 +33,7 @@ import TransactionPaymentCallback from "./views/transaction/payment-callback";
 import HomeView from "./views/home";
 import AuthRegisterView from "./views/auth/register";
 import userApi from "./api/user.api";
+import MyTutorCVView from "./views/tutor/cv";
 
 class App extends Component {
   constructor(props) {
@@ -135,6 +136,8 @@ class App extends Component {
             <Route exact path="/students" component={ListStudents} />
           </TutorAPIProvider>
         </Switch>
+
+        <Route exact path="/tutor-resumes/me" component={MyTutorCVView} />
         <Footer />
       </AlertProvider>
     );

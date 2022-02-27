@@ -7,7 +7,7 @@ import tutorService from "../../../api-services/tutor.service";
 import { CreateTutorProvider } from "../../../contexts/create-tutor.context";
 import CreateTutor from "../../../views/tutor/create-tutor/create-tutor.component";
 import MyTeachings from "../../../views/tutor/my-teachings/my-teachings.component";
-import MyTutorProfile from "../../../views/tutor/my-tutor-profile/my-tutor-profile.component";
+import TutorCVDetail from "../cv-detail";
 
 class MyTutorTabs extends Component {
   constructor(props) {
@@ -58,7 +58,7 @@ class MyTutorTabs extends Component {
             className="mb-3"
           >
             <Tab eventKey="profile" title="Tutor Profile">
-              <MyTutorProfile />
+              <TutorCVDetail tutor={currentTutor} />
             </Tab>
             <Tab eventKey="students" title="Your teachings">
               <MyTeachings />

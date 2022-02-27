@@ -38,8 +38,8 @@ const MyTeachingCard = ({
           <img
             src={data.subject?.image}
             alt="Admin"
-            width="100%"
-            height={150}
+            width={120}
+            height={160}
           />
           <div className="item-card mt-2">
             <b style={{ marginRight: "5px" }}>{data?.subject?.name}</b>

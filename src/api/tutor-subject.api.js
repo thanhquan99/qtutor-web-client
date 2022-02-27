@@ -8,6 +8,10 @@ class TutorSubjectAPI {
   async createOne(data) {
     return await axiosService.post("/tutor-subjects", data);
   }
+
+  async deleteOne(id) {
+    return await axiosService.delete(`/tutor-subjects/${id}`);
+  }
 }
 
 const tutorSubjectApi = new TutorSubjectAPI();

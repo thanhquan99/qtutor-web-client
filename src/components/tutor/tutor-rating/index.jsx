@@ -12,7 +12,7 @@ class TutorRating extends Component {
     return (
       <div className="row ">
         <div className="col-md-12 bg-white ">
-          <b>Ratings & Reviews</b>
+          <b style={{ fontSize: 20 }}>Ratings & Reviews</b>
           <div>
             <Space size="middle">
               <Rate
@@ -26,7 +26,7 @@ class TutorRating extends Component {
               </span>
             </Space>
             <br />
-            <span>{tutor?.totalRatings} reviews</span>
+            <span style={{ fontSize: 20 }}>{tutor?.totalRatings} reviews</span>
           </div>
 
           <div className="cmt cmtAndRate">

@@ -85,7 +85,7 @@ class TutorListRatings extends Component {
         renderItem={(rating) => (
           <Comment
             author={
-              <span>
+              <span style={{ fontSize: 20 }}>
                 {rating.reviewer?.profile?.name}{" "}
                 <Rate
                   style={{ color: "#66CDAA" }}
@@ -99,7 +99,7 @@ class TutorListRatings extends Component {
                 src={rating.reviewer?.profile?.avatar || DEFAULT_AVATAR}
               />
             }
-            content={<p>{rating.comment}</p>}
+            content={<p style={{ fontSize: 16 }}>{rating.comment}</p>}
           />
         )}
       />
