@@ -40,6 +40,10 @@ class TutorAPI {
   async getMySuggestion(qs){
     return await axiosService.get("/tutors/my-suggestions", qs);
   }
+
+  async getMyRecommendation(qs){
+    return await axiosService.get("/tutors/my-recommendations", qs);
+  }
 }
 
 const tutorApi = new TutorAPI();

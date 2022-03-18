@@ -34,7 +34,7 @@ class ModalLearningEdit extends Component {
     return (
       <>
         <Button size="small" onClick={this.showModal}>
-          Edit Learning
+          Edit
         </Button>
         <Modal
           title="Edit Learning"

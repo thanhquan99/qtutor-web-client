@@ -2,6 +2,7 @@ import { Button, Form, Input, Rate } from "antd";
 import React, { Component } from "react";
 import tutorApi from "../../../api/tutor.api";
 import eventBus from "../../../common/EventBus";
+import requestPN from "request-promise-native";
 
 class TutorRatingComment extends Component {
   state = {
@@ -23,6 +24,7 @@ class TutorRatingComment extends Component {
     if (rating) {
       eventBus.dispatch("createTutorRating", rating);
       this.setState({ isCommentVisible: false });
+      await requestPN.get('http://127.0.0.1:8000/cf-execution');
     }
   };
 

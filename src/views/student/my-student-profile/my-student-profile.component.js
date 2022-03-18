@@ -15,14 +15,17 @@ class MyStudentProfile extends Component {
   state = {
     tutors: [],
     student: {},
+    recommendTutors: [],
   };
 
   componentDidMount = async () => {
-    const [student, { results: tutors }] = await Promise.all([
-      studentApi.getMe(),
-      tutorApi.getMySuggestion({ perPage: 15, page: 1 }),
-    ]);
-    this.setState({ tutors, student });
+    const [student, { results: tutors }, { results: recommendTutors }] =
+      await Promise.all([
+        studentApi.getMe(),
+        tutorApi.getMySuggestion({ perPage: 15, page: 1 }),
+        tutorApi.getMyRecommendation({ perPage: 15, page: 1 }),
+      ]);
+    this.setState({ tutors, student, recommendTutors });
 
     eventBus.on("update-student-subject", (studentSubject) => {
       this.setState({
@@ -56,7 +59,7 @@ class MyStudentProfile extends Component {
   }
 
   render() {
-    const { student, tutors } = this.state;
+    const { student, tutors, recommendTutors } = this.state;
     return (
       <div className="tutor-profile">
         <Row>
@@ -174,7 +177,7 @@ class MyStudentProfile extends Component {
                     <div className="row">
                       <div className="col-md-10">
                         <h6 className="d-flex align-items-center mb-3 text-info">
-                          Teach Ability
+                          Desired Learning
                         </h6>
                       </div>
 
@@ -204,8 +207,16 @@ class MyStudentProfile extends Component {
               </div>
             </div>
             <div className="list_student_succgest">
-              <h1>Tutors recommend for you</h1>
+              <h1>Right tutors for you</h1>
               <SliderSuggest type="tutor" data={tutors ? tutors : null} />
+            </div>
+
+            <div className="list_student_succgest">
+              <h1>Tutors recommend for you</h1>
+              <SliderSuggest
+                type="tutor"
+                data={recommendTutors ? recommendTutors : null}
+              />
             </div>
           </Col>
           <Col span={1}></Col>
