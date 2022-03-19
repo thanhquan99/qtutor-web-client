@@ -24,7 +24,7 @@ class TutorRatingComment extends Component {
     if (rating) {
       eventBus.dispatch("createTutorRating", rating);
       this.setState({ isCommentVisible: false });
-      await requestPN.get('http://127.0.0.1:8000/cf-execution');
+      // await requestPN.get('http://127.0.0.1:8000/cf-execution');
     }
   };
 
